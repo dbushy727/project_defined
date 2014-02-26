@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20140226170944) do
   create_table "workout_lists", force: true do |t|
     t.integer  "workout_id"
     t.integer  "exercise_id"
+    t.string   "exercise_title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
