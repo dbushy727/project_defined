@@ -1,0 +1,67 @@
+/* =================================== */
+/* ========= Global Styling ========== */
+/* =================================== */
+
+body {
+  background: #393F49;
+  color: #ffffff;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.one-third {
+  width: 31%;
+  margin-left: 1%;
+  margin-right: 1%;
+  display: inline-block;
+}
+
+/* =============================== */
+/* ========= Header Bar ========== */
+/* =============================== */
+
+
+
+
+/* ======================================= */
+/* ========= New Entries Column ========== */
+/* ======================================= */
+
+.container .one-third {
+
+}
+
+.new_entry {
+  background: #282C32;
+  padding: 2%;
+  margin-bottom: 5%;
+}
+
+.new_entry h2 {
+  font-family: 'HelveticaNeue-Medium';
+  font-size: 18px;
+  color: #FFFFFF;
+  line-height: 23px;
+}
+
+input.input_field {
+  background-color: #1A1C1F;
+  width: 60%;
+  display: inline;
+  border: none;
+  font-family: 'HelveticaNeue-UltraLight';
+  outline: none;
+}
+
+input.button {
+  border-radius: 8px;
+  background: #28DCFF;
+  display: inline-block;
+  font-family: 'HelveticaNeue-Medium';
+  font-size: 12px;
+  color: #282C32;
+  line-height: 15px;
+}
+
+#do_it_for_timmy {
+  font-style: 'Comic Sans';
+}
