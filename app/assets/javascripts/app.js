@@ -40,13 +40,13 @@ var ExerciseContentView = Backbone.View.extend({
         // console.log(data)
         $('#exercise_content').append(templateData);
         $('.exercise_box').draggable({
-          revert : function(event, ui) {
-            $(this).data("uiDraggable").originalPosition = {
-                            top : 0,
-                            left : 0
-          };
-            return !event;
-          }
+            revert: function(event, ui) {
+              $(this).data("uiDraggable").originalPosition = {
+                              top : 0,
+                              left : 0
+              };
+              return !event;
+            }
         });
       }
     })
@@ -64,6 +64,18 @@ var WorkoutContentView = Backbone.View.extend({
     return $('#workout_content')
   },
 
+  addExerciseToWorkout: function(exercise){
+    $.ajax({
+      url: '/workouts/new/exercise',
+      method: 'POST',
+      dataType: 'json',
+      data: exercise,
+      success: function(data){
+        console.log("Exercise added to workout")
+      }
+    })
+  },
+
   render: function(){
     var self = this;
 
@@ -77,12 +89,22 @@ var WorkoutContentView = Backbone.View.extend({
         templateData = template(data);
         $('#workout_content').append(templateData);
         $('.workout_box').droppable({
-                                      drop: function() {
-                                        console.log( "dropped" );
-                                      }
+                                      tolerance: "pointer",
+                                      accept: ".exercise_box",
+                                      activate: function( event, ui ) { $(this).addClass("light_droppable_target") },
+                                      deactivate: function( event, ui ) { $(this).removeClass("light_droppable_target") },
+                                      hoverClass: "droppable_target_hover",
+                                      drop: function( event, ui ) { 
+                                                                    // console.log( ui.draggable[0].innerText.replace(/[\n]/g, "") ); 
+                                                                    var exercise = ui.draggable[0].innerText.replace(/[\n]/g, "");
+                                                                    var data = {exercise: exercise}
+                                                                    self.addExerciseToWorkout(data);
+                                                                  }
                                     });
       }
     })
+
+
   }
 
 })
