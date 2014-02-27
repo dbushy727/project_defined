@@ -32,11 +32,6 @@
       <% end %>
     </div>
   </nav>
-    <% if current_user %>
-      <script type="javascript">
-        globals.user_id = <%= current_user.id %>
-      </script>
-    <%end %>
     <%= yield %>
 
     <%= javascript_include_tag "application" %>

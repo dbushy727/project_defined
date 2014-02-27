@@ -1,7 +1,7 @@
 class ExercisesController < ApplicationController
 
   def index
-    @exercises = Exercise.all
+    @exercises = Exercise.where(user_id: current_user.id)
     respond_to do |format|
         format.html
         format.json { render :json => @exercises }

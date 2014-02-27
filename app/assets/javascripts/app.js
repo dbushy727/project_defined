@@ -8,6 +8,9 @@ var Workout = Backbone.Model.extend({
 })
 
 var ExerciseView = Backbone.View.extend({
+  initialize: function(){
+    this.render();
+  },
   template: function(attrs){
     var html_string = "<div class='exercise_box'><h3 class='exercise_name'></h3></div>"
     var template_func = _.template(html_string)
@@ -15,7 +18,7 @@ var ExerciseView = Backbone.View.extend({
   },
   render: function(){
     var self = this;
-    this.$el.html(this.template(this.model.attributes))
+    this.$el.html(this.template)
   }
 
 })
@@ -81,9 +84,9 @@ function getWorkouts(user_id){
   })
 }
 
-function getExercises(user_id){
+function getExercises(){
   $.ajax({
-    url: '/exercises/'+user_id,
+    url: '/exercises',
     method: 'GET',
     dataType: 'json',
     success: function(data){
@@ -92,9 +95,11 @@ function getExercises(user_id){
   })
 }
 
+
   
   
 
-  $(function(){
-    var exercise_content_panel = new ExerciseContentView()
-  })
+$(function(){
+  window.exercise_content_panel = new ExerciseContentView()
+  window.exercise_view = new ExerciseView();
+})
