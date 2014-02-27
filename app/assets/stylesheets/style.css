@@ -180,3 +180,36 @@ input.button {
   line-height: 17px;
   letter-spacing: 1px;
 }
+
+
+/*===============================*/
+/*=========MEDIA QUERIES=========*/
+/*===============================*/
+
+
+
+
+@media (max-width: 640px) {
+  .container {
+    display: none;
+  }
+  .header-bar {
+    display: none;
+  }
+  .mobile_container {
+    display: normal;
+  }
+}
+
+@media (min-width: 641px) {
+  .container_mobile {
+    display: none;
+  }
+}
+/*===============================*/
+/*=========MOBILE STYLE==========*/
+/*===============================*/
+
+.container_mobile {
+
+}

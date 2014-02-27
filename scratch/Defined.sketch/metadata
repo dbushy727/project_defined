@@ -5,9 +5,9 @@
 	<key>app</key>
 	<string>com.bohemiancoding.sketch</string>
 	<key>build</key>
-	<integer>5355</integer>
+	<integer>5361</integer>
 	<key>commit</key>
-	<string>b7d299b0a34651d1a0e066786b75aa36168d5809</string>
+	<string>4570185e2c9ded14ebc287c802202c126573b527</string>
 	<key>fonts</key>
 	<array>
 		<string>HelveticaNeue-Light</string>
@@ -65,9 +65,40 @@
 		<string>HelveticaNeue-Bold</string>
 		<string>HelveticaNeue-Bold</string>
 		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
 	</array>
 	<key>length</key>
-	<integer>1382503</integer>
+	<integer>1516989</integer>
 	<key>version</key>
 	<integer>18</integer>
 </dict>
