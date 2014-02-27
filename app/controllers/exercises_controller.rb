@@ -1,7 +1,11 @@
 class ExercisesController < ApplicationController
 
   def index
-
+    @exercises = Exercise.all
+    respond_to do |format|
+        format.html
+        format.json { render :json => @exercises }
+    end
   end
   def new
     @exercise = Exercise.new
