@@ -191,6 +191,14 @@ input.button {
   display: inline-block;
 }
 
+.light_droppable_target {
+  background: #3C8595;
+}
+
+.droppable_target_hover {
+  background: #4EB7CD;
+}
+
 .exercise_box:hover {
   background: #ffcc66;
 }

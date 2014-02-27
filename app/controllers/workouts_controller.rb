@@ -13,10 +13,12 @@ class WorkoutsController < ApplicationController
   def new
     @workout = Workout.new
   end
+
   def create
     @workout = Workout.create(title: params[:workout]["title"], user_id: current_user.id)
     redirect_to :root
   end
+
   def show
     @workouts = Workout.where(user_id: params[:id])
     respond_to do |format|
@@ -24,4 +26,11 @@ class WorkoutsController < ApplicationController
         format.json { render :json => @workouts }
     end
   end
+
+  def add_exercise_to_workout
+    puts params
+    render :json => "Hello"
+    # @exercise = Exercise.find_by_title(params[:title])
+  end
+
 end
