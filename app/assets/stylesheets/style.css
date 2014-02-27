@@ -179,6 +179,18 @@ input.button {
   text-align: left;
 }
 
+.workout_box {
+  margin-top: 0.5em;
+  background: #393F49;
+  padding-left: 0.7em;
+  padding-right: 0.7em;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+  width: 90%;
+  text-align: left;
+  display: inline-block;
+}
+
 .exercise_box:hover {
   background: #ffcc66;
 }
