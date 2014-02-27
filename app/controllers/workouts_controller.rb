@@ -28,9 +28,21 @@ class WorkoutsController < ApplicationController
   end
 
   def add_exercise_to_workout
-    puts params
-    render :json => "Hello"
-    # @exercise = Exercise.find_by_title(params[:title])
+    # Parameters: {"exercise"=>"Wide Front Pull-Ups", "workout"=>"Cardio"}
+User.where(:username => "Paul").includes(:domains).where("domains.name" => "paul-domain").limit(1)
+
+  exercise_to_add_to_workout = Exercise.find_by_title(params[:exercise])
+  workout = Workout.where(user_id: current_user.id, title: params[:workout])
+
+  if Workout.where(user_id: current_user.id).includes(:exercises).where("exercises.id" => exercise_to_add_to_workout.id)
+    render :json => {message: "Relation already exists"}
+  else
+    workout.first.exercises << exercise_to_add_to_workout
+    render :json => {workout: workout, exercise: exercise_to_add_to_workout, message: "Relation made"}
   end
+
+  end
+
+
 
 end
