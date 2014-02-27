@@ -30,24 +30,61 @@ var ExerciseContentView = Backbone.View.extend({
     var self = this;
 
     $.ajax({
-      url: '/exercises',
-      method: 'GET',
+      url:      '/exercises',
+      method:   'GET',
       dataType: 'json',
       success: function(data){
-        var source = $('#exercise_template').html()
-        template = Handlebars.compile(source),
+        var source   = $('#exercise_template').html()
+        template     = Handlebars.compile(source),
         templateData = template(data);
-        console.log(data)
+        // console.log(data)
         $('#exercise_content').append(templateData);
+        $('.exercise_box').draggable({
+          revert : function(event, ui) {
+            $(this).data("uiDraggable").originalPosition = {
+                            top : 0,
+                            left : 0
+          };
+            return !event;
+          }
+        });
       }
     })
   }
 })
 
 var WorkoutContentView = Backbone.View.extend({
+
+  initialize: function(){
+    this.collection = new WorkoutCollection();
+    this.render();
+  },
+
   el: function(){
     return $('#workout_content')
+  },
+
+  render: function(){
+    var self = this;
+
+    $.ajax({
+      url:      '/workouts',
+      method:   'GET',
+      dataType: 'json',
+      success: function(data){
+        var source   = $('#workout_template').html()
+        template     = Handlebars.compile(source),
+        templateData = template(data);
+        $('#workout_content').append(templateData);
+        $('.workout_box').droppable({
+                                      drop: function() {
+                                        console.log( "dropped" );
+                                      }
+                                    });
+      }
+    })
   }
+
 })
 
 var ExerciseCollection = Backbone.Collection.extend({
@@ -58,7 +95,11 @@ var ExerciseCollection = Backbone.Collection.extend({
 
 var WorkoutCollection = Backbone.Collection.extend({
 
+  model: Workout,
+  url: '/workouts'
+
 })
+
 function getWorkouts(user_id){
   $.ajax({
     url: '/workouts/'+user_id,
@@ -86,6 +127,8 @@ function getExercises(){
   
 
 $(function(){
-  window.exercise_content_panel = new ExerciseContentView()
+  window.exercise_content_panel = new ExerciseContentView();
+  window.workout_content_panel  = new WorkoutContentView();
+
 })
 
