@@ -8,7 +8,9 @@ body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
 }
-
+.ui-loader {
+  display:none;
+}
 .one-third {
   width: 31%;
   margin-left: 1%;
@@ -163,47 +165,17 @@ input.button {
 
 .panel-content {
   min-height: 4.3em;
-  text-align: center;
-  padding-bottom: 2em;
 }
 
 .exercise_box {
-  margin-top: 0.5em;
   background: #393F49;
   padding-left: 0.7em;
   padding-right: 0.7em;
   padding-top: 0.4em;
   padding-bottom: 0.4em;
-  width: 47%;
-  display: inline-block;
-  text-align: left;
 }
 
-.workout_box {
-  margin-top: 0.5em;
-  background: #393F49;
-  padding-left: 0.7em;
-  padding-right: 0.7em;
-  padding-top: 0.4em;
-  padding-bottom: 0.4em;
-  width: 90%;
-  text-align: left;
-  display: inline-block;
-}
-
-.light_droppable_target {
-  background: #3C8595;
-}
-
-.droppable_target_hover {
-  background: #4EB7CD;
-}
-
-.exercise_box:hover {
-  background: #ffcc66;
-}
-
-.exercise_name, h3 {
+.exercise_name h3 {
   font-family: 'HelveticaNeue-Light';
   font-size: 1em;
   color: #FFFFFF;
@@ -229,10 +201,19 @@ input.button {
   .mobile_container {
     display: normal;
   }
+  .sign_in {
+    display: none;
+  }
+  .sign_in_mobile {
+    display: normal;
+  }
 }
 
 @media (min-width: 641px) {
   .container_mobile {
+    display: none;
+  }
+  .sign_in_mobile {
     display: none;
   }
 }
@@ -240,6 +221,36 @@ input.button {
 /*=========MOBILE STYLE==========*/
 /*===============================*/
 
-.container_mobile {
+.ui-mobile-viewport {
+  background-color: #1A1C1F;
+}
+.sign_in_form_mobile {
+  display: none;
+}
 
+.logo_mobile {
+  text-align: center;
+}
+
+.logo_mobile_image {
+  margin-top: 4em;
+}
+
+.log_in_button_mobile, .sign_up_button_mobile {
+  text-align: center;
+}
+.log_in_button_text_mobile, .sign_up_button_text_mobile {
+  font-size: 4em;
+  display: inline-block;
+  width: 4em;
+  box-shadow: 1px 2px 3px black;
+  border-radius: 15%;
+}
+.log_in_button_text_mobile {
+  background-color: #FF6B6B;
+  margin-top: 1em;
+}
+.sign_up_button_text_mobile {
+  background-color: #4EB7CD;
+  margin-top: 0.5em;
 }
