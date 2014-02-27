@@ -96,5 +96,5 @@ function getExercises(user_id){
   
 
   $(function(){
-    var exercise_content_panel = new ExerciseContentView()
+    // var exercise_content_panel = new ExerciseContentView()
   })

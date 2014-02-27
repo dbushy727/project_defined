@@ -12,7 +12,6 @@ body {
 .one-third {
   width: 31%;
   margin-left: 1%;
-  margin-right: 1%;
   display: inline-block;
   vertical-align: top;
 }
@@ -26,7 +25,7 @@ body {
 }
 
 .twenty-one-fiftieths {
- width: 38%;
+ width: 39.5%;
  display: inline-block;
  vertical-align: top; 
 }
@@ -97,6 +96,29 @@ input.input_field {
   border: none;
   font-family: 'HelveticaNeue-UltraLight';
   outline: none;
+  color: #28DCFF;
+}
+
+input.input_field::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #28DCFF;
+}
+input.input_field:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #28DCFF;
+}
+input.input_field::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #28DCFF;
+}
+input.input_field:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #28DCFF;
+}
+
+input.input_field:focus {
+  background-color: #1A1C1F;
+  width: 60%;
+  display: inline;
+  border: none;
+  font-family: 'HelveticaNeue-UltraLight';
+  outline: none;
 }
 
 input.button {
@@ -123,17 +145,18 @@ input.button {
 
 .panel-header {
   padding-top: 2%;
-  padding-bottom: 2%;
+  padding-bottom: 0.1em;
   background: #1A1C1F;
 }
 
 .panel-header h1 {
   font-family: 'HelveticaNeue-Light';
-  font-size: 1.4em;
+  font-size: 1.3em;
   color: #FF6B6B;
-  line-height: 17px;
+  /*line-height: 17px;*/
   letter-spacing: 1px;
   text-align: center;
+  text-transform: uppercase;
 }
 
 .panel-content {
