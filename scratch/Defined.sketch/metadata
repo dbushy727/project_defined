@@ -33,9 +33,11 @@
 		<string>HelveticaNeue</string>
 		<string>HelveticaNeue</string>
 		<string>BrushScriptStd</string>
+		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Bold</string>
 	</array>
 	<key>length</key>
-	<integer>1211485</integer>
+	<integer>1262487</integer>
 	<key>version</key>
 	<integer>18</integer>
 </dict>

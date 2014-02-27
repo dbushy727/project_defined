@@ -164,3 +164,19 @@ input.button {
 .panel-content {
   min-height: 4.3em;
 }
+
+.exercise_box {
+  background: #393F49;
+  padding-left: 0.7em;
+  padding-right: 0.7em;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+}
+
+.exercise_name h3 {
+  font-family: 'HelveticaNeue-Light';
+  font-size: 1em;
+  color: #FFFFFF;
+  line-height: 17px;
+  letter-spacing: 1px;
+}
