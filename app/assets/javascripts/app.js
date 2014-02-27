@@ -71,6 +71,7 @@ var WorkoutContentView = Backbone.View.extend({
       dataType: 'json',
       data: exercise,
       success: function(data){
+        console.log(data)
         console.log("Exercise added to workout")
       }
     })
@@ -95,9 +96,11 @@ var WorkoutContentView = Backbone.View.extend({
                                       deactivate: function( event, ui ) { $(this).removeClass("light_droppable_target") },
                                       hoverClass: "droppable_target_hover",
                                       drop: function( event, ui ) { 
-                                                                    // console.log( ui.draggable[0].innerText.replace(/[\n]/g, "") ); 
                                                                     var exercise = ui.draggable[0].innerText.replace(/[\n]/g, "");
-                                                                    var data = {exercise: exercise}
+                                                                    var workout  = $(this)[0].innerText.replace(/[\n]/g, "");
+                                                                    var data     = {exercise: exercise,
+                                                                                    workout: workout};
+                                                                  
                                                                     self.addExerciseToWorkout(data);
                                                                   }
                                     });
