@@ -15,7 +15,10 @@
         <input class="new_entry button" type="submit" value="COMMIT">
     </div>
 
-    <div id="do_it_for_timmy"></div>
+    <div id="do_it_for_timmy">
+      <%= image_tag "otter.jpg" %>
+      <p class="otter-box">Do it for Timmy!</p>
+    </div>
 
   </div>
 
@@ -28,6 +31,13 @@
         <div id="exercise_content" class="panel-content">
           <!-- Boxes get appended here -->
         </div>
+        <script id="exercise_template" type="text/x-handlebars-template">
+            {{#exercises}}
+            <div class="exercise_box"><h3 class="exercise_name">
+              {{title}}
+            </h3></div>
+            {{/exercises}}
+          </script>
     </div>
   </div>
   

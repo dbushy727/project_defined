@@ -8,18 +8,6 @@ var Workout = Backbone.Model.extend({
 })
 
 var ExerciseView = Backbone.View.extend({
-  initialize: function(){
-    this.render();
-  },
-  template: function(attrs){
-    var html_string = "<div class='exercise_box'><h3 class='exercise_name'></h3></div>"
-    var template_func = _.template(html_string)
-    return template_func(attrs)
-  },
-  render: function(){
-    var self = this;
-    this.$el.html(this.template)
-  }
 
 })
 
@@ -31,9 +19,7 @@ var ExerciseContentView = Backbone.View.extend({
   
   initialize: function(){
     this.collection = new ExerciseCollection();
-    this.listenTo(this.collection, "all", this.render);
-    this.collection.fetch();
-    this.views = []
+    this.render();
   },
 
   el: function(){
@@ -43,17 +29,17 @@ var ExerciseContentView = Backbone.View.extend({
   render: function(){
     var self = this;
 
-    _.each(this.views, function(view){
-      view.remove()
-    })
-
-    _.each(this.collection.models,function(exercise){
-      var exercise_view = new ExerciseView({
-        model: exercise
-      });
-
-      self.$el.append(exercise_view.$el)
-      self.views.push(exercise_view)
+    $.ajax({
+      url: '/exercises',
+      method: 'GET',
+      dataType: 'json',
+      success: function(data){
+        var source = $('#exercise_template').html()
+        template = Handlebars.compile(source),
+        templateData = template(data);
+        console.log(data)
+        $('#exercise_content').append(templateData);
+      }
     })
   }
 })
@@ -90,7 +76,7 @@ function getExercises(){
     method: 'GET',
     dataType: 'json',
     success: function(data){
-      console.log(data)
+      return data
     }
   })
 }
@@ -101,5 +87,5 @@ function getExercises(){
 
 $(function(){
   window.exercise_content_panel = new ExerciseContentView()
-  window.exercise_view = new ExerciseView();
 })
+
