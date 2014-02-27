@@ -39,7 +39,15 @@ var ExerciseContentView = Backbone.View.extend({
         templateData = template(data);
         // console.log(data)
         $('#exercise_content').append(templateData);
-        $('.exercise_box').draggable();
+        $('.exercise_box').draggable({
+          revert : function(event, ui) {
+            $(this).data("uiDraggable").originalPosition = {
+                            top : 0,
+                            left : 0
+          };
+            return !event;
+          }
+        });
       }
     })
   }
@@ -68,7 +76,11 @@ var WorkoutContentView = Backbone.View.extend({
         template     = Handlebars.compile(source),
         templateData = template(data);
         $('#workout_content').append(templateData);
-        // $('.workout_box')
+        $('.workout_box').droppable({
+                                      drop: function() {
+                                        console.log( "dropped" );
+                                      }
+                                    });
       }
     })
   }
