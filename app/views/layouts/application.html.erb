@@ -13,7 +13,28 @@
 
   <body>
     
+  <nav class='header-bar'>
+    <div class="one-third left">
+      <% if current_user %>
+      <div class="title-area">
+          Welcome, <%= current_user.first_name %>
+      </div>
+      <% end %>
+    </div>
+
+    <div class="one-third center">
+      <%= image_tag "header/logo.png" %>
+    </div>
+
+    <div class="one-third right">
+      <% if current_user %>
+        <div class="logout"><%= link_to "Logout", destroy_user_session_path, :method => :delete %></a></div>
+      <% end %>
+    </div>
+  </nav>
+
     <%= yield %>
+
     <%= javascript_include_tag "application" %>
   </body>
 </html>
