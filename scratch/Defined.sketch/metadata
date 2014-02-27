@@ -51,23 +51,12 @@
 		<string>HelveticaNeue-Bold</string>
 		<string>HelveticaNeue-Bold</string>
 		<string>HelveticaNeue-Bold</string>
-		<string>HelveticaNeue-Bold</string>
-		<string>HelveticaNeue-Bold</string>
-		<string>HelveticaNeue-Bold</string>
-		<string>HelveticaNeue-Bold</string>
-		<string>HelveticaNeue-Bold</string>
-		<string>HelveticaNeue-Bold</string>
-		<string>HelveticaNeue-Bold</string>
-		<string>HelveticaNeue-Bold</string>
-		<string>HelveticaNeue-Bold</string>
-		<string>HelveticaNeue-Bold</string>
-		<string>HelveticaNeue-Bold</string>
-		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeue-Thin</string>
 		<string>HelveticaNeue-Bold</string>
 		<string>HelveticaNeue-Bold</string>
 	</array>
 	<key>length</key>
-	<integer>1382503</integer>
+	<integer>1345727</integer>
 	<key>version</key>
 	<integer>18</integer>
 </dict>

@@ -1,10 +1,12 @@
 class WorkoutsController < ApplicationController
 
   def index
-    @workouts = Workout.all
+    workouts = Workout.where(user_id: current_user.id)
+    json_workouts = { workouts: workouts }
+
     respond_to do |format|
         format.html
-        format.json { render :json => @workouts }
+        format.json { render :json => json_workouts }
     end
   end
 

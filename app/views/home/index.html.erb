@@ -33,11 +33,13 @@
         </div>
         <script id="exercise_template" type="text/x-handlebars-template">
             {{#exercises}}
-            <div class="exercise_box"><h3 class="exercise_name">
-              {{title}}
-            </h3></div>
+              <div class="exercise_box">
+                <h3 class="exercise_name">
+                  {{title}}
+                </h3>
+              </div>
             {{/exercises}}
-          </script>
+        </script>
     </div>
   </div>
   
@@ -50,6 +52,15 @@
       </div>
       <div id="workout_content" class="panel-content">
         <!-- Boxes get appended here -->
+        <script id="workout_template" type="text/x-handlebars-template">
+          {{#workouts}}
+            <div class="workout_box">
+              <h3 class="workout_name">
+                {{title}}
+              </h3>
+            </div>
+          {{/workouts}}
+        </script>
       </div>
     </div>  
   </div>

@@ -163,17 +163,27 @@ input.button {
 
 .panel-content {
   min-height: 4.3em;
+  text-align: center;
+  padding-bottom: 2em;
 }
 
 .exercise_box {
+  margin-top: 0.5em;
   background: #393F49;
   padding-left: 0.7em;
   padding-right: 0.7em;
   padding-top: 0.4em;
   padding-bottom: 0.4em;
+  width: 47%;
+  display: inline-block;
+  text-align: left;
 }
 
-.exercise_name h3 {
+.exercise_box:hover {
+  background: #ffcc66;
+}
+
+.exercise_name, h3 {
   font-family: 'HelveticaNeue-Light';
   font-size: 1em;
   color: #FFFFFF;
