@@ -30,6 +30,36 @@ body {
  vertical-align: top; 
 }
 
+.accordion dd > a {
+  background: none;
+  padding: 0;
+}
+
+.accordion dd {
+  display: inline-block;
+}
+
+.accordion dd:hover {
+  background: #5A6378;
+}
+
+.accordion dd.active {
+  background: #393F49;
+}
+
+.accordion dd a:hover {
+  background: none;
+}
+
+.accordion dd.active a {
+  background: none;
+}
+
+.accordion .content.active {
+  padding: 0;
+  background: none;
+}
+
 /* =============================== */
 /* ========= Header Bar ========== */
 /* =============================== */
@@ -199,6 +229,15 @@ input.button {
   display: inline-block;
 }
 
+.workout_box.active {
+  padding-bottom: 0.7em;
+}
+
+.workout_box p:hover {
+  padding-left: 0.3em;
+  background: #3C8595;
+}
+
 .light_droppable_target {
   background: #3C8595;
 }
@@ -208,7 +247,7 @@ input.button {
 }
 
 .exercise_box:hover {
-  background: #004080;
+  background: #5A6378;
 }
 
 .exercise_box:active {
@@ -221,6 +260,15 @@ input.button {
   color: #FFFFFF;
   line-height: 17px;
   letter-spacing: 1px;
+}
+
+.content p {
+  border-top: 1px #677185 solid;
+  font-family: 'HelveticaNeue-UltraLight';
+  padding-left: 0.3em;
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+  margin-bottom: 0;
 }
 
 

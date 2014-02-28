@@ -1,8 +1,25 @@
 class WorkoutsController < ApplicationController
 
   def index
+    # workouts = Workout.where(user_id: 21)
     workouts = Workout.where(user_id: current_user.id)
-    json_workouts = { workouts: workouts }
+
+    converted_workouts = []
+
+    workouts.each do |workout|
+      hash = {
+              id: workout.id,
+              title: workout.title,
+              user_id: workout.user_id,
+              created_at: workout.created_at,
+              updated_at: workout.updated_at,
+              exercises: workout.exercises
+              }
+      converted_workouts << hash
+    end
+
+    json_workouts = { workouts: converted_workouts }
+
 
     respond_to do |format|
         format.html
@@ -38,7 +55,7 @@ class WorkoutsController < ApplicationController
     exercise_to_add_to_workout = Exercise.where(user_id: current_user.id, title: params[:exercise])
     workout = Workout.where(user_id: current_user.id, title: params[:workout])
 
-    if Workout.where(user_id: current_user.id).includes(:exercises).where("exercises.id" => exercise_to_add_to_workout).first == nil
+    if WorkoutList.where(workout_id: workout, exercise_id: exercise_to_add_to_workout).first == nil
       workout.first.exercises << exercise_to_add_to_workout
       render :json => {workout: workout, exercise: exercise_to_add_to_workout, message: "Relation made"}
     else
@@ -46,7 +63,6 @@ class WorkoutsController < ApplicationController
     end
 
   end
-
 
 
 end
