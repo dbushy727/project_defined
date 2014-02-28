@@ -354,14 +354,14 @@ input.button {
 /*==========TEMPLATE========*/
 /*==========================*/
 .select_workout {
-  display: normal;
+  display: none;
 }
 .select_exercise {
   display:none;
   margin-bottom: 6em;
 }
 .record_exercise {
-  display: none;
+  display: normal;
 }
 #workout_content_mobile {
   overflow: auto;
@@ -501,3 +501,4 @@ input.button {
   display: inline-block;
   width: 45%;
 }
+
