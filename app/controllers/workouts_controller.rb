@@ -4,17 +4,22 @@ class WorkoutsController < ApplicationController
     # workouts = Workout.where(user_id: 21)
     workouts = Workout.where(user_id: current_user.id)
 
-    # workouts.each do |workout|
-    #   workouts[:exercies] = workout.exercises
-    # end
-    
-    workouts.each do |w|
-      w.exercises.each do |e|
-        puts e.title
-      end
+    converted_workouts = []
+
+    workouts.each do |workout|
+      hash = {
+              id: workout.id,
+              title: workout.title,
+              user_id: workout.user_id,
+              created_at: workout.created_at,
+              updated_at: workout.updated_at,
+              exercises: workout.exercises
+              }
+      converted_workouts << hash
     end
 
-    json_workouts = { workouts: workouts }
+    json_workouts = { workouts: converted_workouts }
+
 
     respond_to do |format|
         format.html
