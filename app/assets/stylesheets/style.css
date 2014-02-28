@@ -346,10 +346,10 @@ input.button {
 /*==========TEMPLATE========*/
 /*==========================*/
 .select_workout {
-  display: none;
+  display: normal;
 }
 .select_exercise {
-  display:normal;
+  display:none;
   margin-bottom: 6em;
 }
 .record_exercise {
@@ -479,4 +479,17 @@ input.button {
   border: 0;
   border-radius: 15%;
   text-align: center;
+}
+
+/*==========================*/
+/*=========D3 Visual========*/
+
+#visualize_container {
+  height: 85%;
+  text-align: center;
+}
+#d3_visualization, #data_table {
+  height: 90%;
+  display: inline-block;
+  width: 45%;
 }
