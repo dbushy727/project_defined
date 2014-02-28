@@ -30,6 +30,15 @@ body {
  vertical-align: top; 
 }
 
+.accordion dd > a {
+  background: none;
+  padding: 0;
+}
+
+.accordion dd {
+  display: inline-block;
+}
+
 /* =============================== */
 /* ========= Header Bar ========== */
 /* =============================== */
@@ -208,7 +217,7 @@ input.button {
 }
 
 .exercise_box:hover {
-  background: #004080;
+  background: #5A6378;
 }
 
 .exercise_box:active {

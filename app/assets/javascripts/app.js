@@ -176,6 +176,7 @@ var WorkoutContentView = Backbone.View.extend({
       method:   'GET',
       dataType: 'json',
       success: function(data){
+        console.log(data)
         var source       = $('#workout_template').html();
         var template     = Handlebars.compile(source);
         var templateData = template(data);
