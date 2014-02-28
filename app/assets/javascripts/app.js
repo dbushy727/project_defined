@@ -222,10 +222,6 @@ var WorkoutCollection = Backbone.Collection.extend({
 $(function(){
   window.exercise_content_panel = new ExerciseContentView();
   window.workout_content_panel  = new WorkoutContentView();
-<<<<<<< HEAD
-})
-
-=======
 
 })
->>>>>>> 8ef1f218e6ac3d58a7d46f2fd84b2906c3e9f5f1
+
