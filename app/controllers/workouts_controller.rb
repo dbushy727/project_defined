@@ -15,8 +15,12 @@ class WorkoutsController < ApplicationController
   end
 
   def create
-    workout = Workout.create(title: params[:workout]["title"], user_id: current_user.id)
-    render :json => workout
+    if Workout.where(user_id: current_user.id, title: params[:workout]["title"]).first == nil
+      workout = Workout.create(title: params[:workout]["title"], user_id: current_user.id)
+      render :json => {message: "Workout created", workout: workout}
+    else
+      render :json => {message: "This workout already exists for this user"}
+    end
   end
 
   def show

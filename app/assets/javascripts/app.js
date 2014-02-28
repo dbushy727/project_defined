@@ -41,7 +41,7 @@ var ExerciseContentView = Backbone.View.extend({
       dataType: 'json',
       data: data,
       success: function(data){
-        console.log(data+" successfully submitted");
+        console.log(data)
         exercise_content_panel.render();
       }
     })
@@ -112,7 +112,7 @@ var WorkoutContentView = Backbone.View.extend({
       dataType: 'json',
       data: data,
       success: function(data){
-        console.log(data+" successfully submitted");
+        console.log(data)
         workout_content_panel.render();
       }
     })
@@ -136,7 +136,6 @@ var WorkoutContentView = Backbone.View.extend({
 
   makeWorkoutBoxDroppable: function(){
     var self = this;
-    console.log(self)
 
     $('.workout_box').droppable({
                                   tolerance: "pointer",
@@ -145,7 +144,7 @@ var WorkoutContentView = Backbone.View.extend({
                                   deactivate: function( event, ui ) { $(this).removeClass("light_droppable_target") },
                                   hoverClass: "droppable_target_hover",
                                   drop: function( event, ui ) { 
-                                                                console.log("In the drop function")
+                                                              
                                                                 var exercise = ui.draggable[0].innerText.replace(/[\n]/g, "");
                                                                 var workout  = $(this)[0].innerText.replace(/[\n]/g, "");
                                                                 var data     = {exercise: exercise,
@@ -188,9 +187,7 @@ var WorkoutContentView = Backbone.View.extend({
                                                                       workout_content_panel.makeWorkoutBoxDroppable()
                                                                     });
 
-        console.log("At this stage")
         
-                        console.log("At this stage now")
       }
     })
 

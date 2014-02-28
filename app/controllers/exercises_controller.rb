@@ -15,8 +15,12 @@ class ExercisesController < ApplicationController
   end
 
   def create
-    exercise = Exercise.create(title: params[:exercise]["title"], user_id: current_user.id)
-    render :json => exercise
+    if Exercise.where(user_id: current_user.id, title: params[:exercise]["title"]).first == nil
+      exercise = Exercise.create(title: params[:exercise]["title"], user_id: current_user.id)
+      render :json => {message: "Exercise created", exercise: exercise}
+    else
+      render :json => {message: "This exercise already exists for this user"}
+    end
   end
 
   def show
