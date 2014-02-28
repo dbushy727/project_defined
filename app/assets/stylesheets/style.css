@@ -255,7 +255,7 @@ input.button {
   }
 }
 /*===============================*/
-/*=========MOBILE STYLE==========*/
+/*=========MOBILE SPLASH=========*/
 /*===============================*/
 
 .container_mobile {
@@ -301,12 +301,18 @@ input.button {
   display: none;
 }
 .select_exercise {
-  display:none;
+  display:normal;
 }
 .record_exercise {
-  display: normal;
+  display: none;
 }
-
+#workout_content_mobile {
+  overflow: auto;
+}
+#footer1, #footer2, #footer3 {
+  position: fixed;
+  width: 100%;
+}
 .select_workout_header {
   background-color: #1A1C1F;
   height: 6em;
@@ -354,6 +360,7 @@ input.button {
 
 .rect_blue_dark {
   background-color: #3C8595;
+  border: 1px solid #393F49;
 }
 
 .rect_blue_dark h3 {
@@ -408,4 +415,13 @@ input.button {
   float: right;
   margin-top: 1.7em;
   margin-right: 3em;
+}
+
+#exercise_content_mobile h3 {
+  display: inline-block;
+  font-size: 1.2em;
+  margin-top: 2em;
+  margin-left: 1em;
+  font-weight: bold;
+  margin-bottom: 6em;
 }
