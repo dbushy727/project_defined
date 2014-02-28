@@ -291,33 +291,40 @@ input.button {
 
 
 /*==========================*/
-/*=====SELECT WORKOUT=======*/
+/*==========TEMPLATE========*/
 /*==========================*/
-
+.select_workout {
+  display: none;
+}
 .select_workout_header {
   background-color: #1A1C1F;
   height: 6em;
   font-weight: bold;
   text-align: center;
 }
-.select_workout_header h3 {
+.select_exercise_header {
+  background-color: #1A1C1F;
+  height: 6em;
+  font-weight: bold;
+}
+.select_workout_header h3, .select_exercise_header h3 {
   display: inline-block;
   margin-top: 0.8em;
   font-weight: bold;
   font-size: 3em;
   color: #4EB7CD;
 }
-.select_workout_menu {
+.select_menu {
   background-color: #1A1C1F;
   height: 6em;
   font-weight: bold;
   text-align: center;
 }
-.select_workout_menu_button {
+.select_menu_button {
   display: inline-block;
   margin-top: 0.8em;
 }
-.select_workout_menu_button h3{
+.select_menu_button h3{
   line-height: 1em;
   font-size: 3em;
   background-color: #FF6B6B;
@@ -326,7 +333,7 @@ input.button {
   border-radius: 5%;
   width: 3.5em;
 }
-.select_workout_rectangle {
+.select_rectangle {
   height: 5.864em;
   font-weight: bold;
 }
@@ -340,12 +347,36 @@ input.button {
 
 .rect_blue_dark h3 {
   display: inline-block;
-  font-size: 3.4em;
-  margin-top: 0.7em;
+  font-size: 2.8em;
+  margin-top: 0.85em;
   margin-left: 1em;
   font-weight: bold;
 }
-.rect_blue_dark h3.carrot {
-  margin-left: 3em;
+.carrot {
+  float: right;
+  margin-right: 1em;
+}
 
+#header_exercises {
+  float:left;
+  margin-left: 2em;
+}
+#header_sets {
+  float: right;
+  margin-right: 2em;
+}
+
+.sets {
+  float: right;
+  margin-top: 1em;
+  margin-right: 2.9em;
+  font-size: 2em;
+}
+
+.sets button {
+  padding: 0.5em;
+  width: 2em;
+  border-radius: 30%;
+  background-color: white;
+  color: black;
 }
