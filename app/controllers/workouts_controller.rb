@@ -61,7 +61,13 @@ class WorkoutsController < ApplicationController
     else
       render :json => {message: "Relation already exists"}
     end
+  end
 
+
+  def unlink_exercise_from_workout
+    
+
+    render :json => {message: "Exercise unlinked from this workout"}
   end
 
 

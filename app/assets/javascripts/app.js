@@ -174,6 +174,12 @@ var WorkoutContentView = Backbone.View.extend({
     })
   },
 
+  unlinkExerciseFromWorkout: function(){
+    $.ajax({
+      url: ''
+    })
+  },
+
   render: function(){
     var self = this;
 

@@ -3,6 +3,7 @@ ProjectDefined::Application.routes.draw do
   root to: 'home#index'
 
   post 'workouts/new/exercise' => 'workouts#add_exercise_to_workout', as: :add_exercise_to_workout
+  post 'workouts/unlink/exercise' => 'workouts#unlink_exercise_from_workout', as: :unlink_exercise_from_workout
 
   resources :workouts
   resources :exercises
