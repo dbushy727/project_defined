@@ -300,6 +300,13 @@ input.button {
 .select_workout {
   display: none;
 }
+.select_exercise {
+  display:none;
+}
+.record_exercise {
+  display: normal;
+}
+
 .select_workout_header {
   background-color: #1A1C1F;
   height: 6em;
@@ -313,9 +320,9 @@ input.button {
 }
 .select_workout_header h3, .select_exercise_header h3 {
   display: inline-block;
-  margin-top: 0.8em;
+  margin-top: 1em;
   font-weight: bold;
-  font-size: 3em;
+  font-size: 2.4em;
   color: #4EB7CD;
 }
 .select_menu {
@@ -351,8 +358,8 @@ input.button {
 
 .rect_blue_dark h3 {
   display: inline-block;
-  font-size: 2.8em;
-  margin-top: 0.85em;
+  font-size: 1.5em;
+  margin-top: 1.6em;
   margin-left: 1em;
   font-weight: bold;
 }
@@ -372,8 +379,8 @@ input.button {
 
 .sets {
   float: right;
-  margin-top: 1em;
-  margin-right: 2.9em;
+  margin-top: 0.9em;
+  margin-right: 1.9em;
   font-size: 2em;
 }
 
@@ -383,4 +390,22 @@ input.button {
   border-radius: 30%;
   background-color: white;
   color: black;
+}
+
+.record_exercise .reps {
+  display: inline-block;
+  width: 4.5em;
+}
+.record_exercise .weight {
+  display: inline-block;
+  width: 4.5em;
+}
+.record_exercise .times {
+  display: inline-block;
+}
+.input_form {
+  display: inline-block;
+  float: right;
+  margin-top: 1.7em;
+  margin-right: 3em;
 }
