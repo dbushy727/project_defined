@@ -170,7 +170,7 @@ var WorkoutContentView = Backbone.View.extend({
 
   addWorkoutSublistListeners: function(){
     $('.workout_box div p').click(function(e){
-      console.log("Clicked!", e)
+      console.log("Clicked!", e.target.innerText)
     })
   },
 
@@ -191,14 +191,24 @@ var WorkoutContentView = Backbone.View.extend({
         $('#workout_content').animate({opacity: 1}, 200, function(){
                                                                       $('#workout_content').empty();
                                                                       $('#workout_content').append(templateData);
+
+                                                                      // Manage the workout list header bar
                                                                       $('.workout_box').hover(function(){
-                                                                        $(this).find('span').toggleClass('hide')
+                                                                        $(this).find('.workout_dropdown').toggleClass('hide')
                                                                       });
-                                                                      $('.workout_box').click(function(){
-                                                                        $(this).find('i').toggleClass('fa fa-level-down')
-                                                                                         .toggleClass('fa fa-level-up')
+                                                                      $('.workout_box a').click(function(){
+                                                                        $(this).find('.workout_dropdown').find('i').toggleClass('fa fa-level-down')
+                                                                                                                   .toggleClass('fa fa-level-up')
                                                                       });
+
+                                                                      // Manage the workout sublist of exercises
                                                                       self.addWorkoutSublistListeners();
+                                                                      $('.workout_box div p').hover(function(){
+                                                                        $(this).first().find('.unlink_exercise_from_workout').toggleClass('hide')
+                                                                      })
+
+                                                                      // Make the panel droppable
+                                                                      // TODO: the drop down element isn't also droppable right now
                                                                       workout_content_panel.makeWorkoutBoxDroppable()
                                                                     });
 
