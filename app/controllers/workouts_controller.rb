@@ -15,8 +15,12 @@ class WorkoutsController < ApplicationController
   end
 
   def create
-    workout = Workout.create(title: params[:workout]["title"], user_id: current_user.id)
-    render json: workout
+    if Workout.where(user_id: current_user.id, title: params[:workout]["title"]).first == nil
+      workout = Workout.create(title: params[:workout]["title"], user_id: current_user.id)
+      render :json => {message: "Workout created", workout: workout}
+    else
+      render :json => {message: "This workout already exists for this user"}
+    end
   end
 
   def show
@@ -34,11 +38,11 @@ class WorkoutsController < ApplicationController
     exercise_to_add_to_workout = Exercise.where(user_id: current_user.id, title: params[:exercise])
     workout = Workout.where(user_id: current_user.id, title: params[:workout])
 
-    if Workout.where(user_id: current_user.id).includes(:exercises).where("exercises.id" => exercise_to_add_to_workout.id)
-      render :json => {message: "Relation already exists"}
-    else
+    if Workout.where(user_id: current_user.id).includes(:exercises).where("exercises.id" => exercise_to_add_to_workout).first == nil
       workout.first.exercises << exercise_to_add_to_workout
       render :json => {workout: workout, exercise: exercise_to_add_to_workout, message: "Relation made"}
+    else
+      render :json => {message: "Relation already exists"}
     end
 
   end
