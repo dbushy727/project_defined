@@ -174,9 +174,15 @@ var WorkoutContentView = Backbone.View.extend({
     })
   },
 
-  unlinkExerciseFromWorkout: function(){
+  unlinkExerciseFromWorkout: function(data){
     $.ajax({
-      url: ''
+      url: '/workouts/unlink/exercise',
+      method: 'post',
+      dataType: json,
+      data: data,
+      success: function(data){
+        console.log("Success callback",data)
+      }
     })
   },
 
