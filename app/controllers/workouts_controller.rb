@@ -34,11 +34,11 @@ class WorkoutsController < ApplicationController
     exercise_to_add_to_workout = Exercise.where(user_id: current_user.id, title: params[:exercise])
     workout = Workout.where(user_id: current_user.id, title: params[:workout])
 
-    if Workout.where(user_id: current_user.id).includes(:exercises).where("exercises.id" => exercise_to_add_to_workout.id)
-      render :json => {message: "Relation already exists"}
-    else
+    if Workout.where(user_id: current_user.id).includes(:exercises).where("exercises.id" => exercise_to_add_to_workout).first == nil
       workout.first.exercises << exercise_to_add_to_workout
       render :json => {workout: workout, exercise: exercise_to_add_to_workout, message: "Relation made"}
+    else
+      render :json => {message: "Relation already exists"}
     end
 
   end
