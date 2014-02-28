@@ -9,12 +9,16 @@ class ExercisesController < ApplicationController
         format.json { render :json => json_exercises }
     end
   end
+
   def new
     @exercise = Exercise.new
   end
+
   def create
-    @exercise = Exercise.create(title: params[:exercise]["title"], user_id: current_user.id)
+    exercise = Exercise.create(title: params[:exercise]["title"], user_id: current_user.id)
+    render :json => exercise
   end
+
   def show
     @exercises = Exercise.where(user_id: params[:id])
     respond_to do |format|
@@ -22,4 +26,5 @@ class ExercisesController < ApplicationController
         format.json { render :json => @exercises }
     end
   end
+
 end
