@@ -1,6 +1,8 @@
 ProjectDefined::Application.routes.draw do
   devise_for :users
   root to: 'home#index'
+  
+  get '/history' => 'home#history'
 
   post 'workouts/new/exercise' => 'workouts#add_exercise_to_workout', as: :add_exercise_to_workout
   post 'workouts/unlink/exercise' => 'workouts#unlink_exercise_from_workout', as: :unlink_exercise_from_workout
