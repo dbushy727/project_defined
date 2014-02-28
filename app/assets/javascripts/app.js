@@ -168,6 +168,12 @@ var WorkoutContentView = Backbone.View.extend({
                                 });
   },
 
+  addWorkoutSublistListeners: function(){
+    $('.workout_box div p').click(function(e){
+      console.log("Clicked!", e)
+    })
+  },
+
   render: function(){
     var self = this;
 
@@ -176,7 +182,7 @@ var WorkoutContentView = Backbone.View.extend({
       method:   'GET',
       dataType: 'json',
       success: function(data){
-        console.log(data)
+        
         var source       = $('#workout_template').html();
         var template     = Handlebars.compile(source);
         var templateData = template(data);
@@ -185,6 +191,14 @@ var WorkoutContentView = Backbone.View.extend({
         $('#workout_content').animate({opacity: 1}, 200, function(){
                                                                       $('#workout_content').empty();
                                                                       $('#workout_content').append(templateData);
+                                                                      $('.workout_box').hover(function(){
+                                                                        $(this).find('span').toggleClass('hide')
+                                                                      });
+                                                                      $('.workout_box').click(function(){
+                                                                        $(this).find('i').toggleClass('fa fa-level-down')
+                                                                                         .toggleClass('fa fa-level-up')
+                                                                      });
+                                                                      self.addWorkoutSublistListeners();
                                                                       workout_content_panel.makeWorkoutBoxDroppable()
                                                                     });
 
