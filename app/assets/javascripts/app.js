@@ -154,6 +154,5 @@ function getExercises(){
 $(function(){
   window.exercise_content_panel = new ExerciseContentView();
   window.workout_content_panel  = new WorkoutContentView();
-
 })
 

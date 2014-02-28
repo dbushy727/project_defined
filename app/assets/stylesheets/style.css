@@ -8,9 +8,7 @@ body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
 }
-.ui-loader {
-  display:none;
-}
+
 .one-third {
   width: 31%;
   margin-left: 1%;
@@ -165,17 +163,47 @@ input.button {
 
 .panel-content {
   min-height: 4.3em;
+  text-align: center;
+  padding-bottom: 2em;
 }
 
 .exercise_box {
+  margin-top: 0.5em;
   background: #393F49;
   padding-left: 0.7em;
   padding-right: 0.7em;
   padding-top: 0.4em;
   padding-bottom: 0.4em;
+  width: 47%;
+  display: inline-block;
+  text-align: left;
 }
 
-.exercise_name h3 {
+.workout_box {
+  margin-top: 0.5em;
+  background: #393F49;
+  padding-left: 0.7em;
+  padding-right: 0.7em;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+  width: 90%;
+  text-align: left;
+  display: inline-block;
+}
+
+.light_droppable_target {
+  background: #3C8595;
+}
+
+.droppable_target_hover {
+  background: #4EB7CD;
+}
+
+.exercise_box:hover {
+  background: #ffcc66;
+}
+
+.exercise_name, h3 {
   font-family: 'HelveticaNeue-Light';
   font-size: 1em;
   color: #FFFFFF;
@@ -204,9 +232,6 @@ input.button {
   .sign_in {
     display: none;
   }
-  .sign_in_mobile {
-    display: normal;
-  }
 }
 
 @media (min-width: 641px) {
@@ -221,8 +246,9 @@ input.button {
 /*=========MOBILE STYLE==========*/
 /*===============================*/
 
-.ui-mobile-viewport {
-  background-color: #1A1C1F;
+.container_mobile {
+  height: 100%;
+  font-family: 'Helvetica Neue';
 }
 .sign_in_form_mobile {
   display: none;
@@ -244,7 +270,7 @@ input.button {
   display: inline-block;
   width: 4em;
   box-shadow: 1px 2px 3px black;
-  border-radius: 15%;
+  border-radius: 25%;
 }
 .log_in_button_text_mobile {
   background-color: #FF6B6B;
@@ -253,4 +279,65 @@ input.button {
 .sign_up_button_text_mobile {
   background-color: #4EB7CD;
   margin-top: 0.5em;
+}
+
+
+/*==========================*/
+/*=====SELECT WORKOUT=======*/
+/*==========================*/
+
+.select_workout_header {
+  background-color: #1A1C1F;
+  height: 6em;
+  font-weight: bold;
+  text-align: center;
+}
+.select_workout_header h3 {
+  display: inline-block;
+  margin-top: 0.8em;
+  font-weight: bold;
+  font-size: 3em;
+  color: #4EB7CD;
+}
+.select_workout_menu {
+  background-color: #1A1C1F;
+  height: 6em;
+  font-weight: bold;
+  text-align: center;
+}
+.select_workout_menu_button {
+  display: inline-block;
+  margin-top: 0.8em;
+}
+.select_workout_menu_button h3{
+  line-height: 1em;
+  font-size: 3em;
+  background-color: #FF6B6B;
+  color: #1A1C1F;
+  font-weight: bold;
+  border-radius: 5%;
+  width: 3.5em;
+}
+.select_workout_rectangle {
+  height: 5.864em;
+  font-weight: bold;
+}
+.rect_blue_light {
+  background-color: #4EB7CD;
+}
+
+.rect_blue_dark {
+  background-color: #3C8595;
+}
+
+.rect_blue_dark h3 {
+  display: inline-block;
+  font-size: 3.4em;
+  margin-top: 0.7em;
+  margin-left: 1em;
+  font-weight: bold;
+}
+.rect_blue_dark h3.carrot {
+  margin-left: 3em;
+
 }
