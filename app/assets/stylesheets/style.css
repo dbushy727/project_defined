@@ -271,6 +271,14 @@ input.button {
   margin-bottom: 0;
 }
 
+.unlink_exercise_from_workout {
+  padding-right: 0.5em;
+}
+
+.unlink_exercise_from_workout:hover {
+  color: #FF6B6B;
+}
+
 
 /*===============================*/
 /*=========MEDIA QUERIES=========*/
