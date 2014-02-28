@@ -302,6 +302,7 @@ input.button {
 }
 .select_exercise {
   display:normal;
+  margin-bottom: 6em;
 }
 .record_exercise {
   display: none;
@@ -423,5 +424,4 @@ input.button {
   margin-top: 2em;
   margin-left: 1em;
   font-weight: bold;
-  margin-bottom: 6em;
 }
