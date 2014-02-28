@@ -231,10 +231,31 @@ var WorkoutCollection = Backbone.Collection.extend({
 //   })
 // }
 
+var otterWatch = function(){
+  jwerty.key('option+o',function(){
+    $('#do_it_for_timmy').toggleClass('hide')
+  });
+}
+
+var otterSwitch = function(){
+  jwerty.key('option+space',function(){
+    var otter_number_list   = [1,2,3,4,5,6];
+    var otter_name_list     = ["Timmy","Susan","Mickey","Sammy","Emmit","Kimmie"];
+    var chosen_otter_name   = _.sample(otter_name_list, 1);
+    var chosen_otter_number = _.sample(otter_number_list, 1);
+    var template = "<img src='/assets/otters/otter_"+chosen_otter_number+".jpg'>";
+    $('#otter_image').html("");
+    $('#otter_box').text("");
+    $('#otter_image').html(template);
+    $('#otter_box').text("Do it for "+chosen_otter_name+"!")
+  })
+}
+
 $(function(){
   window.exercise_content_panel = new ExerciseContentView();
   window.workout_content_panel  = new WorkoutContentView();
-
+  otterWatch();
+  otterSwitch();
 
 })
 
