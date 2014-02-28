@@ -39,6 +39,22 @@ body {
   display: inline-block;
 }
 
+.accordion dd:hover {
+  background: #ff6666;
+}
+
+.accordion dd a:hover {
+  background: none;
+}
+
+.accordion dd.active a {
+  background: none;
+}
+
+.accordion .content.active {
+  background: #1A1C1F;
+}
+
 /* =============================== */
 /* ========= Header Bar ========== */
 /* =============================== */
@@ -208,6 +224,10 @@ input.button {
   display: inline-block;
 }
 
+.workout_box.active {
+  padding-bottom: 0.7em;
+}
+
 .light_droppable_target {
   background: #3C8595;
 }
@@ -230,6 +250,10 @@ input.button {
   color: #FFFFFF;
   line-height: 17px;
   letter-spacing: 1px;
+}
+
+.content p {
+  margin-bottom: 0;
 }
 
 
