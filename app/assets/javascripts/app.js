@@ -88,6 +88,7 @@ var ExerciseContentView = Backbone.View.extend({
 var WorkoutContentView = Backbone.View.extend({
 
   initialize: function(){
+    var self = this;
     this.collection = new WorkoutCollection();
     this.render();
     this.$new_workout_input = $('#new_workout_input');
@@ -133,6 +134,41 @@ var WorkoutContentView = Backbone.View.extend({
     })
   },
 
+  makeWorkoutBoxDroppable: function(){
+    var self = this;
+    console.log(self)
+
+    $('.workout_box').droppable({
+                                  tolerance: "pointer",
+                                  accept: ".exercise_box",
+                                  activate: function( event, ui ) { $(this).addClass("light_droppable_target") },
+                                  deactivate: function( event, ui ) { $(this).removeClass("light_droppable_target") },
+                                  hoverClass: "droppable_target_hover",
+                                  drop: function( event, ui ) { 
+                                                                console.log("In the drop function")
+                                                                var exercise = ui.draggable[0].innerText.replace(/[\n]/g, "");
+                                                                var workout  = $(this)[0].innerText.replace(/[\n]/g, "");
+                                                                var data     = {exercise: exercise,
+                                                                                workout: workout};
+                                                                                
+                                                                self.addExerciseToWorkout(data);
+
+
+                                                                // var temporary_item = $(ui.draggable[0]).clone(true);
+                                                                $(ui.draggable[0]).animate({
+                                                                  opacity: 0,
+                                                                  height: "0px"
+                                                                }, 100, function(){
+                                                                  ui.draggable[0].remove()
+                                                                  $('.exercise_box').animate({opacity: 0},100, function(){
+                                                                      $('.exercise_box').remove();
+                                                                      exercise_content_panel.render()
+                                                                  });
+                                                                });
+                                                              }
+                                });
+  },
+
   render: function(){
     var self = this;
 
@@ -145,44 +181,16 @@ var WorkoutContentView = Backbone.View.extend({
         var template     = Handlebars.compile(source);
         var templateData = template(data);
 
+        // $('#workout_content').append(templateData);
         $('#workout_content').animate({opacity: 1}, 200, function(){
-                                                                      
                                                                       $('#workout_content').empty();
                                                                       $('#workout_content').append(templateData);
+                                                                      workout_content_panel.makeWorkoutBoxDroppable()
                                                                     });
-        $('.workout_box').droppable({
-                                      tolerance: "pointer",
-                                      accept: ".exercise_box",
-                                      activate: function( event, ui ) { $(this).addClass("light_droppable_target") },
-                                      deactivate: function( event, ui ) { $(this).removeClass("light_droppable_target") },
-                                      hoverClass: "droppable_target_hover",
-                                      drop: function( event, ui ) { 
-                                                                    var exercise = ui.draggable[0].innerText.replace(/[\n]/g, "");
-                                                                    var workout  = $(this)[0].innerText.replace(/[\n]/g, "");
-                                                                    var data     = {exercise: exercise,
-                                                                                    workout: workout};
 
-                                                                    self.addExerciseToWorkout(data);
-
-                                                                    // var temporary_item = $(ui.draggable[0]).clone(true);
-                                                                    $(ui.draggable[0]).animate({
-                                                                      opacity: 0,
-                                                                      height: "0px"
-                                                                    }, 100, function(){
-                                                                      ui.draggable[0].remove()
-                                                                      $('.exercise_box').animate({opacity: 0},100, function(){
-                                                                          $('.exercise_box').remove();
-                                                                          exercise_content_panel.render()
-                                                                      });
-                                                                    });
-                                                                    
-                                                                    // $('#exercise_content').append(temporary_item);
-
-                                                                    
-
-
-                                                                  }
-                                    });
+        console.log("At this stage")
+        
+                        console.log("At this stage now")
       }
     })
 
@@ -229,6 +237,7 @@ var WorkoutCollection = Backbone.Collection.extend({
 $(function(){
   window.exercise_content_panel = new ExerciseContentView();
   window.workout_content_panel  = new WorkoutContentView();
+
 
 })
 
