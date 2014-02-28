@@ -167,6 +167,10 @@ input.button {
   padding-bottom: 2em;
 }
 
+#exercise_content {
+  opacity: 0;
+}
+
 .exercise_box {
   margin-top: 0.5em;
   background: #393F49;

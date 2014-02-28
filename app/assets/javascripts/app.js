@@ -34,20 +34,24 @@ var ExerciseContentView = Backbone.View.extend({
       method:   'GET',
       dataType: 'json',
       success: function(data){
-        var source   = $('#exercise_template').html()
-        template     = Handlebars.compile(source),
-        templateData = template(data);
-        // console.log(data)
-        $('#exercise_content').append(templateData);
-        $('.exercise_box').draggable({
-            revert: function(event, ui) {
-              $(this).data("uiDraggable").originalPosition = {
-                              top : 0,
-                              left : 0
-              };
-              return !event;
-            }
-        });
+          $('#exercise_content').animate({opacity: 1}, 20, function(){
+                                                                    $('#exercise_content').empty();
+
+                                                                    var source   = $('#exercise_template').html()
+                                                                        template     = Handlebars.compile(source),
+                                                                        templateData = template(data);
+                                                                    
+                                                                    $('#exercise_content').append(templateData);
+                                                                    $('.exercise_box').draggable({
+                                                                        revert: function(event, ui) {
+                                                                          $(this).data("uiDraggable").originalPosition = {
+                                                                                          top : 0,
+                                                                                          left : 0
+                                                                          };
+                                                                          return !event;
+                                                                        }
+                                                                    });
+                                                                  })
       }
     })
   }
@@ -72,7 +76,6 @@ var WorkoutContentView = Backbone.View.extend({
       data: exercise,
       success: function(data){
         console.log(data)
-        console.log("Exercise added to workout")
       }
     })
   },
@@ -100,8 +103,26 @@ var WorkoutContentView = Backbone.View.extend({
                                                                     var workout  = $(this)[0].innerText.replace(/[\n]/g, "");
                                                                     var data     = {exercise: exercise,
                                                                                     workout: workout};
-                                                                  
+
                                                                     self.addExerciseToWorkout(data);
+
+                                                                    // var temporary_item = $(ui.draggable[0]).clone(true);
+                                                                    $(ui.draggable[0]).animate({
+                                                                      opacity: 0,
+                                                                      height: "0px"
+                                                                    }, 100, function(){
+                                                                      ui.draggable[0].remove()
+                                                                      $('.exercise_box').animate({opacity: 0},100, function(){
+                                                                          $('.exercise_box').remove();
+                                                                          exercise_content_panel.render()
+                                                                      });
+                                                                    });
+                                                                    
+                                                                    // $('#exercise_content').append(temporary_item);
+
+                                                                    
+
+
                                                                   }
                                     });
       }
