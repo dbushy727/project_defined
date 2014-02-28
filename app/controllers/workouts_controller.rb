@@ -16,7 +16,7 @@ class WorkoutsController < ApplicationController
 
   def create
     workout = Workout.create(title: params[:workout]["title"], user_id: current_user.id)
-    render json: workout
+    render :json => workout
   end
 
   def show

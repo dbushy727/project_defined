@@ -171,6 +171,10 @@ input.button {
   opacity: 0;
 }
 
+#workout_content {
+  opacity: 0;
+}
+
 .exercise_box {
   margin-top: 0.5em;
   background: #393F49;

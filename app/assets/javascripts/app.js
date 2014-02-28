@@ -32,6 +32,7 @@ var ExerciseContentView = Backbone.View.extend({
   createExercise: function(e){
     e.preventDefault();
     new_exercise_title = $('#new_exercise_input').val();
+    $('#new_exercise_input').val("");
     data = {exercise: {title: new_exercise_title}};
 
     $.ajax({
@@ -61,10 +62,10 @@ var ExerciseContentView = Backbone.View.extend({
           $('#exercise_content').animate({opacity: 1}, 200, function(){
                                                                     $('#exercise_content').empty();
 
-                                                                    var source   = $('#exercise_template').html()
-                                                                        template     = Handlebars.compile(source),
-                                                                        templateData = template(data),
-                                                                        a = 3;
+                                                                    var source   = $('#exercise_template').html();
+                                                                    var template     = Handlebars.compile(source);
+                                                                    var templateData = template(data);
+                                                                    var a = 3;
                                                                     
                                                                     $('#exercise_content').append(templateData);
                                                                     $('.exercise_box').draggable({
@@ -101,6 +102,7 @@ var WorkoutContentView = Backbone.View.extend({
   createWorkout: function(e){
     e.preventDefault();
     new_workout_title = $('#new_workout_input').val();
+    $('#new_workout_input').val("");
     data = {workout: {title: new_workout_title}};
 
     $.ajax({
@@ -139,10 +141,15 @@ var WorkoutContentView = Backbone.View.extend({
       method:   'GET',
       dataType: 'json',
       success: function(data){
-        var source   = $('#workout_template').html()
-        template     = Handlebars.compile(source),
-        templateData = template(data);
-        $('#workout_content').append(templateData);
+        var source       = $('#workout_template').html();
+        var template     = Handlebars.compile(source);
+        var templateData = template(data);
+
+        $('#workout_content').animate({opacity: 1}, 200, function(){
+                                                                      
+                                                                      $('#workout_content').empty();
+                                                                      $('#workout_content').append(templateData);
+                                                                    });
         $('.workout_box').droppable({
                                       tolerance: "pointer",
                                       accept: ".exercise_box",
