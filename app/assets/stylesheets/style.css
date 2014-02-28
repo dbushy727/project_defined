@@ -56,7 +56,8 @@ body {
 }
 
 .accordion .content.active {
-  background: #1A1C1F;
+  padding: 0;
+  background: none;
 }
 
 /* =============================== */
@@ -232,6 +233,11 @@ input.button {
   padding-bottom: 0.7em;
 }
 
+.workout_box p:hover {
+  padding-left: 0.3em;
+  background: #3C8595;
+}
+
 .light_droppable_target {
   background: #3C8595;
 }
@@ -257,6 +263,11 @@ input.button {
 }
 
 .content p {
+  border-top: 1px #677185 solid;
+  font-family: 'HelveticaNeue-UltraLight';
+  padding-left: 0.3em;
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
   margin-bottom: 0;
 }
 
