@@ -4,9 +4,11 @@ class CreateExerciseInstances < ActiveRecord::Migration
       t.integer :workout_session_id
       t.integer :user_id
       t.integer :exercise_id
+      t.integer :set
       t.integer :reps
       t.float   :weight
       t.integer :seconds
+
 
       t.timestamps
     end

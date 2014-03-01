@@ -6,21 +6,27 @@
     <table>
   <thead>
     <tr>
-      <th class='workout_session_id'>Day</th>
-      <th class='exercise_instance'>Set</th>
+      <th class='workout_session_id'>ID</th>
+      <th>Date</th>
       <th class='exercise_id'>Exercise</th>
+      <th class='set'>Set</th>
       <th class='reps'>Reps</th>
       <th class='weight'>Weight</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>2014-02-13</td>
-      <td>1</td>
-      <td>Incline Bench Press</td>
-      <td>8</td>
-      <td>150</td>
-    </tr>
+    <script id="exercise_instance_template" type="text/x-handlebars-template">
+            {{#exercise_instances}}
+              <tr>
+                <td>{{workout_session_id}}</td>
+                <td>{{updated_at}}</td>
+                <td>{{exercise_id}}</td>
+                <td>{{set}}</td>
+                <td>{{reps}}</td>
+                <td>{{weight}}</td>
+              </tr>
+            {{/exercise_instances}}
+        </script>
   </tbody>
 </table>
   </div>

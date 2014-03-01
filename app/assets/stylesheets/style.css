@@ -361,7 +361,7 @@ input.button {
   margin-bottom: 6em;
 }
 .record_exercise {
-  display: normal;
+  display: none;
 }
 #workout_content_mobile {
   overflow: auto;
@@ -500,5 +500,8 @@ input.button {
   height: 90%;
   display: inline-block;
   width: 45%;
+  margin: 1em;
 }
-
+#d3_visualization {
+  background-color: green;
+}

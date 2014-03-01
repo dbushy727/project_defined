@@ -2,6 +2,7 @@ puts "==========================="
 puts "Seed Task Started"
 puts "==========================="
 
+
 User.delete_all
 puts "[Notice] Users deleted"
 
@@ -37,12 +38,41 @@ puts "[Notice] Users deleted"
                                   user_id: new_user.id
                                   })
     puts "[Workout] #{new_workout.title} added to #{new_workout.user.first_name}"
+    
+    new_workout_session = WorkoutSession.create({
+                                                title: new_workout.title,
+                                                user_id: new_user.id,
+                                                workout_id: new_workout.id
+    })
+    
   end
 
 end
 
-
-
+new_exercise_instance = ExerciseInstance.create({
+                                                      workout_session_id: WorkoutSession.all.first.id,
+                                                      user_id: User.all.first.id,
+                                                      exercise_id: 1,
+                                                      set: 1,
+                                                      reps: 10,
+                                                      weight: 100        
+    })
+new_exercise_instance = ExerciseInstance.create({
+                                                      workout_session_id: WorkoutSession.all.first.id,
+                                                      user_id: User.all.first.id,
+                                                      exercise_id: 1,
+                                                      set: 2,
+                                                      reps: 8,
+                                                      weight: 110        
+    })
+new_exercise_instance = ExerciseInstance.create({
+                                                      workout_session_id: WorkoutSession.all.first.id,
+                                                      user_id: User.all.first.id,
+                                                      exercise_id: 1,
+                                                      set: 3,
+                                                      reps: 6,
+                                                      weight: 130        
+    })
 puts "==========================="
 puts "Seed Task Complete"
 puts "==========================="

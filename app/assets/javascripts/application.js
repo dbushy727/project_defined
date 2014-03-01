@@ -16,6 +16,7 @@
 //= require underscore
 //= require backbone
 //= require handlebars
+//= require d3
 //= require turbolinks
 //= require_tree .
 
