@@ -48,6 +48,18 @@ class WorkoutsController < ApplicationController
     end
   end
 
+  def destroy
+    # Parameters: {"workout"=>{"title"=>"Plyometrics"}, "id"=>":id"}
+
+    workout_to_delete = Workout.where(user_id: current_user.id, title: params[:workout][:title])
+
+    workout_to_delete.first.destroy
+
+    render :json => {message: "Workout deleted"}
+
+  end
+
+
   def add_exercise_to_workout
     # Parameters: {"exercise"=>"Wide Front Pull-Ups", "workout"=>"Cardio"}
     # User.where(:username => "Paul").includes(:domains).where("domains.name" => "paul-domain").limit(1)

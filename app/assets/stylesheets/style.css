@@ -43,10 +43,6 @@ body {
   background: #5A6378;
 }
 
-.accordion dd.active {
-  background: #393F49;
-}
-
 .accordion dd a:hover {
   background: none;
 }

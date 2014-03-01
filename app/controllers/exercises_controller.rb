@@ -31,5 +31,15 @@ class ExercisesController < ApplicationController
     end
   end
 
+  def destroy
+    # Parameters: {"exercise"=>{"title"=>"w_test"}, "id"=>":id"}
+
+    exercise_to_delete = Exercise.where(user_id: current_user.id, title: params[:exercise][:title])
+
+    exercise_to_delete.first.destroy
+
+    render :json => {message: "Exercise deleted"}
+  end
+
 end
 

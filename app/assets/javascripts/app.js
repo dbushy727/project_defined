@@ -26,14 +26,32 @@ var ExerciseContentView = Backbone.View.extend({
   },
 
   addEventListeners: function(){
-    this.$add_exercise_button.click(this.createExercise)
+    this.$add_exercise_button.click(this.createExercise);
+  },
+
+  deleteExercise: function(e){
+    e.preventDefault();
+    var exercise_to_delete = e.toElement.parentElement.parentElement.outerText;
+    var data = {exercise: {title: exercise_to_delete}};
+
+    $.ajax({
+      url: '/exercises/:id',
+      method: 'delete',
+      dataType: 'json',
+      data: data,
+      success: function(data){
+        console.log(data);
+        exercise_content_panel.render();
+      }
+    })
+
   },
 
   createExercise: function(e){
     e.preventDefault();
-    new_exercise_title = $('#new_exercise_input').val();
+    var new_exercise_title = $('#new_exercise_input').val();
     $('#new_exercise_input').val("");
-    data = {exercise: {title: new_exercise_title}};
+    var data = {exercise: {title: new_exercise_title}};
 
     $.ajax({
       url: '/exercises',
@@ -41,7 +59,7 @@ var ExerciseContentView = Backbone.View.extend({
       dataType: 'json',
       data: data,
       success: function(data){
-        console.log(data)
+        console.log(data);
         exercise_content_panel.render();
       }
     })
@@ -69,6 +87,9 @@ var ExerciseContentView = Backbone.View.extend({
                                                                     var a = 3;
                                                                     
                                                                     $('#exercise_content').append(templateData);
+                                                                    self.$delete_exercise_button = $('.delete_exercise');
+                                                                    self.$delete_exercise_button.click(self.deleteExercise);
+
                                                                     $('.exercise_box').draggable({
 
                                                                         start: function(event, ui) { $(this).css("z-index", a++); },
@@ -98,7 +119,28 @@ var WorkoutContentView = Backbone.View.extend({
   },
 
   addEventListeners: function(){
-    this.$add_workout_button.click(this.createWorkout)
+    this.$add_workout_button.click(this.createWorkout);
+  },
+
+  deleteWorkout: function(e){
+    e.preventDefault();
+
+    var workout_to_delete_id = $(e.target).closest("dd")[0].id;
+    var workout_to_delete = workout_to_delete_id.replace(/(w_)/, "");
+    
+    var data = {workout: {title: workout_to_delete}};
+
+    $.ajax({
+      url: '/workouts/:id',
+      method: 'delete',
+      dataType: 'json',
+      data: data,
+      success: function(data){
+        console.log(data);
+        workout_content_panel.render();
+      }
+    })
+
   },
 
   createWorkout: function(e){
@@ -145,14 +187,12 @@ var WorkoutContentView = Backbone.View.extend({
                                   deactivate: function( event, ui ) { $(this).removeClass("light_droppable_target") },
                                   hoverClass: "droppable_target_hover",
                                   drop: function( event, ui ) { 
-                                                              
                                                                 var exercise = ui.draggable[0].innerText.replace(/[\n]/g, "");
-                                                                var workout  = $(this)[0].innerText.replace(/[\n]/g, "");
+                                                                var workout  = $(this)[0].id.replace(/(w_)/, "");
                                                                 var data     = {exercise: exercise,
                                                                                 workout: workout};
                                                                                 
                                                                 self.addExerciseToWorkout(data);
-
 
                                                                 // var temporary_item = $(ui.draggable[0]).clone(true);
                                                                 $(ui.draggable[0]).animate({
@@ -212,6 +252,8 @@ var WorkoutContentView = Backbone.View.extend({
         $('#workout_content').animate({opacity: 1}, 200, function(){
                                                                       $('#workout_content').empty();
                                                                       $('#workout_content').append(templateData);
+                                                                      self.$delete_workout_button = $('.delete_workout');
+                                                                      self.$delete_workout_button.click(self.deleteWorkout);
 
                                                                       // Manage the workout list header bar
                                                                       $('.workout_box').hover(function(){
