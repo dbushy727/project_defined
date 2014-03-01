@@ -279,6 +279,17 @@ input.button {
   color: #FF6B6B;
 }
 
+.delete_workout {
+  margin-right: 1em;
+}
+
+.delete_workout:hover {
+  color: #FF6B6B;
+}
+
+.delete_exercise:hover {
+  color: #FF6B6B;
+}
 
 /*===============================*/
 /*=========MEDIA QUERIES=========*/

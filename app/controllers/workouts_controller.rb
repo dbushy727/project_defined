@@ -65,7 +65,17 @@ class WorkoutsController < ApplicationController
 
 
   def unlink_exercise_from_workout
+    # Parameters: {"workout_id"=>"62", "exercise_name"=>"Jumpies"}
+
+    exercise_to_delete = Exercise.where(user_id: current_user.id, title: params[:exercise_name])
+    # exercise_to_delete = Exercise.where(user_id: 21, title: "Jumpies")
+
+    workout = Workout.find(params[:workout_id].to_i)
+    # workout = Workout.find(62)
+
+    workout_exercise_relation = WorkoutList.where(exercise_id: exercise_to_delete, workout_id: workout)
     
+    workout_exercise_relation.first.destroy
 
     render :json => {message: "Exercise unlinked from this workout"}
   end
