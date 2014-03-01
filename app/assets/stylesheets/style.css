@@ -149,9 +149,35 @@ input.button {
   background: #28DCFF;
   display: inline-block;
   font-family: 'HelveticaNeue-Medium';
-  font-size: 12px;
+  font-size: .8em;
   color: #282C32;
   line-height: 15px;
+}
+
+
+.performance_history {
+  margin-top: 2.5em;
+  margin-bottom: 0;
+}
+
+.performance_history a {
+  margin-left: auto;
+  margin-right: auto;
+  color: #ffffff;
+  text-align: center;
+  font-size: 1.2em;
+  padding: 0.7em;
+  background: #408E47;
+  border-radius: 0;
+}
+
+.performance_history a:hover {
+  color: #282c32;
+  background: #55C449;
+}
+
+.performance_history a:active {
+  background: #24551f;
 }
 
 #do_it_for_timmy {
