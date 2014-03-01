@@ -63,6 +63,7 @@ var ExerciseContentView = Backbone.View.extend({
                                                                     $('#exercise_content').empty();
 
                                                                     var source   = $('#exercise_template').html();
+
                                                                     var template     = Handlebars.compile(source);
                                                                     var templateData = template(data);
                                                                     var a = 3;
@@ -162,6 +163,7 @@ var WorkoutContentView = Backbone.View.extend({
                                                                   $('.exercise_box').animate({opacity: 0},100, function(){
                                                                       $('.exercise_box').remove();
                                                                       exercise_content_panel.render()
+                                                                      workout_content_panel.render();
                                                                   });
                                                                 });
                                                               }
@@ -169,19 +171,25 @@ var WorkoutContentView = Backbone.View.extend({
   },
 
   addWorkoutSublistListeners: function(){
-    $('.workout_box div p').click(function(e){
-      console.log("Clicked!", e.target.innerText)
+    var self = this;
+    $('.workout_box div p i').click(function(e){
+      data = {
+              workout_id: e.toElement.parentElement.parentElement.parentElement.id.replace(/[a-z_]/g,""),
+              exercise_name: e.toElement.parentElement.parentElement.innerText
+              }
+      self.unlinkExerciseFromWorkout(data);
     })
   },
 
-  unlinkExerciseFromWorkout: function(data){
+  unlinkExerciseFromWorkout: function(exercise){
     $.ajax({
       url: '/workouts/unlink/exercise',
-      method: 'post',
-      dataType: json,
-      data: data,
+      method: 'POST',
+      dataType: 'json',
+      data: exercise,
       success: function(data){
         console.log("Success callback",data)
+        workout_content_panel.render();
       }
     })
   },
@@ -196,6 +204,7 @@ var WorkoutContentView = Backbone.View.extend({
       success: function(data){
         
         var source       = $('#workout_template').html();
+        
         var template     = Handlebars.compile(source);
         var templateData = template(data);
 
@@ -246,27 +255,6 @@ var WorkoutCollection = Backbone.Collection.extend({
 
 })
 
-// function getWorkouts(user_id){
-//   $.ajax({
-//     url: '/workouts/'+user_id,
-//     method: 'GET',
-//     dataType: 'json',
-//     success: function(data){
-//       console.log(data)
-//     }
-//   })
-// }
-
-// function getExercises(){
-//   $.ajax({
-//     url: '/exercises',
-//     method: 'GET',
-//     dataType: 'json',
-//     success: function(data){
-//       return data
-//     }
-//   })
-// }
 
 var otterWatch = function(){
   jwerty.key('option+o',function(){
