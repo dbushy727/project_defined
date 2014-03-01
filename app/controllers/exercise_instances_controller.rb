@@ -1,6 +1,7 @@
 class ExerciseInstancesController < ApplicationController
 
   def index
+    exercise_instances = ExerciseInstance.where(user_id: current_user.id)
   end
 
   def new

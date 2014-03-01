@@ -32,7 +32,14 @@ var SelectWorkout = Backbone.View.extend({
         $('#workout_content_mobile').append(templateData);
       }
     })  
+  },
+  chooseExercise: function(){
+    $('.select_workout').find('.select_rectangle').on("click", function(){
+      workout_id = $(this).find('h3').first().text()
+      workout_title = $(this).find('.workout_id').val()
+    })
   }
+
 })
 var SelectExercise = Backbone.View.extend({
   initialize: function(){
