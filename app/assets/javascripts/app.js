@@ -145,14 +145,12 @@ var WorkoutContentView = Backbone.View.extend({
                                   deactivate: function( event, ui ) { $(this).removeClass("light_droppable_target") },
                                   hoverClass: "droppable_target_hover",
                                   drop: function( event, ui ) { 
-                                                              
                                                                 var exercise = ui.draggable[0].innerText.replace(/[\n]/g, "");
-                                                                var workout  = $(this)[0].innerText.replace(/[\n]/g, "");
+                                                                var workout  = $(this)[0].id.replace(/(w_)/, "");
                                                                 var data     = {exercise: exercise,
                                                                                 workout: workout};
                                                                                 
                                                                 self.addExerciseToWorkout(data);
-
 
                                                                 // var temporary_item = $(ui.draggable[0]).clone(true);
                                                                 $(ui.draggable[0]).animate({

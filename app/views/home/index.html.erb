@@ -57,7 +57,7 @@
         </dl>
       <script id="workout_template" type="text/x-handlebars-template">
           {{#workouts}}
-          <dd class="workout_box">
+          <dd id='w_{{title}}' class="workout_box">
             <a href='#id_{{id}}'><h3 class="workout_name">{{title}} <span class='right hide workout_dropdown'><i class="fa fa-level-down"></i></span><span class="right delete_workout"><i class="fa fa-minus-square-o"></i></h3></a>
             <div id='id_{{id}}' class="content">
               {{#exercises}}
