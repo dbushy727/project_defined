@@ -387,7 +387,7 @@ input.button {
 /*==========TEMPLATE========*/
 /*==========================*/
 .select_workout {
-  display: none;
+  /*display: none;*/
 }
 .select_exercise {
   display:none;

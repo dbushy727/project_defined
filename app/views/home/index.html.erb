@@ -41,7 +41,7 @@
             {{#exercises}}
               <div class="exercise_box">
                 <h3 class="exercise_name">
-                  {{title}} <span class="right delete_exercise"><i class="fa fa-minus-square-o"></i></span>
+                  {{title}}
                 </h3>
               </div>
             {{/exercises}}
@@ -79,7 +79,16 @@
 <div class="container_mobile">
   <div class="select_workout">
     <div class="select_workout_header"><h3>What's the plan?</h3></div>
-    <div class="select_rectangle rect_blue_dark"><h3>Back and Bi's</h3><h3 class='carrot'>></h3></div>
+    <div id="workout_content_mobile"></div>
+    <script id="workout_template_mobile" type="text/x-handlebars-template">
+          {{#workouts}}
+            <div class="select_rectangle rect_blue_dark">
+            <h3>{{title}}</h3>
+            <input type='hidden' class='workout_id' value='{{id}}'/>
+            <h3 class='carrot'>></h3>
+            </div>
+          {{/workouts}}
+        </script>
     <div class="select_menu" id="footer1">
       <div class="select_menu_button"><h3>Menu</h3></div>
     </div>
@@ -89,12 +98,18 @@
       <h3 id='header_exercises'>Exercises</h3>
       <h3 id='header_sets'>Sets</h3>
     </div>
-    <div class="select_rectangle rect_blue_dark">
-      <h3>Military Press</h3>
-      <span class='sets'>
-        <button>-</button> 1 <button>+</button>
-      </span>
-    </div>
+    <div id="exercise_content_mobile"></div>
+    <script id="exercise_template_mobile" type="text/x-handlebars-template">
+          {{#exercises}}
+            <div class="select_rectangle rect_blue_dark">
+              <h3>{{title}}</h3>
+              <input type='hidden' class='exercise_id' value='{{id}}'/>
+              <span class='sets'>
+                <input type='number' id='set_number'/>
+              </span>
+            </div>
+          {{/exercises}}
+        </script>
     <div class="select_menu" id="footer2">
       <div class="select_menu_button"><h3>Menu</h3></div>
     </div>
