@@ -5,9 +5,7 @@ gem 'rails', '4.0.2'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
-
 gem 'faker'
-
 gem 'foundation-rails'
 
 # Use SCSS for stylesheets
@@ -33,7 +31,6 @@ gem 'jbuilder', '~> 1.2'
 gem 'rspec-rails'
 gem 'capybara'
 gem 'devise'
-gem 'pry'
 gem 'rails_12factor', group: :production
 
 group :doc do
