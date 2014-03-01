@@ -115,17 +115,32 @@ var WorkoutContentView = Backbone.View.extend({
     this.render();
     this.$new_workout_input = $('#new_workout_input');
     this.$add_workout_button = $('#add_workout_button');
-    this.$delete_workout_button = $('.delete_workout');
     this.addEventListeners();
   },
 
   addEventListeners: function(){
     this.$add_workout_button.click(this.createWorkout);
-    this.$delete_workout_button.click(this.createWorkout);
   },
 
   deleteWorkout: function(e){
-    console.log("Clicked item", e)
+    e.preventDefault();
+
+    var workout_to_delete_id = $(e.target).closest("dd")[0].id;
+    var workout_to_delete = workout_to_delete_id.replace(/(w_)/, "");
+    
+    var data = {workout: {title: workout_to_delete}};
+
+    $.ajax({
+      url: '/workouts/:id',
+      method: 'delete',
+      dataType: 'json',
+      data: data,
+      success: function(data){
+        console.log(data);
+        workout_content_panel.render();
+      }
+    })
+
   },
 
   createWorkout: function(e){
@@ -237,6 +252,8 @@ var WorkoutContentView = Backbone.View.extend({
         $('#workout_content').animate({opacity: 1}, 200, function(){
                                                                       $('#workout_content').empty();
                                                                       $('#workout_content').append(templateData);
+                                                                      self.$delete_workout_button = $('.delete_workout');
+                                                                      self.$delete_workout_button.click(self.deleteWorkout);
 
                                                                       // Manage the workout list header bar
                                                                       $('.workout_box').hover(function(){
