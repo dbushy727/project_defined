@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title><%= content_for?(:title) ? yield(:title) : "foundation-rails" %></title>
+    <title>Defined</title>
 
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
@@ -18,13 +18,13 @@
     <div class="one-third left">
       <% if current_user %>
       <div class="title-area">
-          Welcome, <%= current_user.first_name %>
+          <%= link_to 'Welcome, '+current_user.first_name, root_path %>
       </div>
       <% end %>
     </div>
 
     <div class="one-third center">
-      <%= image_tag "header/logo.png" %>
+      <%= link_to (image_tag "header/logo.png"), root_path %>
     </div>
 
     <div class="one-third right">

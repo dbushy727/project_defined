@@ -70,7 +70,7 @@ body {
 .header-bar .left {
   font-size: 1.3em;
   padding: 1.3%;
-  padding-top: 1.5%;
+  padding-top: 1.3%;
 }
 
 .header-bar .center {
@@ -84,12 +84,12 @@ body {
   padding-top: 1.5%;
 }
 
-.header-bar .right a {
+.header-bar a {
   font-size: 1.3em;
   color: #FFFFFF;
 }
 
-.header-bar .right a:hover {
+.header-bar a:hover {
   color: #28DCFF;
 }
 
