@@ -581,7 +581,7 @@ rect.now {
 .sets {
   float: right;
   margin-top: 0.9em;
-  margin-right: 1.9em;
+  margin-right: 0.8em;
   font-size: 2em;
 }
 
@@ -624,4 +624,11 @@ rect.now {
   border: 0;
   border-radius: 15%;
   text-align: center;
+  float: left;
+}
+
+.set_go {
+  float: right;
+  margin-left: 5px;
+  height: 2.3em;
 }
