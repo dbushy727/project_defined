@@ -31,10 +31,12 @@ var SelectWorkout = Backbone.View.extend({
         var templateData = template(data);
         $('#workout_content_mobile').append(templateData);
         self.chooseExercise();
+
       }
     })  
   },
   chooseExercise: function(){
+    var self = this;
     $('.select_workout').find('.select_rectangle').on("click", function(){
       console.log("clicked")
       var workout_title = $(this).find('h3').first().text()
@@ -42,10 +44,20 @@ var SelectWorkout = Backbone.View.extend({
       new SelectExercise({workout_id: workout_id, workout_title: workout_title});
       $('.select_workout').hide();
       $('.select_exercise').show();
+      self.startSession(workout_id, workout_title);
     })
   },
-  startSession: function(){
-    
+  startSession: function(workout_id, workout_title){
+    var data = {workout_id: workout_id, workout_title: workout_title}
+    $.ajax({
+        url: '/workouts/new_session',
+        method: 'POST',
+        dataType: 'json',
+        data: data,
+        success: function(data){
+          console.log(data)
+          }
+    })
   }
 
 })
@@ -67,7 +79,7 @@ var SelectExercise = Backbone.View.extend({
         console.log("This is the clicked on workout_id")
         _.each(data.workouts, function(workout){
           if (workout.id == self.workout_id) {
-            data = {exercises: workout.exercises}
+            var data = {exercises: workout.exercises}
             var source       = $('#exercise_template_mobile').html();
             var template     = Handlebars.compile(source);
             var templateData = template(data);
@@ -82,11 +94,10 @@ var SelectExercise = Backbone.View.extend({
   recordExercise: function(){
     var self = this;
     $('.set_go').on("click", function() {
-      console.log(self.workout_id, self.workout_title)
-       var input_value = $(this).parent().find('input').val()
-       data = {workout_id: self.workout_id, workout_title: self.workout_title, set_amount: input_value}
-       $.ajax({
-        url: '/workouts/new_session',
+      var input_value = $(this).parent().find('input').val()
+      var data = {set_amount: input_value, workout_id: self.workout_id, workout_title: self.workout_title}
+      $.ajax({
+        url: '/workouts/new_instances',
         method: 'POST',
         dataType: 'json',
         data: data,
@@ -94,7 +105,7 @@ var SelectExercise = Backbone.View.extend({
           console.log(data)
           }
 
-        })
+      })
     })
   }
 

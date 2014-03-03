@@ -73,12 +73,13 @@ class WorkoutSessionsController < ApplicationController
 
 
   def create
-    puts "MY PARAMS"
-    puts "==============="
-    p params
-    puts "==============="
-    puts "MY PARAMS"
-    
-    render text: "check the params"
+    my_session = WorkoutSession.create({
+                          title: params[:workout_title],
+                          workout_id: params[:workout_id],
+                          user_id: current_user.id
+                        })
+    session[:workout_session_id] = my_session.id
+    render json: {workout_session: my_session}
   end
+
 end
