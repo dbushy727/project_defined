@@ -1,4 +1,4 @@
-
+// 
 var Exercise = Backbone.Model.extend({
   url: '/exercise'
 })
