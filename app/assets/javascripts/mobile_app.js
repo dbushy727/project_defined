@@ -73,6 +73,9 @@ var SelectExercise = Backbone.View.extend({
         
       }
     }) 
+  },
+  recordExercise: function(){
+    
   }
 
 })
