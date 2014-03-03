@@ -1,4 +1,4 @@
-class WorkoutListsController < ApplicationsController
+class WorkoutListsController < ApplicationController
 
   def index
   end
