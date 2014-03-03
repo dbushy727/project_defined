@@ -61,7 +61,7 @@ var workoutHistory = {
       method: 'post',
       data: date_hash,
       success: function(data){
-        console.log(data)
+        // console.log(data)
         self.renderDayData(data)
       }
     })
@@ -73,6 +73,12 @@ var workoutHistory = {
     var templateData = template(data);
     $('#data_table').empty();
     $('#data_table').append(templateData);
+
+    $('.exercise_name').find('a').click(function(e){
+      e.preventDefault();
+      console.log($(this)[0].attributes[1].value)
+    })
+    
   },
 
   visualizeDataForWorkoutOnGivenDate: function(data) {
