@@ -491,16 +491,18 @@ rect.now {
 /*==========TEMPLATE========*/
 /*==========================*/
 .select_workout {
-  /*display: none;*/
+  display: none;
 }
 .select_exercise {
   display:none;
   margin-bottom: 6em;
 }
 .record_exercise {
-  display: none;
+  /*display: none;*/
 }
 #workout_content_mobile {
+  position: relative;
+  top: 83px;
   overflow: auto;
 }
 #footer1, #footer2, #footer3 {
@@ -512,6 +514,9 @@ rect.now {
   height: 6em;
   font-weight: bold;
   text-align: center;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
 }
 .select_exercise_header {
   background-color: #1A1C1F;
