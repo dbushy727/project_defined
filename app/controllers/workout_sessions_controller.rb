@@ -68,7 +68,7 @@ class WorkoutSessionsController < ApplicationController
       given_day_data << session
     end
 
-    render :json => { workouts: given_day_data }
+    render :json => { workouts: given_day_data, day: params[:date] }
 
   end
 

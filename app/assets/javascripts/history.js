@@ -71,8 +71,8 @@ var workoutHistory = {
     var source       = $('#day_data_template').html();
     var template     = Handlebars.compile(source);
     var templateData = template(data);
-    $('#d3_visualization').empty();
-    $('#d3_visualization').append(templateData);
+    $('#data_table').empty();
+    $('#data_table').append(templateData);
   },
 
   visualizeDataForWorkoutOnGivenDate: function(data) {
