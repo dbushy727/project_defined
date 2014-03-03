@@ -3,7 +3,6 @@ class WorkoutsController < ApplicationController
   def index
     # workouts = Workout.where(user_id: 21)
     workouts = Workout.where(user_id: current_user.id)
-
     converted_workouts = []
 
     workouts.each do |workout|

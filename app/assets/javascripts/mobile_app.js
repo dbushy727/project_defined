@@ -75,7 +75,9 @@ var SelectExercise = Backbone.View.extend({
     }) 
   },
   recordExercise: function(){
-    
+    $('.set_go').on("click", function() {
+       var input_value = $(this).parent().find('input').val()
+    })
   }
 
 })
