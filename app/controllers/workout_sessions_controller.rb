@@ -55,7 +55,7 @@ class WorkoutSessionsController < ApplicationController
         exercises << exercise_instance
       end
 
-      session = { 
+      data_session = { 
                   id: workout_session.id,
                   title: workout_session.title,
                   user_id: workout_session.user_id,
@@ -64,7 +64,7 @@ class WorkoutSessionsController < ApplicationController
                   updated_at: workout_session.updated_at,
                   exercise_instances: exercises
                 }
-      given_day_data << session
+      given_day_data << data_session
     end
 
     render :json => { workouts: given_day_data, day: params[:date] }
@@ -73,11 +73,12 @@ class WorkoutSessionsController < ApplicationController
 
 
   def create
-    # workout_session = WorkoutSession.create({
-    #   user_id: current_user.id,
-    #   title: ,
-    #   workout_id: params[:workout_id] 
-    #   })
+    puts "MY PARAMS"
+    puts "==============="
+    p params
+    puts "==============="
+    puts "MY PARAMS"
     
+    render text: "check the params"
   end
 end

@@ -491,25 +491,26 @@ rect.now {
 /*==========TEMPLATE========*/
 /*==========================*/
 .select_workout {
-  display: none;
+  /*display: none;*/
 }
 .select_exercise {
   display:none;
   margin-bottom: 6em;
 }
 .record_exercise {
-  /*display: none;*/
+  display: none;
 }
 #workout_content_mobile {
   position: relative;
   top: 83px;
   overflow: auto;
+  padding-bottom: 6em;
 }
 #footer1, #footer2, #footer3 {
   position: fixed;
   width: 100%;
 }
-.select_workout_header {
+.select_workout_header, .select_exercise_header {
   background-color: #1A1C1F;
   height: 6em;
   font-weight: bold;
@@ -518,11 +519,7 @@ rect.now {
   width: 100%;
   z-index: 1;
 }
-.select_exercise_header {
-  background-color: #1A1C1F;
-  height: 6em;
-  font-weight: bold;
-}
+
 .select_workout_header h3, .select_exercise_header h3 {
   display: inline-block;
   margin-top: 1em;
@@ -615,7 +612,11 @@ rect.now {
   margin-top: 1.7em;
   margin-right: 3em;
 }
-
+#exercise_content_mobile {
+  position: relative;
+  top: 6em;
+  padding-bottom: 6em;
+}
 #exercise_content_mobile h3 {
   display: inline-block;
   font-size: 1.2em;
