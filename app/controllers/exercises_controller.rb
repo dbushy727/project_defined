@@ -52,15 +52,32 @@ class ExercisesController < ApplicationController
     # -------------------------
     #<ActiveRecord::Associations::CollectionProxy [#<ExerciseInstance id: 1, workout_session_id: 1, user_id: 1, exercise_id: 1, set: 1, reps: 10, weight: 100.0, seconds: nil, created_at: "2014-03-02 20:53:39", updated_at: "2014-03-02 20:53:39">, #<ExerciseInstance id: 2, workout_session_id: 1, user_id: 1, exercise_id: 1, set: 2, reps: 8, weight: 110.0, seconds: nil, created_at: "2014-03-02 20:53:39", updated_at: "2014-03-02 20:53:39">, #<ExerciseInstance id: 3, workout_session_id: 1, user_id: 1, exercise_id: 1, set: 3, reps: 6, weight: 130.0, seconds: nil, created_at: "2014-03-02 20:53:39", updated_at: "2014-03-02 20:53:39">]>
 
-    exercise_history
-
-    p "======================="
-    p exercise_history
-    p "======================="
-
     queried_exercise = { exercise_history: [] }
 
-    
+    exercise_history.each do |instance|
+
+      if queried_exercise[:exercise_history].last == nil
+        historical_event = {
+                              title:            exercise.title,
+                              created_at:       instance.created_at,
+                              total_sets:       instance.set,
+                              total_reps:       instance.reps,
+                              weighted_average: instance.weight,
+                              total_seconds:    instance.seconds
+                              }
+          queried_exercise[:exercise_history] << historical_event
+      else queried_exercise[:exercise_history].last[:created_at] == instance.created_at
+        unless queried_exercise[:exercise_history].last[:total_reps] == nil
+          queried_exercise[:exercise_history].last[:total_reps] += instance.reps
+        end
+        unless queried_exercise[:exercise_history].last[:total_seconds] == nil
+          queried_exercise[:exercise_history].last[:total_seconds] += instance.seconds
+        end
+        unless queried_exercise[:exercise_history].last[:total_sets] == nil
+          queried_exercise[:exercise_history].last[:total_sets] = instance.set
+        end
+      end
+    end
 
     render :json => {message: "Exercise history queried", data: queried_exercise}
   end
