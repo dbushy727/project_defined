@@ -318,8 +318,11 @@ input.button {
 /* ================================= */
 
 #cal-heatmap {
-  margin-left: 6em;
-  
+  padding-top: 0.7em;
+  padding-left: 2em;
+  margin-left: 4em;
+  background: #282C32;
+  width: 81.1%;
 }
 
 #cal-heatmap h2 {

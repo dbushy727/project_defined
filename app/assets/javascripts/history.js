@@ -1,92 +1,130 @@
-// Calendar heatmap of workout history
+var workoutHistory = {
 
-var cal = new CalHeatMap();
+  initialize: function(){
+    this.historyHeatmap()
+  },
 
-// Set start date for calendar to five months prior to the present date
-  var d = new Date();
-  d.setMonth(d.getMonth()-5);
+  historyHeatmap: function(){
+  var self = this;
 
-cal.init({
-  domain: "month",
-  data: '/workouts/history',
-  subDomain: "x_day",
-  itemName: ["set", "sets"],
-  subDomainTitleFormat: {
-                        empty: "No workouts recorded on this date"
-                        },
-                        start: d,
-  highlight: ["now"],
-  legendVerticalPosition: "center",
-  legendOrientation: "vertical",
-  legendMargin: [0, 10, 0, 0],
-  cellSize: 15, subDomainTextFormat: "%d",
-  range: 6,
-  tooltip: true,
-  displayLegend: true,
-  domainMargin: 10
+  // Calendar heatmap of workout history
+  var cal = new CalHeatMap();
 
-});
+  // Calculate space available for heatmap months
+  var month_space = Math.floor($(window).width()/317.5)
 
+    // Set start date for calendar to month_space months prior to the present date
+    var d = new Date();
+    d.setMonth(d.getMonth()-(month_space-1));
 
+  cal.init({
+    domain: "month",
+    data: '/workouts/history',
+    subDomain: "x_day",
+    itemName: ["set", "sets"],
+    subDomainTitleFormat: {
+                          empty: "No workouts recorded on this date"
+                          },
+                          start: d,
+    highlight: ["now"],
+    legendVerticalPosition: "center",
+    legendOrientation: "vertical",
+    legendMargin: [0, 10, 0, 0],
+    cellSize: 20, subDomainTextFormat: "%d",
+    range: month_space,
+    tooltip: true,
+    displayLegend: true,
+    domainMargin: 10
 
+  });
 
+  // getDate()       // Returns the date
+  // getMonth()     // Returns the month
+  // getFullYear() // Returns the year
 
+  // Date format needs to match ActiveRecord: "created_at" = '2014-03-02 20:53:37'
 
-// var margin = {top: 20, right: 20, bottom: 30, left: 50},
-//     width = 960 - margin.left - margin.right,
-//     height = 500 - margin.top - margin.bottom;
+  $('.recent_workout_history g').click(function(e) {
+                                        var date_time = e.target.__data__['t'];
+                                        var date = new Date(date_time);
+                                        console.log(date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate())
+                                        // self.getWorkoutData(date)
+                                      })
+  },
 
-// var parseDate = d3.time.format("%d-%b-%y").parse;
+  getWorkoutData: function(data) {
+    var date_hash = {date: data}
+    console.log(date_hash)
 
-// var x = d3.time.scale()
-//     .range([0, width]);
+    $.ajax({
+      url: '/workouts/session',
+      method: 'post',
+      data: date_hash,
+      success: function(data){
+        console.log(data)
+      }
+    })
+  },
 
-// var y = d3.scale.linear()
-//     .range([height, 0]);
+  visualizeDataForWorkoutOnGivenDate: function(data) {
+    var margin = {top: 20, right: 20, bottom: 30, left: 50},
+        width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
 
-// var xAxis = d3.svg.axis()
-//     .scale(x)
-//     .orient("bottom");
+    var parseDate = d3.time.format("%d-%b-%y").parse;
 
-// var yAxis = d3.svg.axis()
-//     .scale(y)
-//     .orient("left");
+    var x = d3.time.scale()
+        .range([0, width]);
 
-// var line = d3.svg.line()
-//     .x(function(d) { return x(d.date); })
-//     .y(function(d) { return y(d.close); });
+    var y = d3.scale.linear()
+        .range([height, 0]);
 
-// var svg = d3.select("#d3_visualization").append("svg")
-//     .attr("width", width + margin.left + margin.right)
-//     .attr("height", height + margin.top + margin.bottom)
-//     .append("g")
-//     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom");
 
-// // d3.tsv("data.tsv", function(error, data) {
-// //   data.forEach(function(d) {
-// //     d.date = parseDate(d.date);
-// //     d.close = +d.close;
-// //   });
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left");
 
-//   x.domain(d3.extent(data, function(d) { return d.date; }));
-//   y.domain(d3.extent(data, function(d) { return d.close; }));
+    var line = d3.svg.line()
+        .x(function(d) { return x(d.date); })
+        .y(function(d) { return y(d.close); });
 
-//   svg.append("g")
-//       .attr("class", "x axis")
-//       .attr("transform", "translate(0," + height + ")")
-//       .call(xAxis);
+    var svg = d3.select("#d3_visualization").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-//   svg.append("g")
-//       .attr("class", "y axis")
-//       .call(yAxis)
-//     .append("text")
-//       .attr("transform", "rotate(-90)")
-//       .attr("y", 6)
-//       .attr("dy", ".71em")
-//       .style("text-anchor", "end")
-//       .text("Weight (lb)");
+    // d3.tsv("data.tsv", function(error, data) {
+    //   data.forEach(function(d) {
+    //     d.date = parseDate(d.date);
+    //     d.close = +d.close;
+    //   });
 
-//   svg.append("path")
-//       .datum(data)
-//       .attr("class", "line")
-//       .attr("d", line);
+      x.domain(d3.extent(data, function(d) { return d.date; }));
+      y.domain(d3.extent(data, function(d) { return d.close; }));
+
+      svg.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + height + ")")
+          .call(xAxis);
+
+      svg.append("g")
+          .attr("class", "y axis")
+          .call(yAxis)
+        .append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          .text("Weight (lb)");
+
+      svg.append("path")
+          .datum(data)
+          .attr("class", "line")
+          .attr("d", line);
+  }
+
+}

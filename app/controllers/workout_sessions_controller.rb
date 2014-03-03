@@ -24,6 +24,16 @@ class WorkoutSessionsController < ApplicationController
     render :json => exercise_instances_per_each_workout_session
   end
 
+  def workout_session_data
+    # Parameters: {"date"=>"Sun Mar 02 2014 00:00:00 GMT-0500 (EST)"}
+
+    date = params[:date]
+
+    workout_session = WorkoutSession.where(created_at: date)
+    p workout_session
+
+  end
+
 
   def create
     # workout_session = WorkoutSession.create({

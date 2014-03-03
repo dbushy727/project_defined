@@ -319,10 +319,18 @@ var otterSwitch = function(){
 }
 
 $(function(){
-  window.exercise_content_panel = new ExerciseContentView();
-  window.workout_content_panel  = new WorkoutContentView();
-  otterWatch();
-  otterSwitch();
+
+  switch (window.location.pathname){
+    case "/":
+      window.exercise_content_panel = new ExerciseContentView();
+      window.workout_content_panel  = new WorkoutContentView();
+      otterWatch();
+      otterSwitch();
+      break;
+    case "/history":
+      workoutHistory.historyHeatmap();
+      break;
+  }
 
 })
 
