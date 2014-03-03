@@ -313,9 +313,30 @@ input.button {
   color: #FF6B6B;
 }
 
-/* =========================================== */
-/* ========= Exercises and Workouts ========== */
-/* =========================================== */
+/* ================================= */
+/* ========= History Page ========== */
+/* ================================= */
+
+#cal-heatmap {
+  padding-top: 0.7em;
+  padding-left: 2em;
+  margin-left: 4em;
+  background: #282C32;
+  width: 81.1%;
+}
+
+#cal-heatmap h2 {
+  text-align: left;
+  color: #ffffff;
+}
+
+rect.now {
+  stroke: none;
+}
+
+.subdomain-text {
+  fill: #000000;
+}
 
 .d3_canvas {
   font: 10px sans-serif;
