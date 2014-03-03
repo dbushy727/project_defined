@@ -48,7 +48,7 @@ var SelectExercise = Backbone.View.extend({
   render: function(){
     var self = this;
     $.ajax({
-      url:      '/exercises',
+      url:      '/workouts',
       method:   'GET',
       dataType: 'json',
       success: function(data){
