@@ -5,8 +5,8 @@
   </div>
 
   <div id='d3_visualization'>
-    
   </div>
+
   <div id='data_table'>
     <table>
   <thead>
@@ -20,19 +20,37 @@
     </tr>
   </thead>
   <tbody>
-    <script id="exercise_instance_template" type="text/x-handlebars-template">
-            {{#exercise_instances}}
-              <tr>
-                <td>{{workout_session_id}}</td>
-                <td>{{updated_at}}</td>
-                <td>{{exercise_id}}</td>
-                <td>{{set}}</td>
-                <td>{{reps}}</td>
-                <td>{{weight}}</td>
-              </tr>
-            {{/exercise_instances}}
-        </script>
+
   </tbody>
 </table>
   </div>
 </div>
+
+<!-- Templates -->
+<script id="exercise_instance_template" type="text/x-handlebars-template">
+  {{#exercise_instances}}
+    <tr>
+      <td>{{workout_session_id}}</td>
+      <td>{{updated_at}}</td>
+      <td>{{exercise_id}}</td>
+      <td>{{set}}</td>
+      <td>{{reps}}</td>
+      <td>{{weight}}</td>
+    </tr>
+  {{/exercise_instances}}
+</script>
+
+<script id="day_data_template" type="text/x-handlebars-template">
+  {{#workouts}}
+    <p>{{title}}</p>
+      <ul>
+        {{#exercise_instances}}
+          <li>{{exercise.title}}</li>
+          <li>Set: {{set}}</li>
+          <li>Reps: {{reps}}</li>
+          <li>Seconds: {{seconds}}</li>
+          <li>Weight: {{weight}}</li>
+        {{/exercise_instances}}
+      </ul>
+  {{/workouts}}
+</script>

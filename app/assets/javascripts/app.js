@@ -328,6 +328,7 @@ $(function(){
       otterSwitch();
       break;
     case "/history":
+      window.history_table = new HistoryTable();
       workoutHistory.historyHeatmap();
       break;
   }

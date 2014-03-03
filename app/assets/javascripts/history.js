@@ -47,14 +47,14 @@ var workoutHistory = {
   $('.recent_workout_history g').click(function(e) {
                                         var date_time = e.target.__data__['t'];
                                         var date = new Date(date_time);
-                                        console.log(date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate())
-                                        // self.getWorkoutData(date)
+                                        var formatted_date = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+                                        self.getWorkoutData(formatted_date)
                                       })
   },
 
   getWorkoutData: function(data) {
-    var date_hash = {date: data}
-    console.log(date_hash)
+    var self = this;
+    var date_hash = {date: data};
 
     $.ajax({
       url: '/workouts/session',
@@ -62,8 +62,16 @@ var workoutHistory = {
       data: date_hash,
       success: function(data){
         console.log(data)
+        self.renderDayData(data)
       }
     })
+  },
+
+  renderDayData: function(data){
+    var source       = $('#day_data_template').html();
+    var template     = Handlebars.compile(source);
+    var templateData = template(data);
+    $('#d3_visualization').append(templateData);
   },
 
   visualizeDataForWorkoutOnGivenDate: function(data) {

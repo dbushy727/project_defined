@@ -18,7 +18,3 @@ var HistoryTable = Backbone.View.extend({
     })  
   }
 })
-
-$(function(){
-  window.history_table = new HistoryTable();
-})
