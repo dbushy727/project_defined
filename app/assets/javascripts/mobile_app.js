@@ -39,10 +39,13 @@ var SelectWorkout = Backbone.View.extend({
       console.log("clicked")
       var workout_title = $(this).find('h3').first().text()
       var workout_id = $(this).find('.workout_id').val()
-      new SelectExercise({workout_id: workout_id});
+      new SelectExercise({workout_id: workout_id, workout_title: workout_title});
       $('.select_workout').hide();
       $('.select_exercise').show();
     })
+  },
+  startSession: function(){
+    
   }
 
 })
@@ -50,6 +53,7 @@ var SelectExercise = Backbone.View.extend({
   initialize: function(params){
     var self = this;
     this.workout_id = params.workout_id
+    this.workout_title = params.workout_title
     this.render();
   },
   render: function(){
@@ -68,6 +72,7 @@ var SelectExercise = Backbone.View.extend({
             var template     = Handlebars.compile(source);
             var templateData = template(data);
             $('#exercise_content_mobile').append(templateData);
+            self.recordExercise();
           }
         })
         
@@ -75,8 +80,21 @@ var SelectExercise = Backbone.View.extend({
     }) 
   },
   recordExercise: function(){
+    var self = this;
     $('.set_go').on("click", function() {
+      console.log(self.workout_id, self.workout_title)
        var input_value = $(this).parent().find('input').val()
+       data = {workout_id: self.workout_id, workout_title: self.workout_title, set_amount: input_value}
+       $.ajax({
+        url: '/workouts/new_session',
+        method: 'POST',
+        dataType: 'json',
+        data: data,
+        success: function(data){
+          console.log(data)
+          }
+
+        })
     })
   }
 
