@@ -4,53 +4,44 @@
     <h2>Recent Workouts</h2>
   </div>
 
-  <div id='d3_visualization'>
-  </div>
+  <div id='data_table'></div>
 
-  <div id='data_table'>
-    <table>
-  <thead>
-    <tr>
-      <th class='workout_session_id'>ID</th>
-      <th>Date</th>
-      <th class='exercise_id'>Exercise</th>
-      <th class='set'>Set</th>
-      <th class='reps'>Reps</th>
-      <th class='weight'>Weight</th>
-    </tr>
-  </thead>
-  <tbody>
-
-  </tbody>
-</table>
-  </div>
 </div>
 
 <!-- Templates -->
-<script id="exercise_instance_template" type="text/x-handlebars-template">
-  {{#exercise_instances}}
-    <tr>
-      <td>{{workout_session_id}}</td>
-      <td>{{updated_at}}</td>
-      <td>{{exercise_id}}</td>
-      <td>{{set}}</td>
-      <td>{{reps}}</td>
-      <td>{{weight}}</td>
-    </tr>
-  {{/exercise_instances}}
+<script id="day_data_template" type="text/x-handlebars-template">
+{{#if workouts}}
+<h3>Workouts for {{day}}</h3>
+{{/if}}
+  {{#workouts}}
+  <table>
+    <thead>
+      <tr>
+        <th colspan="2">{{title}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#exercise_instances}}
+        <tr>
+          <td class="exercise_name">{{exercise.title}}</td>
+          <td class="set_number">Set {{set}}</td>
+        </tr>
+        <tr>
+          {{#if reps}}
+          <td>{{reps}} reps</td>
+          {{/if}}
+          {{#if seconds}}
+          <td>{{seconds}} seconds</td>
+          {{/if}}
+          {{#if weight}}
+          <td>@ {{weight}} lbs</td>
+          {{/if}}
+        </tr>
+      {{/exercise_instances}}
+    </tbody>
+  </table>
+{{/workouts}}
 </script>
 
-<script id="day_data_template" type="text/x-handlebars-template">
-  {{#workouts}}
-    <p>{{title}}</p>
-      <ul>
-        {{#exercise_instances}}
-          <li>{{exercise.title}}</li>
-          <li>Set: {{set}}</li>
-          <li>Reps: {{reps}}</li>
-          <li>Seconds: {{seconds}}</li>
-          <li>Weight: {{weight}}</li>
-        {{/exercise_instances}}
-      </ul>
-  {{/workouts}}
-</script>
+
+

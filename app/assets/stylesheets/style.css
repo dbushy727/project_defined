@@ -70,7 +70,7 @@ body {
 .header-bar .left {
   font-size: 1.3em;
   padding: 1.3%;
-  padding-top: 1.5%;
+  padding-top: 1.3%;
 }
 
 .header-bar .center {
@@ -84,12 +84,12 @@ body {
   padding-top: 1.5%;
 }
 
-.header-bar .right a {
+.header-bar a {
   font-size: 1.3em;
   color: #FFFFFF;
 }
 
-.header-bar .right a:hover {
+.header-bar a:hover {
   color: #28DCFF;
 }
 
@@ -317,6 +317,11 @@ input.button {
 /* ========= History Page ========== */
 /* ================================= */
 
+
+/* ------------------------ */
+/* --- Heatmap Calendar --- */
+/* ------------------------ */
+
 #cal-heatmap {
   padding-top: 0.7em;
   padding-left: 2em;
@@ -337,6 +342,57 @@ rect.now {
 .subdomain-text {
   fill: #000000;
 }
+
+/* ---------------------- */
+/* --- Day Data Table --- */
+/* ---------------------- */
+
+#visualize_container {
+  height: 85%;
+}
+
+#data_table {
+  width: 81.1%;
+  background: #282C32;
+  margin: 1em;
+  padding-top: 0.7em;
+  padding-left: 2em;
+  margin-left: 4em;
+}
+
+#data_table h3 {
+  font-size: 1.5em;
+  /*font-weight: bold;*/
+  margin-top: 0.5em;
+  margin-bottom: 0.8em;
+  color: #ffffff;
+}
+
+#data_table table {
+  display: inline-table;
+  background: #1A1C1F;
+  border: none;
+}
+
+#data_table table thead {
+  background: #0f1012;
+}
+
+#data_table table thead tr th {
+  color: #F6F6F6;
+}
+
+#data_table table tr:nth-of-type(even) {
+  background: #393d44;
+}
+
+#data_table table tr th, table tr td{
+  color: #F6F6F6;
+}
+
+/* ---------------------- */
+/* --- Progress Graph --- */
+/* ---------------------- */
 
 .d3_canvas {
   font: 10px sans-serif;
@@ -568,21 +624,4 @@ rect.now {
   border: 0;
   border-radius: 15%;
   text-align: center;
-}
-
-/*==========================*/
-/*=========D3 Visual========*/
-
-#visualize_container {
-  height: 85%;
-  text-align: center;
-}
-#d3_visualization, #data_table {
-  height: 90%;
-  display: inline-block;
-  width: 45%;
-  margin: 1em;
-}
-#d3_visualization {
-  background-color: green;
 }
