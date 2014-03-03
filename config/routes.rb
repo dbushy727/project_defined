@@ -4,6 +4,7 @@ ProjectDefined::Application.routes.draw do
   
   get '/history' => 'home#history'
   get '/workouts/history' => 'workout_sessions#index'
+  get '/exercise/:id/history' => 'exercises#history'
 
   post 'workouts/new/exercise' => 'workouts#add_exercise_to_workout', as: :add_exercise_to_workout
   post 'workouts/unlink/exercise' => 'workouts#unlink_exercise_from_workout', as: :unlink_exercise_from_workout
@@ -33,6 +34,7 @@ end
 #                         root GET    /                                   home#index
 #                      history GET    /history(.:format)                  home#history
 #             workouts_history GET    /workouts/history(.:format)         workout_sessions#index
+#                              GET    /exercise/:id/history(.:format)     exercises#history
 #      add_exercise_to_workout POST   /workouts/new/exercise(.:format)    workouts#add_exercise_to_workout
 # unlink_exercise_from_workout POST   /workouts/unlink/exercise(.:format) workouts#unlink_exercise_from_workout
 #             workouts_session POST   /workouts/session(.:format)         workout_sessions#workout_session_data

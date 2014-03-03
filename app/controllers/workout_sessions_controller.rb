@@ -2,7 +2,6 @@ class WorkoutSessionsController < ApplicationController
 
   def index
     users_workouts = WorkoutSession.where(user_id: current_user.id)
-    users_workouts = WorkoutSession.where(user_id: 1)
 
     exercise_instances_per_each_workout_session = {}
 

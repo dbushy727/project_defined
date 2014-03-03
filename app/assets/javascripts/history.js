@@ -68,6 +68,7 @@ var workoutHistory = {
   },
 
   renderDayData: function(data){
+    var self         = this;
     var source       = $('#day_data_template').html();
     var template     = Handlebars.compile(source);
     var templateData = template(data);
@@ -78,6 +79,7 @@ var workoutHistory = {
       e.preventDefault();
       var exercise_id = $(this)[0].attributes[1].value;
       var exercise_modal_target = $(this)[0].attributes[2].value;
+      self.visualizeDataForWorkoutOnGivenDate(exercise_id);
     })
 
   },
