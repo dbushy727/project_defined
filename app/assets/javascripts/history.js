@@ -61,13 +61,14 @@ var workoutHistory = {
       method: 'post',
       data: date_hash,
       success: function(data){
-        // console.log(data)
+        console.log(data)
         self.renderDayData(data)
       }
     })
   },
 
   renderDayData: function(data){
+    var self         = this;
     var source       = $('#day_data_template').html();
     var template     = Handlebars.compile(source);
     var templateData = template(data);
@@ -76,12 +77,14 @@ var workoutHistory = {
 
     $('.exercise_name').find('a').click(function(e){
       e.preventDefault();
-      console.log($(this)[0].attributes[1].value)
+      var exercise_id = $(this)[0].attributes[1].value;
+      var exercise_modal_target = $(this)[0].attributes[2].value;
+      self.visualizeDataForWorkoutOnGivenDate(exercise_id);
     })
-    
+
   },
 
-  visualizeDataForWorkoutOnGivenDate: function(data) {
+  visualizeDataForWorkoutOnGivenDate: function(exercise) {
     var margin = {top: 20, right: 20, bottom: 30, left: 50},
         width = 960 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
@@ -106,7 +109,7 @@ var workoutHistory = {
         .x(function(d) { return x(d.date); })
         .y(function(d) { return y(d.close); });
 
-    var svg = d3.select("#d3_visualization").append("svg")
+    var svg = d3.select("#progress_line_graph").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
@@ -118,8 +121,16 @@ var workoutHistory = {
     //     d.close = +d.close;
     //   });
 
+      d3.json("exercise/"+exercise+"/history", function(error, data) {
+        if (error) return console.warn(error);
+        data.forEach(function(d){
+          d.date = parseDate(d.date);
+          d.weight = +d.weight
+        });
+      });
+
       x.domain(d3.extent(data, function(d) { return d.date; }));
-      y.domain(d3.extent(data, function(d) { return d.close; }));
+      y.domain(d3.extent(data, function(d) { return d.weight; }));
 
       svg.append("g")
           .attr("class", "x axis")
