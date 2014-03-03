@@ -85,6 +85,8 @@ var workoutHistory = {
   },
 
   visualizeDataForWorkoutOnGivenDate: function(exercise) {
+      var path_data = [];
+
       var margin = {top: 20, right: 20, bottom: 30, left: 50},
           width = 960 - margin.left - margin.right,
           height = 500 - margin.top - margin.bottom;
@@ -123,8 +125,6 @@ var workoutHistory = {
           var date     = new Date(d.created_at);
           d.created_at = parseDate(date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear());
           d.total_reps       = +d.total_reps;
-          console.log("Created at: ",d.created_at)
-          console.log("total_Reps: ",d.total_reps)
         });
 
         x.domain(d3.extent(data, function(d) { return d.created_at; }));
@@ -145,8 +145,16 @@ var workoutHistory = {
             .style("text-anchor", "end")
             .text("Reps");
 
+        data.forEach(function(d){
+          var data_set = {
+                      created_at: d.created_at,
+                      total_reps: d.total_reps
+                      }
+          path_data.push(data_set)
+        })
+
         svg.append("path")
-            .datum(data)
+            .datum(path_data)
             .attr("class", "line")
             .attr("d", line);
       });
@@ -208,6 +216,8 @@ var workoutHistory = {
       //       .attr("dy", ".71em")
       //       .style("text-anchor", "end")
       //       .text("Price ($)");
+
+      //   console.log(data)
 
       //   svg.append("path")
       //       .datum(data)
