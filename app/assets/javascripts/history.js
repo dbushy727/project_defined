@@ -130,7 +130,21 @@ var workoutHistory = {
 
   },
 
+  dynamicSort: function(property) {
+      var sortOrder = 1;
+      if(property[0] === "-") {
+          sortOrder = -1;
+          property = property.substr(1);
+      }
+      return function (a,b) {
+          var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+          return result * sortOrder;
+      }
+  },
+
   visualizeDataForWorkoutOnGivenDate: function(exercise, target) {
+      var self = this;
+      
       var path_data = [];
 
       var margin = {top: 20, right: 20, bottom: 30, left: 50},
@@ -168,6 +182,8 @@ var workoutHistory = {
       d3.json("exercise/"+exercise+"/history", function(error, json) {
         var data = json.data.exercise_history;
         if (error) return console.warn(error);
+
+        data = data.sort(self.dynamicSort("workout_date"))
 
         data.forEach(function(d){
           var date    = new Date(d.workout_date);
