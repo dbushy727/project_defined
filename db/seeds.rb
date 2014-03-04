@@ -55,7 +55,8 @@ new_exercise_instance = ExerciseInstance.create({
                                                       exercise_id: 1,
                                                       set: 1,
                                                       reps: 10,
-                                                      weight: 100        
+                                                      weight: 100
+                                                      # created_at: "Sat, 01 Mar 2014 12:00:00 UTC +00:00"    
     })
 new_exercise_instance = ExerciseInstance.create({
                                                       workout_session_id: WorkoutSession.all.first.id,
@@ -63,7 +64,8 @@ new_exercise_instance = ExerciseInstance.create({
                                                       exercise_id: 1,
                                                       set: 2,
                                                       reps: 8,
-                                                      weight: 110        
+                                                      weight: 110
+                                                      # created_at: "Sun, 02 Mar 2014 13:00:00 UTC +00:00"        
     })
 new_exercise_instance = ExerciseInstance.create({
                                                       workout_session_id: WorkoutSession.all.first.id,
@@ -71,7 +73,8 @@ new_exercise_instance = ExerciseInstance.create({
                                                       exercise_id: 1,
                                                       set: 3,
                                                       reps: 6,
-                                                      weight: 130        
+                                                      weight: 130
+                                                      # created_at: "Fri, 28 Feb 2014 14:00:00 UTC +00:00"    
     })
 puts "==========================="
 puts "Seed Task Complete"

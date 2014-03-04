@@ -62,20 +62,37 @@ class ExercisesController < ApplicationController
                               created_at:       instance.created_at,
                               total_sets:       instance.set,
                               total_reps:       instance.reps,
-                              weighted_average: instance.weight,
-                              total_seconds:    instance.seconds
+                              instance_weight:  instance.weight,
+                              product_weight:   instance.reps*instance.weight,
+                              sum_product:      instance.reps*instance.weight,
+                              weighted_average: (instance.reps*instance.weight)/instance.reps,
+                              total_seconds:    instance.seconds,
+                              lowest_weight:    instance.weight,
+                              highest_weight:   instance.weight
                               }
           queried_exercise[:exercise_history] << historical_event
+
       else queried_exercise[:exercise_history].last[:created_at] == instance.created_at
-        unless queried_exercise[:exercise_history].last[:total_reps] == nil
-          queried_exercise[:exercise_history].last[:total_reps] += instance.reps
-        end
-        unless queried_exercise[:exercise_history].last[:total_seconds] == nil
-          queried_exercise[:exercise_history].last[:total_seconds] += instance.seconds
-        end
+
+        # Total number of sets
         unless queried_exercise[:exercise_history].last[:total_sets] == nil
           queried_exercise[:exercise_history].last[:total_sets] = instance.set
         end
+
+        # Total number of reps
+        unless queried_exercise[:exercise_history].last[:total_reps] == nil
+          queried_exercise[:exercise_history].last[:total_reps] += instance.reps
+        end
+
+        # Weighted average
+        
+
+
+        # Total seconds
+        unless queried_exercise[:exercise_history].last[:total_seconds] == nil
+          queried_exercise[:exercise_history].last[:total_seconds] += instance.seconds
+        end
+
       end
     end
 
