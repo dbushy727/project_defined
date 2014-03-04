@@ -31,12 +31,13 @@ var ExerciseContentView = Backbone.View.extend({
 
   deleteExercise: function(e){
     e.preventDefault();
-    var exercise_to_delete = e.toElement.parentElement.parentElement.outerText;
+    var exercise_to_delete = $(e.target).parent().parent().find('span').first().text()
+    window.hidden_exercise = e
     var data = {exercise: {title: exercise_to_delete}};
 
     $.ajax({
       url: '/exercises/:id',
-      method: 'delete',
+      method: 'put',
       dataType: 'json',
       data: data,
       success: function(data){

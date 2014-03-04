@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20140226215545) do
 
   create_table "exercises", force: true do |t|
     t.string   "title"
+    t.boolean  "visible_to_user", default: true
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"

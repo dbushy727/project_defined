@@ -32,6 +32,8 @@ puts "[Notice] Users deleted"
 # ===========================================
 # ===========================================
   workout_list = ['Cardio', 'Yoga']
+  n = 25
+
   workout_list.each do |workout|
     new_workout = Workout.create({
                                   title: workout,
@@ -39,80 +41,33 @@ puts "[Notice] Users deleted"
                                   })
     puts "[Workout] #{new_workout.title} added to #{new_workout.user.first_name}"
     
-    new_workout_session = WorkoutSession.create({
-                                                title: new_workout.title,
-                                                user_id: new_user.id,
-                                                workout_id: new_workout.id
-    })
-    
+    20.times do
+      x=1
+
+      new_sesh = WorkoutSession.create({
+                              title: new_workout.title,
+                              user_id: new_user.id,
+                              workout_id: new_workout.id,
+                              workout_date: n.days.ago
+                              })
+
+      (2..7).to_a.sample.times do
+        ex_instance = ExerciseInstance.create({
+                                                workout_session_id: new_sesh.id,
+                                                user_id: User.first.id,
+                                                exercise_id: (1..9).to_a.sample,
+                                                set: x,
+                                                reps: (5..20).to_a.sample,
+                                                weight: (50..150).to_a.sample
+          })
+        x+=1
+      end
+      n-=1
+    end 
   end
 
 end
 
-# First Workout Session
-new_exercise_instance = ExerciseInstance.create({
-                                                      workout_session_id: WorkoutSession.all.first.id,
-                                                      user_id: User.first.id,
-                                                      exercise_id: 1,
-                                                      set: 1,
-                                                      reps: 10,
-                                                      weight: 100,
-    })
-
-new_exercise_instance = ExerciseInstance.create({
-                                                      workout_session_id: WorkoutSession.all.first.id,
-                                                      user_id: User.first.id,
-                                                      exercise_id: 1,
-                                                      set: 2,
-                                                      reps: 8,
-                                                      weight: 110,
-    })
-
-new_exercise_instance = ExerciseInstance.create({
-                                                      workout_session_id: WorkoutSession.all.first.id,
-                                                      user_id: User.first.id,
-                                                      exercise_id: 1,
-                                                      set: 3,
-                                                      reps: 6,
-                                                      weight: 130,
-    })
-
-# Second Workout Session
-new_exercise_instance = ExerciseInstance.create({
-                                                      workout_session_id: WorkoutSession.all[1].id,
-                                                      user_id: User.first.id,
-                                                      exercise_id: 1,
-                                                      set: 1,
-                                                      reps: 7,
-                                                      weight: 90,
-    })
-
-new_exercise_instance = ExerciseInstance.create({
-                                                      workout_session_id: WorkoutSession.all[1].id,
-                                                      user_id: User.first.id,
-                                                      exercise_id: 1,
-                                                      set: 2,
-                                                      reps: 9,
-                                                      weight: 115,
-    })
-
-new_exercise_instance = ExerciseInstance.create({
-                                                      workout_session_id: WorkoutSession.all[1].id,
-                                                      user_id: User.first.id,
-                                                      exercise_id: 1,
-                                                      set: 3,
-                                                      reps: 13,
-                                                      weight: 125,
-    })
-
-
-u = User.first
-w = WorkoutSession.where(user_id: u)
-
-w.each do |session|
-  session.workout_date = ((rand*10)+1).round.days.ago
-  session.save
-end
 
 # p "Workout Session Day 0 Changed"
 # t = WorkoutSession.all[0]

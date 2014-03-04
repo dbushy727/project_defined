@@ -1,7 +1,7 @@
 class ExercisesController < ApplicationController
 
   def index
-    exercises = Exercise.where(user_id: current_user.id)
+    exercises = Exercise.where(user_id: current_user.id, visible_to_user: true)
 
     json_exercises = { exercises: exercises }
     respond_to do |format|
@@ -39,6 +39,24 @@ class ExercisesController < ApplicationController
     exercise_to_delete.first.destroy
 
     render :json => {message: "Exercise deleted"}
+  end
+
+
+  def update
+
+    # Parameters: {"exercise"=>{"title"=>"Wide Front Pull-Ups\n\n"}, "id"=>":id"}
+
+    exercise_to_hide = Exercise.find_by(user_id: current_user.id, title: params[:exercise][:title])
+
+    p "=========================="
+    p exercise_to_hide
+    p "=========================="
+
+    exercise_to_hide.visible_to_user = false
+    exercise_to_hide.save
+
+    render :json => {message: "Exercise hidden"}
+
   end
 
 
