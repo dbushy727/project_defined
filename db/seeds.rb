@@ -6,7 +6,7 @@ puts "==========================="
 User.delete_all
 puts "[Notice] Users deleted"
 
-20.times do
+5.times do
   first_name  = Faker::Name.first_name
   last_name   = Faker::Name.last_name
   password    = "password123"
@@ -32,7 +32,7 @@ puts "[Notice] Users deleted"
 # ===========================================
 # ===========================================
   workout_list = ['Cardio', 'Yoga']
-  n = 25
+  n = 35
 
   workout_list.each do |workout|
     new_workout = Workout.create({
