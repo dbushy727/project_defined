@@ -68,8 +68,7 @@ class WorkoutSessionsController < ApplicationController
                   title: workout_session.title,
                   user_id: workout_session.user_id,
                   workout_id: workout_session.workout_id,
-                  created_at: workout_session.created_at,
-                  updated_at: workout_session.updated_at,
+                  workout_date: workout_session.workout_date,
                   exercise_instances: exercises
                 }
       given_day_data << data_session

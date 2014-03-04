@@ -131,97 +131,19 @@ var workoutHistory = {
   },
 
   visualizeDataForWorkoutOnGivenDate: function(exercise, target) {
-      // var path_data = [];
+      var path_data = [];
 
-      // var margin = {top: 20, right: 20, bottom: 30, left: 50},
-      //     width = 960 - margin.left - margin.right,
-      //     height = 500 - margin.top - margin.bottom;
-
-      // var parseDate = d3.time.format("%d-%m-%Y").parse;
-
-      // var x = d3.time.scale()
-      //     .range([0, width]);
-
-      // var y = d3.scale.linear()
-      //     .range([height, 0]);
-
-      // var xAxis = d3.svg.axis()
-      //     .scale(x)
-      //     .orient("bottom");
-
-      // var yAxis = d3.svg.axis()
-      //     .scale(y)
-      //     .orient("left");
-
-      // var line = d3.svg.line()
-      //     .x(function(d) { return x(d.workout_date); })
-      //     .y(function(d) { return y(d.total_reps); });
-
-      // var svg = d3.select("#"+target+" .progress_line_graph").append("svg")
-      //     .attr("width", width + margin.left + margin.right)
-      //     .attr("height", height + margin.top + margin.bottom)
-      //     .append("g")
-      //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-      // d3.json("exercise/"+exercise+"/history", function(error, json) {
-      //   var data = json.data.exercise_history;
-      //   if (error) return console.warn(error);
-      //   data.forEach(function(d){
-        
-      //     var date    = new Date(d.workout_date);
-      //     d.workout_date = parseDate(date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear());
-      //     d.total_reps = +d.total_reps;
-          
-      //   });
-
-      //   x.domain(d3.extent(data, function(d) { return d.workout_date; }));
-      //   y.domain(d3.extent(data, function(d) { return d.total_reps; }));
-
-      //   svg.append("g")
-      //       .attr("class", "x axis")
-      //       .attr("transform", "translate(0," + height + ")")
-      //       .call(xAxis);
-
-      //   svg.append("g")
-      //       .attr("class", "y axis")
-      //       .call(yAxis)
-      //     .append("text")
-      //       .attr("transform", "rotate(-90)")
-      //       .attr("y", 6)
-      //       .attr("dy", ".71em")
-      //       .style("text-anchor", "end")
-      //       .text("Reps");
-
-      //   data.forEach(function(d){
-      //     var data_set = {
-      //                     workout_date: d.workout_date,
-      //                     total_reps: d.total_reps
-      //                     }
-      //     path_data.push(data_set)
-      //   })
-
-      //   console.log(path_data)
-
-      //   svg.append("path")
-      //       .datum(data)
-      //       .attr("class", "line")
-      //       .attr("d", line);
-      // });
-
-    // ===============================================================================================
-      var margin = {top: 20, right: 100, bottom: 30, left: 50},
-          width = 1000 - margin.left - margin.right,
+      var margin = {top: 20, right: 20, bottom: 30, left: 50},
+          width = 960 - margin.left - margin.right,
           height = 500 - margin.top - margin.bottom;
 
-      var parseDate = d3.time.format("%Y%m%d").parse;
+      var parseDate = d3.time.format("%d-%m-%Y").parse;
 
       var x = d3.time.scale()
           .range([0, width]);
 
       var y = d3.scale.linear()
           .range([height, 0]);
-
-      var color = d3.scale.category10();
 
       var xAxis = d3.svg.axis()
           .scale(x)
@@ -232,38 +154,31 @@ var workoutHistory = {
           .orient("left");
 
       var line = d3.svg.line()
-          .interpolate("basis")
-          .x(function(d) { return x(d.date); })
-          .y(function(d) { return y(d.temperature); });
+          .x(function(d) { return x(d.created_at); })
+          .y(function(d) { return y(d.total_reps); });
 
       var svg = d3.select("#"+target+" .progress_line_graph").append("svg")
           .attr("width", width + margin.left + margin.right)
           .attr("height", height + margin.top + margin.bottom)
-        .append("g")
+          .append("g")
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-      d3.tsv("data.tsv", function(error, data) {
-        color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
+      d3.json("exercise/"+exercise+"/history", function(error, json) {
+        var data = json.data.exercise_history;
+        if (error) return console.warn(error);
 
-        data.forEach(function(d) {
-          d.date = parseDate(d.date);
+        data.forEach(function(d){
+          console.log(d)
+          var date    = new Date(d.created_at);
+          // console.log("Date",date)
+          d.created_at = parseDate(date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear());
+          // console.log("Actual set date",d.created_at)
+          d.total_reps = +d.total_reps;
+          
         });
 
-        var cities = color.domain().map(function(name) {
-          return {
-            name: name,
-            values: data.map(function(d) {
-              return {date: d.date, temperature: +d[name]};
-            })
-          };
-        });
-
-        x.domain(d3.extent(data, function(d) { return d.date; }));
-
-        y.domain([
-          d3.min(cities, function(c) { return d3.min(c.values, function(v) { return v.temperature; }); }),
-          d3.max(cities, function(c) { return d3.max(c.values, function(v) { return v.temperature; }); })
-        ]);
+        x.domain(d3.extent(data, function(d) { return d.created_at; }));
+        y.domain(d3.extent(data, function(d) { return d.total_reps; }));
 
         svg.append("g")
             .attr("class", "x axis")
@@ -278,25 +193,113 @@ var workoutHistory = {
             .attr("y", 6)
             .attr("dy", ".71em")
             .style("text-anchor", "end")
-            .text("Weight (lb)");
+            .text("Reps");
 
-        var weight = svg.selectAll(".weight")
-            .data(cities)
-          .enter().append("g")
-            .attr("class", "weight");
+        data.forEach(function(d){
+          var data_set = {
+                          created_at: d.created_at,
+                          total_reps: d.total_reps
+                          }
+          path_data.push(data_set)
+        })
 
-        weight.append("path")
+        console.log(path_data)
+
+        svg.append("path")
+            .datum(data)
             .attr("class", "line")
-            .attr("d", function(d) { return line(d.values); })
-            .style("stroke", function(d) { return color(d.name); });
-
-        weight.append("text")
-            .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
-            .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.temperature) + ")"; })
-            .attr("x", 3)
-            .attr("dy", ".35em")
-            .text(function(d) { return d.name; });
+            .attr("d", line);
       });
+
+    // ===============================================================================================
+      // var margin = {top: 20, right: 100, bottom: 30, left: 50},
+      //     width = 1000 - margin.left - margin.right,
+      //     height = 500 - margin.top - margin.bottom;
+
+      // var parseDate = d3.time.format("%Y%m%d").parse;
+
+      // var x = d3.time.scale()
+      //     .range([0, width]);
+
+      // var y = d3.scale.linear()
+      //     .range([height, 0]);
+
+      // var color = d3.scale.category10();
+
+      // var xAxis = d3.svg.axis()
+      //     .scale(x)
+      //     .orient("bottom");
+
+      // var yAxis = d3.svg.axis()
+      //     .scale(y)
+      //     .orient("left");
+
+      // var line = d3.svg.line()
+      //     .interpolate("basis")
+      //     .x(function(d) { return x(d.date); })
+      //     .y(function(d) { return y(d.temperature); });
+
+      // var svg = d3.select("#"+target+" .progress_line_graph").append("svg")
+      //     .attr("width", width + margin.left + margin.right)
+      //     .attr("height", height + margin.top + margin.bottom)
+      //   .append("g")
+      //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      // d3.tsv("data.tsv", function(error, data) {
+      //   color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
+
+      //   data.forEach(function(d) {
+      //     d.date = parseDate(d.date);
+      //   });
+
+      //   var cities = color.domain().map(function(name) {
+      //     return {
+      //       name: name,
+      //       values: data.map(function(d) {
+      //         return {date: d.date, temperature: +d[name]};
+      //       })
+      //     };
+      //   });
+
+      //   x.domain(d3.extent(data, function(d) { return d.date; }));
+
+      //   y.domain([
+      //     d3.min(cities, function(c) { return d3.min(c.values, function(v) { return v.temperature; }); }),
+      //     d3.max(cities, function(c) { return d3.max(c.values, function(v) { return v.temperature; }); })
+      //   ]);
+
+      //   svg.append("g")
+      //       .attr("class", "x axis")
+      //       .attr("transform", "translate(0," + height + ")")
+      //       .call(xAxis);
+
+      //   svg.append("g")
+      //       .attr("class", "y axis")
+      //       .call(yAxis)
+      //     .append("text")
+      //       .attr("transform", "rotate(-90)")
+      //       .attr("y", 6)
+      //       .attr("dy", ".71em")
+      //       .style("text-anchor", "end")
+      //       .text("Weight (lb)");
+
+      //   var weight = svg.selectAll(".weight")
+      //       .data(cities)
+      //     .enter().append("g")
+      //       .attr("class", "weight");
+
+      //   weight.append("path")
+      //       .attr("class", "line")
+      //       .attr("d", function(d) { return line(d.values); })
+      //       .style("stroke", function(d) { return color(d.name); });
+
+      //   weight.append("text")
+      //       .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
+      //       .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.temperature) + ")"; })
+      //       .attr("x", 3)
+      //       .attr("dy", ".35em")
+      //       .text(function(d) { return d.name; });
+      // });
 
     }
 

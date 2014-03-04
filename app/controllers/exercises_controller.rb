@@ -56,7 +56,7 @@ class ExercisesController < ApplicationController
 
     exercise_history.each do |instance|
 
-      if queried_exercise[:exercise_history].last == nil
+      if queried_exercise[:exercise_history] == [] || queried_exercise[:exercise_history].last[:created_at] != instance.created_at
         historical_event = {
                               title:            exercise.title,
                               created_at:       instance.created_at,
@@ -73,7 +73,7 @@ class ExercisesController < ApplicationController
 
           queried_exercise[:exercise_history] << historical_event
 
-      elsif queried_exercise[:exercise_history].last[:created_at] == instance.created_at
+      else queried_exercise[:exercise_history].last[:created_at] == instance.created_at
 
         # Lowest Weight
         if queried_exercise[:exercise_history].last[:lowest_weight] > instance.weight
@@ -109,7 +109,6 @@ class ExercisesController < ApplicationController
         unless queried_exercise[:exercise_history].last[:total_seconds] == nil
           queried_exercise[:exercise_history].last[:total_seconds] += instance.seconds
         end
-
       end
     end
 
