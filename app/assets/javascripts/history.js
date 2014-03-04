@@ -144,14 +144,15 @@ var workoutHistory = {
 
   visualizeDataForWorkoutOnGivenDate: function(exercise, target) {
       var self = this;
-      
+
       var path_data = [];
 
       var margin = {top: 20, right: 20, bottom: 30, left: 50},
           width = 960 - margin.left - margin.right,
           height = 500 - margin.top - margin.bottom;
 
-      var parseDate = d3.time.format("%d-%m-%Y").parse;
+      var parseDate = d3.time.format("%d-%m-%Y").parse,
+          bisectDate = d3.bisector(function(d) { return d.workout_date; }).left;
 
       var x = d3.time.scale()
           .range([0, width]);
@@ -169,8 +170,7 @@ var workoutHistory = {
 
       var line = d3.svg.line()
           .x(function(d) { return x(d.workout_date); })
-          .y(function(d) { return y(d.total_reps); })
-          .interpolate("basis");
+          .y(function(d) { return y(d.total_reps); });
 
       var svg = d3.select("#"+target+" .progress_line_graph").append("svg")
           .attr("width", width + margin.left + margin.right)
@@ -222,10 +222,52 @@ var workoutHistory = {
 
         // console.log(path_data)
 
-        svg.append("path")
+        var path = svg.append("path")
             .datum(path_data)
             .attr("class", "line")
             .attr("d", line);
+
+
+        var totalLength = path.node().getTotalLength();
+        
+        path
+            .attr("stroke-dasharray", totalLength+","+totalLength)
+            .attr("stroke-dashoffset", totalLength)
+            .transition()
+              .duration(1200)
+              .ease("linear-in-out")
+              .attr("stroke-dashoffset", 0);
+
+        var focus = svg.append("g")
+            .attr("class", "focus")
+            .style("display", "none");
+
+        focus.append("circle")
+            .attr("r", 4.5);
+
+        focus.append("text")
+            .attr("x", 9)
+            .attr("dy", ".35em");
+
+        svg.append("rect")
+            .attr("class", "overlay")
+            .attr("width", width)
+            .attr("height", height)
+            .on("mouseover", function() { focus.style("display", null); })
+            .on("mouseout", function() { focus.style("display", "none"); })
+            .on("mousemove", mousemove);
+
+        function mousemove() {
+          // console.log(x.invert(d3.mouse(this)[0]))
+          var x0 = x.invert(d3.mouse(this)[0]),
+              i = bisectDate(path_data, x0, 1),
+              d0 = path_data[i - 1],
+              d1 = path_data[i],
+              d = x0 - d0.workout_date > d1.workout_date - x0 ? d1 : d0;
+
+          focus.attr("transform", "translate(" + x(d.workout_date) + "," + y(d.total_reps) + ")");
+          focus.select("text").text(d.total_reps);
+        }
 
       });
 
