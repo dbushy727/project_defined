@@ -47,7 +47,9 @@ class WorkoutSessionsController < ApplicationController
     workout_sessions_on_given_day.each do |workout_session|
       exercises = []
 
+
       workout_session.exercise_instances.each do |exercise|
+        puts exercise
         exercise_instance = {
                             id: exercise.id,
                             exercise: Exercise.find(exercise.exercise_id),
