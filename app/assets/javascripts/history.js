@@ -112,6 +112,8 @@ var workoutHistory = {
       $('a.close-reveal-modal').click(function(e){
         $('#'+exercise_modal_target).foundation('reveal', 'close');
         $('a.close-reveal-modal').unbind('click');
+        // Removes the graph from the DOM
+        $("#"+exercise_modal_target+" .progress_line_graph svg").remove();
       });
 
       // Puts an event listener on the window to close the modal
@@ -120,6 +122,8 @@ var workoutHistory = {
           $('#'+exercise_modal_target).foundation('reveal', 'close');
           // Removes the event listener on window close
           $(window).unbind('click');
+          // Removes the graph from the DOM
+          $("#"+exercise_modal_target+" .progress_line_graph svg").remove();
         }
       })
     })
@@ -152,8 +156,6 @@ var workoutHistory = {
       var line = d3.svg.line()
           .x(function(d) { return x(d.created_at); })
           .y(function(d) { return y(d.total_reps); });
-
-      // ("#"+target+" .progress_line_graph svg").remove();
 
       var svg = d3.select("#"+target+" .progress_line_graph").append("svg")
           .attr("width", width + margin.left + margin.right)
