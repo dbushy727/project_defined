@@ -10,6 +10,8 @@ ProjectDefined::Application.routes.draw do
   post 'workouts/unlink/exercise' => 'workouts#unlink_exercise_from_workout', as: :unlink_exercise_from_workout
   post 'workouts/session' => 'workout_sessions#workout_session_data'
   post 'workouts/new_session' => 'workout_sessions#create', as: :new_workout_session
+  post 'workouts/update_session' => 'workout_sessions#update', as: :update_workout_session
+  post 'workouts/new_instances' =>  'exercise_instances#create', as: :new_exercise_instances
   resources :workouts
   resources :exercises
 
