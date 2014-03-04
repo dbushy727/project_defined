@@ -70,9 +70,20 @@ class ExercisesController < ApplicationController
                               lowest_weight:    instance.weight,
                               highest_weight:   instance.weight
                               }
+
           queried_exercise[:exercise_history] << historical_event
 
-      else queried_exercise[:exercise_history].last[:created_at] == instance.created_at
+      elsif queried_exercise[:exercise_history].last[:created_at] == instance.created_at
+
+        # Lowest Weight
+        if queried_exercise[:exercise_history].last[:lowest_weight] > instance.weight
+          queried_exercise[:exercise_history].last[:lowest_weight] = instance.weight
+        end
+
+        # Highest Weights
+        if queried_exercise[:exercise_history].last[:highest_weight] < instance.weight
+          queried_exercise[:exercise_history].last[:highest_weight] = instance.weight
+        end
 
         # Total number of sets
         unless queried_exercise[:exercise_history].last[:total_sets] == nil
@@ -84,9 +95,15 @@ class ExercisesController < ApplicationController
           queried_exercise[:exercise_history].last[:total_reps] += instance.reps
         end
 
-        # Weighted average
-        
+        # Sum of products
+        unless queried_exercise[:exercise_history].last[:sum_product] == nil
+          queried_exercise[:exercise_history].last[:sum_product] += instance.weight*instance.reps
+        end
 
+        # Weighted Average
+        unless queried_exercise[:exercise_history].last[:weighted_average] == nil
+          queried_exercise[:exercise_history].last[:weighted_average] = queried_exercise[:exercise_history].last[:sum_product]/queried_exercise[:exercise_history].last[:total_reps]
+        end
 
         # Total seconds
         unless queried_exercise[:exercise_history].last[:total_seconds] == nil
