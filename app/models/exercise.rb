@@ -14,7 +14,7 @@ class Exercise < ActiveRecord::Base
 
     exercise_history.each do |instance|
 
-      if queried_exercise[:exercise_history] == [] || queried_exercise[:exercise_history].last[:created_at] != instance.created_at
+      if queried_exercise[:exercise_history] == [] || queried_exercise[:exercise_history].last[:workout_date] != WorkoutSession.find(instance.workout_session_id).workout_date
         historical_event = {
                               title:            self.title,
                               workout_date:     WorkoutSession.find(instance.workout_session_id).workout_date,
@@ -33,7 +33,7 @@ class Exercise < ActiveRecord::Base
 
           queried_exercise[:exercise_history] << historical_event
 
-      else queried_exercise[:exercise_history].last[:created_at] == instance.created_at
+      else queried_exercise[:exercise_history].last[:workout_date] == WorkoutSession.find(instance.workout_session_id).workout_date
 
         # Lowest Weight
         if queried_exercise[:exercise_history].last[:lowest_weight] > instance.weight
