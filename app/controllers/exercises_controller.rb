@@ -59,6 +59,8 @@ class ExercisesController < ApplicationController
       if queried_exercise[:exercise_history] == [] || queried_exercise[:exercise_history].last[:created_at] != instance.created_at
         historical_event = {
                               title:            exercise.title,
+                              workout_date:     WorkoutSession.find(instance.workout_session_id).workout_date,
+                              workout_session_id: WorkoutSession.find(instance.workout_session_id).id,
                               created_at:       instance.created_at,
                               total_sets:       instance.set,
                               total_reps:       instance.reps,

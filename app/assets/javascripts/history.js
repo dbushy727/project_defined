@@ -154,8 +154,9 @@ var workoutHistory = {
           .orient("left");
 
       var line = d3.svg.line()
-          .x(function(d) { return x(d.created_at); })
-          .y(function(d) { return y(d.total_reps); });
+          .x(function(d) { return x(d.workout_date); })
+          .y(function(d) { return y(d.total_reps); })
+          .interpolate("basis");
 
       var svg = d3.select("#"+target+" .progress_line_graph").append("svg")
           .attr("width", width + margin.left + margin.right)
@@ -168,16 +169,15 @@ var workoutHistory = {
         if (error) return console.warn(error);
 
         data.forEach(function(d){
-          console.log(d)
-          var date    = new Date(d.created_at);
+          var date    = new Date(d.workout_date);
           // console.log("Date",date)
-          d.created_at = parseDate(date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear());
-          // console.log("Actual set date",d.created_at)
+          d.workout_date = parseDate(date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear());
+          // console.log("Actual set date",d.workout_date)
           d.total_reps = +d.total_reps;
           
         });
 
-        x.domain(d3.extent(data, function(d) { return d.created_at; }));
+        x.domain(d3.extent(data, function(d) { return d.workout_date;}));
         y.domain(d3.extent(data, function(d) { return d.total_reps; }));
 
         svg.append("g")
@@ -197,16 +197,16 @@ var workoutHistory = {
 
         data.forEach(function(d){
           var data_set = {
-                          created_at: d.created_at,
+                          workout_date: d.workout_date,
                           total_reps: d.total_reps
                           }
           path_data.push(data_set)
         })
 
-        console.log(path_data)
+        // console.log(path_data)
 
         svg.append("path")
-            .datum(data)
+            .datum(path_data)
             .attr("class", "line")
             .attr("d", line);
       });
