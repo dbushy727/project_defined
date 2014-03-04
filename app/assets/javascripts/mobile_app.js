@@ -48,7 +48,8 @@ var SelectWorkout = Backbone.View.extend({
     })
   },
   startSession: function(workout_id, workout_title){
-    var data = {workout_id: workout_id, workout_title: workout_title}
+    var datetime_now = new Date();
+    var data = {workout_id: workout_id, workout_title: workout_title, workout_date: datetime_now}
     $.ajax({
         url: '/workouts/new_session',
         method: 'POST',

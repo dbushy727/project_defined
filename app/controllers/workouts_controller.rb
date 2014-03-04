@@ -6,19 +6,10 @@ class WorkoutsController < ApplicationController
     converted_workouts = []
 
     workouts.each do |workout|
-      hash = {
-              id: workout.id,
-              title: workout.title,
-              user_id: workout.user_id,
-              created_at: workout.created_at,
-              updated_at: workout.updated_at,
-              exercises: workout.exercises
-              }
-      converted_workouts << hash
+      converted_workouts << workout.parse_for_handlebars
     end
 
     json_workouts = { workouts: converted_workouts }
-
 
     respond_to do |format|
         format.html
@@ -49,9 +40,7 @@ class WorkoutsController < ApplicationController
 
   def destroy
     # Parameters: {"workout"=>{"title"=>"Plyometrics"}, "id"=>":id"}
-
     workout_to_delete = Workout.where(user_id: current_user.id, title: params[:workout][:title])
-
     workout_to_delete.first.destroy
 
     render :json => {message: "Workout deleted"}
@@ -72,6 +61,7 @@ class WorkoutsController < ApplicationController
     else
       render :json => {message: "Relation already exists"}
     end
+    
   end
 
 
