@@ -398,6 +398,14 @@ rect.now {
 /* --- Progress Graph --- */
 /* ---------------------- */
 
+.reveal-modal {
+  background: #e6e6e6;
+}
+
+.reveal-modal h2 {
+  color: #000000;
+}
+
 .d3_canvas {
   font: 10px sans-serif;
 }
@@ -405,17 +413,17 @@ rect.now {
 .axis path,
 .axis line {
   fill: none;
-  stroke: #000;
+  stroke: #000000;
   shape-rendering: crispEdges;
 }
 
 .x.axis path {
-  display: none;
+  /*display: none;*/
 }
 
 .line {
   fill: none;
-  stroke: steelblue;
+  stroke: #0080ff;
   stroke-width: 1.5px;
 }
 
@@ -426,7 +434,7 @@ rect.now {
 
 .focus circle {
   fill: none;
-  stroke: steelblue;
+  stroke: #ff0000;
 }
 
 
