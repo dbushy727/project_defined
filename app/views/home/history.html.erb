@@ -23,7 +23,7 @@
     <tbody>
       {{#exercise_instances}}
         <tr>
-          <td class="exercise_name"><a href="#" exercise-id="{{exercise.id}}" data-reveal-id="modal_{{id}}">{{exercise.title}}</a></td>
+          <td class="exercise_name"><a href="#" exercise-id="{{exercise.id}}" data-reveal-id="modal_target">{{exercise.title}}</a></td>
           <td class="set_number">Set {{set}}</td>
         </tr>
         <tr>
@@ -40,15 +40,13 @@
       {{/exercise_instances}}
     </tbody>
   </table>  
-
-  <div id="modal_{{id}}" class="reveal-modal" data-reveal="" style="top: 50px; opacity: 1; visibility: hidden; display: none;">
-    <h2>Exercise History</h2>
-    <div class="progress_line_graph"></div>
-    <a class="close-reveal-modal">×</a>
-  </div>
-
-
 {{/workouts}}
+
+<div id="modal_target" class="reveal-modal" data-reveal="" style="top: 50px; opacity: 1; visibility: hidden; display: none;">
+  <h2>Exercise History</h2>
+  <div class="progress_line_graph"></div>
+  <a class="close-reveal-modal">×</a>
+</div>
 </script>
 
 

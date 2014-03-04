@@ -9,7 +9,7 @@ class WorkoutSessionsController < ApplicationController
     users_workouts.each do |workout_session|
       # Note: if the user creates multiple workout sessions at the exact same time, down to the millisecond, then the last one created at that same instant will overwrite all the previous ones.
 
-      workout_date = workout_session.created_at.to_i
+      workout_date = workout_session.workout_date.to_i
       number_of_sets = workout_session.exercise_instances.length
 
       if exercise_instances_per_each_workout_session["#{workout_date}"] != nil
@@ -38,7 +38,7 @@ class WorkoutSessionsController < ApplicationController
       start_date_utc = ts.utc
       finish_date_utc = tf.utc
 
-    workout_sessions_on_given_day = WorkoutSession.where(user_id: current_user.id).where("created_at >= ? AND created_at <= ?", start_date_utc, finish_date_utc)
+    workout_sessions_on_given_day = WorkoutSession.where(user_id: current_user.id).where("workout_date >= ? AND workout_date <= ?", start_date_utc, finish_date_utc)
 
     given_day_data = []
 
@@ -84,6 +84,7 @@ class WorkoutSessionsController < ApplicationController
     my_session = WorkoutSession.create({
                           title: params[:workout_title],
                           workout_id: params[:workout_id],
+                          workout_date: Time.parse(params[:workout_date]),
                           user_id: current_user.id
                         })
     session[:workout_session_id] = my_session.id

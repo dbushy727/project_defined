@@ -49,33 +49,116 @@ puts "[Notice] Users deleted"
 
 end
 
+# First Workout Session
 new_exercise_instance = ExerciseInstance.create({
                                                       workout_session_id: WorkoutSession.all.first.id,
                                                       user_id: User.all.first.id,
                                                       exercise_id: 1,
                                                       set: 1,
                                                       reps: 10,
-                                                      weight: 100
-                                                      # created_at: "Sat, 01 Mar 2014 12:00:00 UTC +00:00"    
+                                                      weight: 100,
     })
+
 new_exercise_instance = ExerciseInstance.create({
                                                       workout_session_id: WorkoutSession.all.first.id,
                                                       user_id: User.all.first.id,
                                                       exercise_id: 1,
                                                       set: 2,
                                                       reps: 8,
-                                                      weight: 110
-                                                      # created_at: "Sun, 02 Mar 2014 13:00:00 UTC +00:00"        
+                                                      weight: 110,
     })
+
 new_exercise_instance = ExerciseInstance.create({
                                                       workout_session_id: WorkoutSession.all.first.id,
                                                       user_id: User.all.first.id,
                                                       exercise_id: 1,
                                                       set: 3,
                                                       reps: 6,
-                                                      weight: 130
-                                                      # created_at: "Fri, 28 Feb 2014 14:00:00 UTC +00:00"    
+                                                      weight: 130,
     })
+
+# Second Workout Session
+new_exercise_instance = ExerciseInstance.create({
+                                                      workout_session_id: WorkoutSession.all[1].id,
+                                                      user_id: User.all.first.id,
+                                                      exercise_id: 1,
+                                                      set: 1,
+                                                      reps: 7,
+                                                      weight: 90,
+    })
+
+new_exercise_instance = ExerciseInstance.create({
+                                                      workout_session_id: WorkoutSession.all[1].id,
+                                                      user_id: User.all.first.id,
+                                                      exercise_id: 1,
+                                                      set: 2,
+                                                      reps: 9,
+                                                      weight: 115,
+    })
+
+new_exercise_instance = ExerciseInstance.create({
+                                                      workout_session_id: WorkoutSession.all[1].id,
+                                                      user_id: User.all.first.id,
+                                                      exercise_id: 1,
+                                                      set: 3,
+                                                      reps: 13,
+                                                      weight: 125,
+    })
+
+# Third Workout Session
+new_exercise_instance = ExerciseInstance.create({
+                                                      workout_session_id: WorkoutSession.all[2].id,
+                                                      user_id: User.all.first.id,
+                                                      exercise_id: 1,
+                                                      set: 1,
+                                                      reps: 2,
+                                                      weight: 200,
+    })
+
+new_exercise_instance = ExerciseInstance.create({
+                                                      workout_session_id: WorkoutSession.all[2].id,
+                                                      user_id: User.all.first.id,
+                                                      exercise_id: 2,
+                                                      set: 1,
+                                                      reps: 4,
+                                                      weight: 80,
+    })
+
+new_exercise_instance = ExerciseInstance.create({
+                                                      workout_session_id: WorkoutSession.all[2].id,
+                                                      user_id: User.all.first.id,
+                                                      exercise_id: 3,
+                                                      set: 1,
+                                                      reps: 10,
+                                                      weight: 205,
+    })
+
+
+p "Workout Session Day 0 Changed"
+t = WorkoutSession.all[0]
+p "Original created at: #{t.workout_date.to_s}"
+t.workout_date = ((rand*10)+1).round.days.ago
+p "Changed created at: #{t.workout_date.to_s}"
+t.save
+p "Confirming change was committed to database: #{WorkoutSession.all[0].workout_date.to_s}"
+
+p "Workout Session Day 1 Changed"
+t = WorkoutSession.all[1]
+p "Original created at: #{t.workout_date.to_s}"
+t.workout_date = ((rand*10)+1).round.days.ago
+p "Changed created at: #{t.workout_date.to_s}"
+t.save
+p "Confirming change was committed to database: #{WorkoutSession.all[1].workout_date.to_s}"
+
+p "Workout Session Day 2 Changed"
+t = WorkoutSession.all[2]
+p "Original created at: #{t.workout_date.to_s}"
+t.workout_date = ((rand*10)+1).round.days.ago
+p "Changed created at: #{t.workout_date.to_s}"
+t.save
+p "Confirming change was committed to database: #{WorkoutSession.all[2].workout_date.to_s}"
+
+
 puts "==========================="
 puts "Seed Task Complete"
 puts "==========================="
