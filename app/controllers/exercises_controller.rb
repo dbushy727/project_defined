@@ -6,7 +6,7 @@ class ExercisesController < ApplicationController
     json_exercises = { exercises: exercises }
     respond_to do |format|
         format.html
-        format.json { render :json => json_exercises }
+        format.json { render :json => exercises }
     end
   end
 

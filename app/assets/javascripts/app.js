@@ -7,6 +7,19 @@ var Workout = Backbone.Model.extend({
   url: '/workout'
 })
 
+var ExerciseCollection = Backbone.Collection.extend({
+
+  model: Exercise,
+  url: '/exercises'
+})
+
+var WorkoutCollection = Backbone.Collection.extend({
+
+  model: Workout,
+  url: '/workouts'
+
+})
+
 var ExerciseView = Backbone.View.extend({
 
 })
@@ -18,18 +31,22 @@ var WorkoutView = Backbone.View.extend({
 var ExerciseContentView = Backbone.View.extend({
 
   initialize: function(){
+    var self=this
     this.collection = new ExerciseCollection();
-    this.render();
+    this.collection.bind("sync", function(){self.render()});
+    this.collection.fetch()
     this.$new_exercise_input = $('#new_exercise_input');
     this.$add_exercise_button = $('#add_exercise_button');
     this.addEventListeners();
   },
 
   addEventListeners: function(){
-    this.$add_exercise_button.click(this.createExercise);
+    var self = this
+    this.$add_exercise_button.click(function(e){self.createExercise(e)});
   },
 
   deleteExercise: function(e){
+    var self=this
     e.preventDefault();
     var exercise_to_delete = e.toElement.parentElement.parentElement.outerText;
     var data = {exercise: {title: exercise_to_delete}};
@@ -41,7 +58,7 @@ var ExerciseContentView = Backbone.View.extend({
       data: data,
       success: function(data){
         console.log(data);
-        exercise_content_panel.render();
+        self.collection.fetch();
       }
     })
 
@@ -49,6 +66,7 @@ var ExerciseContentView = Backbone.View.extend({
 
   createExercise: function(e){
     e.preventDefault();
+    var self = this
     var new_exercise_title = $('#new_exercise_input').val();
     $('#new_exercise_input').val("");
     var data = {exercise: {title: new_exercise_title}};
@@ -60,7 +78,7 @@ var ExerciseContentView = Backbone.View.extend({
       data: data,
       success: function(data){
         console.log(data);
-        exercise_content_panel.render();
+        self.collection.fetch()
       }
     })
   },
@@ -69,40 +87,34 @@ var ExerciseContentView = Backbone.View.extend({
     return $('#exercise_content')
   },
 
+  events: {
+    "click .delete_exercise" : "deleteExercise",
+  },
+
   render: function(){
     var self = this;
+    $('#exercise_content').animate({opacity: 1}, 200, function(){
+      $('#exercise_content').empty();
 
-    $.ajax({
-      url:      '/exercises',
-      method:   'GET',
-      dataType: 'json',
-      success: function(data){
-          $('#exercise_content').animate({opacity: 1}, 200, function(){
-                                                                    $('#exercise_content').empty();
+      var source   = $('#exercise_template').html();
 
-                                                                    var source   = $('#exercise_template').html();
+      var template     = Handlebars.compile(source);
+      var data = self.collection.toJSON()
+      var templateData = template(data);
+      var a = 3;
+      
+      $('#exercise_content').append(templateData);
 
-                                                                    var template     = Handlebars.compile(source);
-                                                                    var templateData = template(data);
-                                                                    var a = 3;
-                                                                    
-                                                                    $('#exercise_content').append(templateData);
-                                                                    self.$delete_exercise_button = $('.delete_exercise');
-                                                                    self.$delete_exercise_button.click(self.deleteExercise);
-
-                                                                    $('.exercise_box').draggable({
-
-                                                                        start: function(event, ui) { $(this).css("z-index", a++); },
-                                                                        revert: function(event, ui) {
-                                                                          $(this).data("uiDraggable").originalPosition = {
-                                                                                          top : 0,
-                                                                                          left : 0
-                                                                          };
-                                                                          return !event;
-                                                                        }
-                                                                    });
-                                                                  })
-      }
+      $('.exercise_box').draggable({
+        start: function(event, ui) { $(this).css("z-index", a++); },
+        revert: function(event, ui) {
+          $(this).data("uiDraggable").originalPosition = {
+            top : 0,
+            left : 0
+          };
+          return !event;
+        }
+      });
     })
   }
 })
@@ -284,18 +296,7 @@ var WorkoutContentView = Backbone.View.extend({
 
 })
 
-var ExerciseCollection = Backbone.Collection.extend({
 
-  model: Exercise,
-  url: '/exercises'
-})
-
-var WorkoutCollection = Backbone.Collection.extend({
-
-  model: Workout,
-  url: '/workouts'
-
-})
 
 
 var otterWatch = function(){
