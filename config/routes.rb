@@ -5,13 +5,15 @@ ProjectDefined::Application.routes.draw do
   get '/history' => 'home#history'
   get '/workouts/history' => 'workout_sessions#index'
   get '/exercise/:id/history' => 'exercises#history'
+  get '/exercise_instances' => 'exercise_instances#index'
 
   post 'workouts/new/exercise' => 'workouts#add_exercise_to_workout', as: :add_exercise_to_workout
   post 'workouts/unlink/exercise' => 'workouts#unlink_exercise_from_workout', as: :unlink_exercise_from_workout
   post 'workouts/session' => 'workout_sessions#workout_session_data'
   post 'workouts/new_session' => 'workout_sessions#create', as: :new_workout_session
-  post 'workouts/update_session' => 'workout_sessions#update', as: :update_workout_session
   post 'workouts/new_instances' =>  'exercise_instances#create', as: :new_exercise_instances
+  post 'exercise_instances/update' => 'exercise_instances#update', as: :update_exercise_instance
+
   resources :workouts
   resources :exercises
 

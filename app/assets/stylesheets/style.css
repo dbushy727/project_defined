@@ -491,7 +491,7 @@ rect.now {
 /*==========TEMPLATE========*/
 /*==========================*/
 .select_workout {
-  /*display: none;*/
+/*  display: none;*/
 }
 .select_exercise {
   display:none;
@@ -637,4 +637,19 @@ rect.now {
   float: right;
   margin-left: 5px;
   height: 2.3em;
+}
+
+#record_exercise_content_mobile {
+  position: relative;
+  top: 6em;
+}
+
+.submit_instance_button {
+  text-align: center;
+  margin-top: 3em;
+  margin-bottom: 3em;
+}
+
+.submit_instance_button button{
+  background-color: #3C8595;
 }
