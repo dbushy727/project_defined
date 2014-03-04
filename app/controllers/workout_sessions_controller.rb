@@ -32,7 +32,13 @@ class WorkoutSessionsController < ApplicationController
       start_date = params[:date]+" 0:0:0"
       finish_date = params[:date]+" 23:59:59"
 
-    workout_sessions_on_given_day = WorkoutSession.where(user_id: current_user.id).where("created_at >= ? AND created_at <= ?", start_date, finish_date)
+      ts = Time.parse(start_date)
+      tf = Time.parse(finish_date)
+
+      start_date_utc = ts.utc
+      finish_date_utc = tf.utc
+
+    workout_sessions_on_given_day = WorkoutSession.where(user_id: current_user.id).where("created_at >= ? AND created_at <= ?", start_date_utc, finish_date_utc)
 
     given_day_data = []
 

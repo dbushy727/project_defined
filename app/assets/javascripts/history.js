@@ -85,7 +85,7 @@ var workoutHistory = {
       method: 'post',
       data: date_hash,
       success: function(data){
-        // console.log(data)
+        console.log(data)
         self.renderDayData(data)
       }
     })
@@ -96,6 +96,7 @@ var workoutHistory = {
     var source       = $('#day_data_template').html();
     var template     = Handlebars.compile(source);
     var templateData = template(data);
+    // console.log(data)
     $('#data_table').empty();
     $('#data_table').append(templateData);
     self.modalWatcher()
