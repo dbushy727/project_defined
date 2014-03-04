@@ -107,7 +107,7 @@ var workoutHistory = {
       var exercise_modal_target = $(this)[0].attributes[2].value;
       $('#'+exercise_modal_target).foundation('reveal', 'open');
 
-      self.visualizeDataForWorkoutOnGivenDate(exercise_id, exercise_modal_target);
+      self.visualizeExerciseRepHistory(exercise_id, exercise_modal_target);
 
       $('a.close-reveal-modal').click(function(e){
         $('#'+exercise_modal_target).foundation('reveal', 'close');
@@ -142,7 +142,7 @@ var workoutHistory = {
       }
   },
 
-  visualizeDataForWorkoutOnGivenDate: function(exercise, target) {
+  visualizeExerciseRepHistory: function(exercise, target) {
       var self = this;
 
       var path_data = [];
@@ -227,7 +227,6 @@ var workoutHistory = {
             .datum(path_data)
             .attr("class", "line")
             .attr("d", line);
-
 
         var totalLength = path.node().getTotalLength();
         
@@ -362,6 +361,136 @@ var workoutHistory = {
       //       .text(function(d) { return d.name; });
       // });
 
+    },
+
+    visualizeExerciseWeightHistory: function(exercise, target) {
+        var self = this;
+
+        var path_data = [];
+
+        var margin = {top: 20, right: 20, bottom: 30, left: 50},
+            width = 1050 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
+
+        var parseDate = d3.time.format("%d-%m-%Y").parse,
+            bisectDate = d3.bisector(function(d) { return d.workout_date; }).left;
+
+        var x = d3.time.scale()
+            .range([0, width]);
+
+        var y = d3.scale.linear()
+            .range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+            .scale(x)
+            .orient("bottom");
+
+        var yAxis = d3.svg.axis()
+            .scale(y)
+            .orient("left");
+
+        var line = d3.svg.line()
+            .x(function(d) { return x(d.workout_date); })
+            .y(function(d) { return y(d.total_reps); })
+            .interpolate("step-before");
+
+        var svg = d3.select("#"+target+" .progress_line_graph").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+        d3.json("exercise/"+exercise+"/history", function(error, json) {
+          var data = json.data.exercise_history;
+          if (error) return console.warn(error);
+
+          data = data.sort(self.dynamicSort("workout_date"))
+
+          data.forEach(function(d){
+            var date    = new Date(d.workout_date);
+            // console.log("Date",date)
+            d.workout_date = parseDate(date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear());
+            // console.log("Actual set date",d.workout_date)
+            d.total_reps = +d.total_reps;
+            
+          });
+
+          x.domain(d3.extent(data, function(d) { return d.workout_date;}));
+          y.domain(d3.extent(data, function(d) { return d.total_reps; }));
+
+          svg.append("g")
+              .attr("class", "x axis")
+              .attr("transform", "translate(0," + height + ")")
+              .call(xAxis);
+
+          svg.append("g")
+              .attr("class", "y axis")
+              .call(yAxis)
+            .append("text")
+              .attr("transform", "rotate(-90)")
+              .attr("y", 6)
+              .attr("dy", ".71em")
+              .style("text-anchor", "end")
+              .text("Reps");
+
+          data.forEach(function(d){
+            var data_set = {
+                            workout_date: d.workout_date,
+                            total_reps: d.total_reps
+                            }
+            path_data.push(data_set)
+          })
+
+          // console.log(path_data)
+
+          var path = svg.append("path")
+              .datum(path_data)
+              .attr("class", "line")
+              .attr("d", line);
+
+          var totalLength = path.node().getTotalLength();
+          
+          path
+              .attr("stroke-dasharray", totalLength+","+totalLength)
+              .attr("stroke-dashoffset", totalLength)
+              .transition()
+                .duration(1200)
+                .ease("linear-in-out")
+                .attr("stroke-dashoffset", 0);
+
+          var focus = svg.append("g")
+              .attr("class", "focus")
+              .style("display", "none");
+
+          focus.append("circle")
+              .attr("r", 4.5);
+
+          focus.append("text")
+              .attr("x", -15)
+              .attr("dy", "-1em");
+
+          svg.append("rect")
+              .attr("class", "overlay")
+              .attr("width", width)
+              .attr("height", height)
+              .on("mouseover", function() { focus.style("display", null); })
+              .on("mouseout", function() { focus.style("display", "none"); })
+              .on("mousemove", mousemove);
+
+          function mousemove() {
+            // console.log(x.invert(d3.mouse(this)[0]))
+            var x0 = x.invert(d3.mouse(this)[0]),
+                i = bisectDate(path_data, x0, 1),
+                d0 = path_data[i - 1],
+                d1 = path_data[i],
+                d = x0 - d0.workout_date > d1.workout_date - x0 ? d1 : d0;
+
+            focus.attr("transform", "translate(" + x(d.workout_date) + "," + y(d.total_reps) + ")");
+            focus.select("text").text(d.total_reps+" reps");
+          }
+
+        });
     }
 
 }
