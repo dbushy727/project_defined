@@ -4,8 +4,6 @@
     <h2>Recent Workouts</h2>
   </div>
 
-  <div id="progress_line_graph"></div>
-
   <div id='data_table'></div>
 
 </div>
@@ -25,7 +23,6 @@
     <tbody>
       {{#exercise_instances}}
         <tr>
-        {{! Model links current do not work, believed to be a Foundation bug}}
           <td class="exercise_name"><a href="#" exercise-id="{{exercise.id}}" data-reveal-id="modal_{{id}}">{{exercise.title}}</a></td>
           <td class="set_number">Set {{set}}</td>
         </tr>
@@ -45,7 +42,8 @@
   </table>  
 
   <div id="modal_{{id}}" class="reveal-modal" data-reveal="" style="top: 100px; opacity: 1; visibility: hidden; display: none;">
-    
+    <h2>Exercise History</h2>
+    <div class="progress_line_graph"></div>
     <a class="close-reveal-modal">×</a>
   </div>
 

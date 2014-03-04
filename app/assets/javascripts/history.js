@@ -106,6 +106,8 @@ var workoutHistory = {
       var exercise_modal_target = $(this)[0].attributes[2].value;
       $('#'+exercise_modal_target).foundation('reveal', 'open');
 
+      self.visualizeDataForWorkoutOnGivenDate(exercise_id, exercise_modal_target);
+
       $('a.close-reveal-modal').click(function(e){
         $('#'+exercise_modal_target).foundation('reveal', 'close');
         $('a.close-reveal-modal').unbind('click');
@@ -119,12 +121,11 @@ var workoutHistory = {
           $(window).unbind('click');
         }
       })
-      // self.visualizeDataForWorkoutOnGivenDate(exercise_id);
     })
 
   },
 
-  visualizeDataForWorkoutOnGivenDate: function(exercise) {
+  visualizeDataForWorkoutOnGivenDate: function(exercise, target) {
       var path_data = [];
 
       var margin = {top: 20, right: 20, bottom: 30, left: 50},
@@ -151,7 +152,7 @@ var workoutHistory = {
           .x(function(d) { return x(d.created_at); })
           .y(function(d) { return y(d.total_reps); });
 
-      var svg = d3.select("#progress_line_graph").append("svg")
+      var svg = d3.select("#"+target+" .progress_line_graph").append("svg")
           .attr("width", width + margin.left + margin.right)
           .attr("height", height + margin.top + margin.bottom)
           .append("g")
