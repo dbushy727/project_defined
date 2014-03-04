@@ -148,7 +148,7 @@ var workoutHistory = {
       var path_data = [];
 
       var margin = {top: 20, right: 20, bottom: 30, left: 50},
-          width = 960 - margin.left - margin.right,
+          width = 1050 - margin.left - margin.right,
           height = 500 - margin.top - margin.bottom;
 
       var parseDate = d3.time.format("%d-%m-%Y").parse,
@@ -170,7 +170,8 @@ var workoutHistory = {
 
       var line = d3.svg.line()
           .x(function(d) { return x(d.workout_date); })
-          .y(function(d) { return y(d.total_reps); });
+          .y(function(d) { return y(d.total_reps); })
+          .interpolate("step-before");
 
       var svg = d3.select("#"+target+" .progress_line_graph").append("svg")
           .attr("width", width + margin.left + margin.right)
@@ -244,8 +245,8 @@ var workoutHistory = {
             .attr("r", 4.5);
 
         focus.append("text")
-            .attr("x", 9)
-            .attr("dy", ".35em");
+            .attr("x", -15)
+            .attr("dy", "-1em");
 
         svg.append("rect")
             .attr("class", "overlay")
@@ -264,7 +265,7 @@ var workoutHistory = {
               d = x0 - d0.workout_date > d1.workout_date - x0 ? d1 : d0;
 
           focus.attr("transform", "translate(" + x(d.workout_date) + "," + y(d.total_reps) + ")");
-          focus.select("text").text(d.total_reps);
+          focus.select("text").text(d.total_reps+" reps");
         }
 
       });
