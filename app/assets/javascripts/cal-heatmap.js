@@ -119,7 +119,7 @@ var CalHeatMap = function() {
 		// ================================================
 
 		// Threshold for the legend
-		legend: [10, 20, 30, 40],
+		legend: [5, 10, 15, 20],
 
 		// Whether to display the legend
 		displayLegend: true,

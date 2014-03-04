@@ -183,6 +183,10 @@ input.button {
 #do_it_for_timmy {
   font-family: "Brush Script Std", "Comic Sans MS", cursive, sans-serif;
   text-align: center;
+  position: absolute;
+  top: 16em;
+  left: 33em;
+  z-index: 1;
 }
 
 #otter_box {
