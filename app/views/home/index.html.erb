@@ -38,13 +38,13 @@
           <!-- Boxes get appended here -->
         </div>
         <script id="exercise_template" type="text/x-handlebars-template">
-            {{#exercises}}
+            {{#each this}}
               <div class="exercise_box">
                 <h3 class="exercise_name">
                   <span>{{title}}</span><span class="right delete_exercise"><i class="fa fa-minus-square-o"></i></span>
                 </h3>
               </div>
-            {{/exercises}}
+            {{/each}}
         </script>
     </div>
   </div>

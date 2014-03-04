@@ -179,6 +179,7 @@ var workoutHistory = {
           .append("g")
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+
       d3.json("exercise/"+exercise+"/history", function(error, json) {
         var data = json.data.exercise_history;
         if (error) return console.warn(error);
@@ -225,7 +226,8 @@ var workoutHistory = {
         var path = svg.append("path")
             .datum(path_data)
             .attr("class", "line")
-            .attr("d", line)
+            .attr("d", line);
+
 
         var totalLength = path.node().getTotalLength();
         
