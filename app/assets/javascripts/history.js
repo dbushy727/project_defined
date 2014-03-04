@@ -153,6 +153,8 @@ var workoutHistory = {
           .x(function(d) { return x(d.created_at); })
           .y(function(d) { return y(d.total_reps); });
 
+      // ("#"+target+" .progress_line_graph svg").remove();
+
       var svg = d3.select("#"+target+" .progress_line_graph").append("svg")
           .attr("width", width + margin.left + margin.right)
           .attr("height", height + margin.top + margin.bottom)
