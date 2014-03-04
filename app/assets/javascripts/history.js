@@ -62,8 +62,8 @@ var workoutHistory = {
 
       });
 
-  // getDate()       // Returns the date
-  // getMonth()     // Returns the month
+  // getDate()      // Returns the date
+  // getMonth()    // Returns the month
   // getFullYear() // Returns the year
 
   // Date format needs to match ActiveRecord: "created_at" = '2014-03-02 20:53:37'
@@ -92,9 +92,9 @@ var workoutHistory = {
   },
 
   renderDayData: function(data){
-    var self         = this;
-    var source       = $('#day_data_template').html();
-    var template     = Handlebars.compile(source);
+    var self        = this;
+    var source      = $('#day_data_template').html();
+    var template    = Handlebars.compile(source);
     var templateData = template(data);
     // console.log(data)
     $('#data_table').empty();
@@ -165,8 +165,8 @@ var workoutHistory = {
         var data = json.data.exercise_history;
         if (error) return console.warn(error);
         data.forEach(function(d){
-         
-          var date     = new Date(d.created_at);
+        
+          var date    = new Date(d.created_at);
           d.created_at = parseDate(date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear());
           d.total_reps = +d.total_reps;
           
@@ -210,4 +210,3 @@ var workoutHistory = {
     }
 
 }
-

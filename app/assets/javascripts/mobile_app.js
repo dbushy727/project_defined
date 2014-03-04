@@ -94,7 +94,10 @@ var SelectExercise = Backbone.View.extend({
   recordExercise: function(){
     var self = this;
     $('.set_go').on("click", function() {
+      $('.select_exercise').hide()
+      $('.record_exercise').show()
       var input_value = $(this).parent().find('input').val()
+      var exercise_id = $(this).parent().parent().find('.exercise_id').val()
       var data = {set_amount: input_value, workout_id: self.workout_id, workout_title: self.workout_title}
       $.ajax({
         url: '/workouts/new_instances',
@@ -102,14 +105,65 @@ var SelectExercise = Backbone.View.extend({
         dataType: 'json',
         data: data,
         success: function(data){
-          console.log(data)
           }
-
       })
+
+      var record_data = new recordExerciseData({
+                                                exercise_id: exercise_id,
+                                                workout_id: self.workout_id,
+                                                workout_title: self.workout_title
+                                              });
     })
   }
 
 })
+
+var recordExerciseData = Backbone.View.extend({
+  initialize: function(params){
+    this.exercise_id = params.exercise_id
+    this.workout_id = params.workout_id
+    this.workout_title = params.workout_title
+    this.render();
+    this.submitRecordData();
+  },
+  render: function(){
+    var self = this;
+    $.ajax({
+      url: '/exercise_instances',
+      method: 'GET',
+      dataType: 'json',
+      success: function(data){
+        console.log("record data was called", data)
+        var source       = $('#record_exercise_template_mobile').html();
+        var template     = Handlebars.compile(source);
+        var templateData = template(data);
+        $('#record_exercise_content_mobile').prepend(templateData);
+
+      }
+    })
+  },
+  submitRecordData: function(){
+    $('.submit_instance_button button').on("click", function(){
+        _.each($('.input_form'), function(e){
+          var set_id = $(e).parent().find('h3').text().replace("Set: ", '')
+          var reps = $(e).find('.reps').val()
+          var weight = $(e).find('.weight').val()
+          var data = {set_id: set_id, reps: reps, weight: weight}
+          $.ajax({
+            url: '/exercise_instances/update',
+            method: 'POST',
+            dataType: 'json',
+            data: data,
+            success: function(data){
+              console.log(data)
+            }
+          })
+        })
+        $('.record_exercise').hide();
+        $('.select_workout').show();
+    })
+  }
+}) 
 
 $(function(){
   window.select_workout = new SelectWorkout();
