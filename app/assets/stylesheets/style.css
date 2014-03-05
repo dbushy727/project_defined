@@ -56,6 +56,54 @@ body {
   background: none;
 }
 
+
+/*================*/
+/*====SIGN IN=====*/
+/*================*/
+
+.sign_in {
+  text-align: center;
+}
+.sign_in label {
+  color: aliceblue;
+}
+.sign_in h2 {
+  text-align: center;
+  color: aliceblue;
+}
+.sign_in form {
+  width: 35%;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: left;
+  padding-bottom: 2em;
+}
+.sign_in .sign_in_button input, .sign_up .sign_up_button input {
+  border: 0;
+  padding: 1em;
+  font-weight: bold;
+  background-color: aliceblue;
+  border-radius: 3px;
+}
+.sign_up {
+  text-align: center;
+}
+.sign_up h2 {
+  color: aliceblue;
+}
+.sign_up form {
+  text-align: left;
+  width: 35%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.sign_up a {
+  padding-bottom: 3em;
+}
+.sign_up label {
+  color: aliceblue;
+}
+
 /* =============================== */
 /* ========= Header Bar ========== */
 /* =============================== */

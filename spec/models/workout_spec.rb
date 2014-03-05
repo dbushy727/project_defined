@@ -1,5 +1,5 @@
 require 'spec_helper'
 
 describe Workout do
-  describe "given a fully "
+  describe ""
 end
