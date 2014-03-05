@@ -209,15 +209,18 @@ var WorkoutContentView = Backbone.View.extend({
 
                                                                 // var temporary_item = $(ui.draggable[0]).clone(true);
                                                                 $(ui.draggable[0]).animate({
-                                                                  opacity: 0,
-                                                                  height: "0px"
-                                                                }, 100, function(){
-                                                                  ui.draggable[0].remove()
-                                                                  $('.exercise_box').animate({opacity: 0},100, function(){
-                                                                      $('.exercise_box').remove();
-                                                                      exercise_content_panel.render()
-                                                                      workout_content_panel.render();
-                                                                  });
+                                                                    opacity: 0,
+                                                                    height: "0px"
+                                                                  }, 100, function(){
+                                                                    ui.draggable[0].remove()
+                                                                    $('.exercise_box').remove();
+                                                                    workout_content_panel.render();
+                                                                    exercise_content_panel.render();
+                                                                    // $('.exercise_box').animate({opacity: 0},100, function(){
+                                                                    //     $('.exercise_box').remove();
+                                                                    //     workout_content_panel.render();
+                                                                    //     exercise_content_panel.render();
+                                                                    // });
                                                                 });
                                                               }
                                 });
@@ -265,6 +268,7 @@ var WorkoutContentView = Backbone.View.extend({
         $('#workout_content').animate({opacity: 1}, 200, function(){
                                                                       $('#workout_content').empty();
                                                                       $('#workout_content').append(templateData);
+                                                                      console.log("Workout content appended")
                                                                       self.$delete_workout_button = $('.delete_workout');
                                                                       self.$delete_workout_button.click(self.deleteWorkout);
 
