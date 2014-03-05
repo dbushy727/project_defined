@@ -442,26 +442,25 @@ rect.now {
 .line {
   fill: none;
   stroke: #0080ff;
-  stroke-width: 1.5;
+  stroke-width: 1;
 }
 
 .weighted_average {
-  stroke: #008040;
-  stroke-width: 3px;
+  stroke: #ff8000;
+  stroke-width: 1px;
 }
 
 .highest_weight {
-  stroke: #ff8000;
+  stroke: #ffcc66;
   stroke-width: 1.5;
-  stroke-dasharray: 5,5;
+  stroke-dasharray: 4,5;
 }
 
 .lowest_weight {
-  stroke: #004080;
+  stroke: #808080;
   stroke-width: 1.5;
-  stroke-dasharray: 5,5;
+  stroke-dasharray: 2,5;
 }
-
 
 .overlay {
   fill: none;
@@ -473,6 +472,10 @@ rect.now {
   stroke: #ff0000;
 }
 
+#line_values {
+  margin-left: 1em;
+  color: #000000;
+}
 
 /*===============================*/
 /*=========MEDIA QUERIES=========*/

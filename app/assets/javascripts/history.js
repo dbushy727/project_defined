@@ -168,7 +168,7 @@ var workoutHistory = {
       var path_data = [];
 
       var margin = {top: 20, right: 20, bottom: 30, left: 50},
-          width = 1050 - margin.left - margin.right,
+          width = 960 - margin.left - margin.right,
           height = 500 - margin.top - margin.bottom;
 
       var parseDate = d3.time.format("%d-%m-%Y").parse,
@@ -291,96 +291,6 @@ var workoutHistory = {
 
       });
 
-    // ===============================================================================================
-      // var margin = {top: 20, right: 100, bottom: 30, left: 50},
-      //     width = 1000 - margin.left - margin.right,
-      //     height = 500 - margin.top - margin.bottom;
-
-      // var parseDate = d3.time.format("%Y%m%d").parse;
-
-      // var x = d3.time.scale()
-      //     .range([0, width]);
-
-      // var y = d3.scale.linear()
-      //     .range([height, 0]);
-
-      // var color = d3.scale.category10();
-
-      // var xAxis = d3.svg.axis()
-      //     .scale(x)
-      //     .orient("bottom");
-
-      // var yAxis = d3.svg.axis()
-      //     .scale(y)
-      //     .orient("left");
-
-      // var line = d3.svg.line()
-      //     .interpolate("basis")
-      //     .x(function(d) { return x(d.date); })
-      //     .y(function(d) { return y(d.temperature); });
-
-      // var svg = d3.select("#"+target+" .progress_line_graph").append("svg")
-      //     .attr("width", width + margin.left + margin.right)
-      //     .attr("height", height + margin.top + margin.bottom)
-      //   .append("g")
-      //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-      // d3.tsv("data.tsv", function(error, data) {
-      //   color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
-
-      //   data.forEach(function(d) {
-      //     d.date = parseDate(d.date);
-      //   });
-
-      //   var cities = color.domain().map(function(name) {
-      //     return {
-      //       name: name,
-      //       values: data.map(function(d) {
-      //         return {date: d.date, temperature: +d[name]};
-      //       })
-      //     };
-      //   });
-
-      //   x.domain(d3.extent(data, function(d) { return d.date; }));
-
-      //   y.domain([
-      //     d3.min(cities, function(c) { return d3.min(c.values, function(v) { return v.temperature; }); }),
-      //     d3.max(cities, function(c) { return d3.max(c.values, function(v) { return v.temperature; }); })
-      //   ]);
-
-      //   svg.append("g")
-      //       .attr("class", "x axis")
-      //       .attr("transform", "translate(0," + height + ")")
-      //       .call(xAxis);
-
-      //   svg.append("g")
-      //       .attr("class", "y axis")
-      //       .call(yAxis)
-      //     .append("text")
-      //       .attr("transform", "rotate(-90)")
-      //       .attr("y", 6)
-      //       .attr("dy", ".71em")
-      //       .style("text-anchor", "end")
-      //       .text("Weight (lb)");
-
-      //   var weight = svg.selectAll(".weight")
-      //       .data(cities)
-      //     .enter().append("g")
-      //       .attr("class", "weight");
-
-      //   weight.append("path")
-      //       .attr("class", "line")
-      //       .attr("d", function(d) { return line(d.values); })
-      //       .style("stroke", function(d) { return color(d.name); });
-
-      //   weight.append("text")
-      //       .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
-      //       .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.temperature) + ")"; })
-      //       .attr("x", 3)
-      //       .attr("dy", ".35em")
-      //       .text(function(d) { return d.name; });
-      // });
-
     },
 
     visualizeExerciseWeightHistory: function(exercise, target) {
@@ -389,7 +299,7 @@ var workoutHistory = {
         var path_data = [];
 
         var margin = {top: 20, right: 20, bottom: 30, left: 50},
-            width = 1050 - margin.left - margin.right,
+            width = 960 - margin.left - margin.right,
             height = 500 - margin.top - margin.bottom;
 
         var parseDate = d3.time.format("%d-%m-%Y").parse,
@@ -472,8 +382,6 @@ var workoutHistory = {
             path_data.push(data_set)
           })
 
-          console.log(path_data)
-
           // console.log(path_data)
 
           var weighted_average_path = svg.append("path")
@@ -497,19 +405,16 @@ var workoutHistory = {
               .attr("stroke-dasharray", weighted_totalLength+","+weighted_totalLength)
               .attr("stroke-dashoffset", weighted_totalLength)
               .transition()
-                .duration(1200)
+                .duration(1500)
                 .ease("linear-in-out")
                 .attr("stroke-dashoffset", 0);
 
           // var highest_weight_totalLength = highest_weight_path.node().getTotalLength();
           
           // highest_weight_path
-          //     .attr("stroke-dasharray", highest_weight_totalLength+","+highest_weight_totalLength)
-          //     .attr("stroke", highest_weight_totalLength)
           //     .transition()
           //       .duration(5000)
-          //       .ease("in")
-          //       .attr("stroke", 0);
+          //       .ease("in");
 
           // var lowest_weight_totalLength = lowest_weight_path.node().getTotalLength();
           
@@ -528,9 +433,7 @@ var workoutHistory = {
           focus.append("circle")
               .attr("r", 4.5);
 
-          focus.append("text")
-              .attr("x", -15)
-              .attr("dy", "-1em");
+          var key_values = d3.select('#line_values').append("text");
 
           svg.append("rect")
               .attr("class", "overlay")
@@ -549,7 +452,7 @@ var workoutHistory = {
                 d = x0 - d0.workout_date > d1.workout_date - x0 ? d1 : d0;
 
             focus.attr("transform", "translate(" + x(d.workout_date) + "," + y(d.weighted_average) + ")");
-            focus.select("text").text("Average: "+d.weighted_average+" lbs");
+            d3.select('#line_values').select("text").text("Average weight: "+d3.round(d.weighted_average, 0)+" lbs  |  Max Weight: "+d3.round(d.highest_weight, 0)+" lbs  |  Min Weight: "+d3.round(d.lowest_weight, 0)+" lbs");
           }
 
         });
