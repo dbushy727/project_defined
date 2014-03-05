@@ -433,7 +433,9 @@ var workoutHistory = {
           focus.append("circle")
               .attr("r", 4.5);
 
-          var key_values = d3.select('#line_values').append("text");
+          d3.select('.average').append("text");
+          d3.select('.highest').append("text");
+          d3.select('.lowest').append("text");
 
           svg.append("rect")
               .attr("class", "overlay")
@@ -452,7 +454,9 @@ var workoutHistory = {
                 d = x0 - d0.workout_date > d1.workout_date - x0 ? d1 : d0;
 
             focus.attr("transform", "translate(" + x(d.workout_date) + "," + y(d.weighted_average) + ")");
-            d3.select('#line_values').select("text").text("Average weight: "+d3.round(d.weighted_average, 0)+" lbs  |  Max Weight: "+d3.round(d.highest_weight, 0)+" lbs  |  Min Weight: "+d3.round(d.lowest_weight, 0)+" lbs");
+            d3.select('.average').select("text").text("Average weight: "+d3.round(d.weighted_average, 0)+" lbs");
+            d3.select('.highest').select("text").text("Max Weight: "+d3.round(d.highest_weight, 0)+" lbs");
+            d3.select('.lowest').select("text").text("Min Weight: "+d3.round(d.lowest_weight, 0)+" lbs");
           }
 
         });

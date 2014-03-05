@@ -416,7 +416,7 @@ rect.now {
 
 .dataset_link {
   color: #bc0001;
-  padding-right: 0.7em;
+  padding-right: 0.5em;
 }
 
 .dataset_link:hover {
@@ -473,8 +473,20 @@ rect.now {
 }
 
 #line_values {
-  margin-left: 1em;
-  color: #000000;
+  margin-left: 0.7em;
+  color: #333333;
+}
+
+#line_values.average {
+  color: #ff8000;
+}
+
+#line_values.highest {
+  color: #ffcc66;
+}
+
+#line_values.lowest {
+  color: #808080;
 }
 
 /*===============================*/
