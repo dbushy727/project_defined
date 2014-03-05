@@ -687,7 +687,7 @@ rect.now {
   font-weight: bold;
 }
 
-.rect_blue_dark h3:nth-child(1){
+.select_workout .rect_blue_dark h3:nth-child(1){
   width: 12em;
 
 }
