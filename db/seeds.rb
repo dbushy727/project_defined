@@ -32,17 +32,17 @@ puts "[Notice] Users deleted"
 # ===========================================
 # ===========================================
   workout_list = ['Cardio', 'Yoga']
-  n = 100
-
+  n = 75
+  w=50
   workout_list.each do |workout|
     new_workout = Workout.create({
                                   title: workout,
                                   user_id: new_user.id
                                   })
     puts "[Workout] #{new_workout.title} added to #{new_workout.user.first_name}"
-    
-    50.times do
+    35.times do
       x=1
+      
 
       new_sesh = WorkoutSession.create({
                               title: new_workout.title,
@@ -58,8 +58,9 @@ puts "[Notice] Users deleted"
                                                 exercise_id: (1..9).to_a.sample,
                                                 set: x,
                                                 reps: (5..20).to_a.sample,
-                                                weight: (50..150).to_a.sample
+                                                weight: w
           })
+        w+=1
         x+=1
       end
       n-=1
