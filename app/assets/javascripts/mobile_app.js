@@ -145,6 +145,7 @@ var recordExerciseData = Backbone.View.extend({
   },
   submitRecordData: function(){
     $('.submit_instance_button button').on("click", function(){
+      console.log("CLICKED")
         _.each($('.input_form'), function(e){
           var set_id = $(e).parent().find('h3').text().replace("Set: ", '')
           var reps = $(e).find('.reps').val()
@@ -156,10 +157,10 @@ var recordExerciseData = Backbone.View.extend({
             dataType: 'json',
             data: data,
             success: function(data){
-              console.log(data)
             }
           })
         })
+        location.reload()
         $('.record_exercise').hide();
         $('.select_workout').show();
     })

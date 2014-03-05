@@ -623,6 +623,11 @@ rect.now {
   margin-left: 1em;
   font-weight: bold;
 }
+
+.rect_blue_dark h3:nth-child(1){
+  width: 12em;
+
+}
 .carrot {
   float: right;
   margin-right: 1em;
