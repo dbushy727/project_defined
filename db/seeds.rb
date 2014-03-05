@@ -58,7 +58,7 @@ puts "[Notice] Users deleted"
                                                 exercise_id: (1..9).to_a.sample,
                                                 set: x,
                                                 reps: (5..20).to_a.sample,
-                                                weight: w
+                                                weight: w*(2.0/((1..4).to_a.sample)) 
           })
         w+=1
         x+=1
