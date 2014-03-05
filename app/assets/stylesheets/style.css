@@ -404,6 +404,24 @@ rect.now {
 
 .reveal-modal h2 {
   color: #000000;
+  display: inline;
+  margin-right: 1em;
+}
+
+.dataset_header {
+  font-weight: bold;
+  color: #191919;
+  padding-right: 1em;
+}
+
+.dataset_link {
+  color: #bc0001;
+  padding-right: 0.7em;
+}
+
+.dataset_link:hover {
+  color: #ff0000;
+  text-decoration: underline;
 }
 
 .d3_canvas {
