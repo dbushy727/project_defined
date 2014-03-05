@@ -85,7 +85,7 @@ var workoutHistory = {
       method: 'post',
       data: date_hash,
       success: function(data){
-        console.log(data)
+        // console.log(data)
         self.renderDayData(data)
       }
     })
@@ -107,7 +107,27 @@ var workoutHistory = {
       var exercise_modal_target = $(this)[0].attributes[2].value;
       $('#'+exercise_modal_target).foundation('reveal', 'open');
 
-      self.visualizeExerciseRepHistory(exercise_id, exercise_modal_target);
+      // Default historical display
+      self.visualizeExerciseWeightHistory(exercise_id, exercise_modal_target);
+      
+
+      $('.dataset_link').click(function(e){
+        switch (e.target.innerText) {
+          case "Reps":
+            $('.progress_line_graph').empty();
+            self.visualizeExerciseRepHistory(exercise_id, exercise_modal_target);
+            break;
+          case "Weights":
+            $('.progress_line_graph').empty();
+            self.visualizeExerciseWeightHistory(exercise_id, exercise_modal_target);
+            break;
+          default:
+            $('.progress_line_graph').empty();
+            self.visualizeExerciseWeightHistory(exercise_id, exercise_modal_target);
+            break;
+        }
+
+      });
 
       $('a.close-reveal-modal').click(function(e){
         $('#'+exercise_modal_target).foundation('reveal', 'close');
@@ -389,10 +409,18 @@ var workoutHistory = {
             .scale(y)
             .orient("left");
 
-        var line = d3.svg.line()
+        var weighted_average_line = d3.svg.line()
             .x(function(d) { return x(d.workout_date); })
-            .y(function(d) { return y(d.total_reps); })
-            .interpolate("step-before");
+            .y(function(d) { return y(d.weighted_average); });
+            // .interpolate("cardinal");
+
+        var highest_weight_line = d3.svg.line()
+            .x(function(d) { return x(d.workout_date); })
+            .y(function(d) { return y(d.highest_weight); });
+
+        var lowest_weight_line = d3.svg.line()
+            .x(function(d) { return x(d.workout_date); })
+            .y(function(d) { return y(d.lowest_weight); });
 
         var svg = d3.select("#"+target+" .progress_line_graph").append("svg")
             .attr("width", width + margin.left + margin.right)
@@ -405,19 +433,19 @@ var workoutHistory = {
           var data = json.data.exercise_history;
           if (error) return console.warn(error);
 
+          // Sorts data ascending by workout date
           data = data.sort(self.dynamicSort("workout_date"))
 
           data.forEach(function(d){
-            var date    = new Date(d.workout_date);
-            // console.log("Date",date)
-            d.workout_date = parseDate(date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear());
-            // console.log("Actual set date",d.workout_date)
-            d.total_reps = +d.total_reps;
-            
+            var date          = new Date(d.workout_date);
+            d.workout_date    = parseDate(date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear());
+            d.weighted_average  = +d.weighted_average;
+            d.lowest_weight   = +d.lowest_weight;
+            d.highest_weight  = +d.highest_weight; 
           });
 
           x.domain(d3.extent(data, function(d) { return d.workout_date;}));
-          y.domain(d3.extent(data, function(d) { return d.total_reps; }));
+          y.domain(d3.extent(data, function(d) { return d.weighted_average; }));
 
           svg.append("g")
               .attr("class", "x axis")
@@ -432,32 +460,66 @@ var workoutHistory = {
               .attr("y", 6)
               .attr("dy", ".71em")
               .style("text-anchor", "end")
-              .text("Reps");
+              .text("Weight (lbs)");
 
           data.forEach(function(d){
             var data_set = {
-                            workout_date: d.workout_date,
-                            total_reps: d.total_reps
+                            workout_date:     d.workout_date,
+                            weighted_average: d.weighted_average,
+                            lowest_weight:    d.lowest_weight,
+                            highest_weight:   d.highest_weight
                             }
             path_data.push(data_set)
           })
 
+          console.log(path_data)
+
           // console.log(path_data)
 
-          var path = svg.append("path")
+          var weighted_average_path = svg.append("path")
               .datum(path_data)
-              .attr("class", "line")
-              .attr("d", line);
+              .attr("class", "line weighted_average")
+              .attr("d", weighted_average_line);
 
-          var totalLength = path.node().getTotalLength();
+          var highest_weight_path = svg.append("path")
+              .datum(path_data)
+              .attr("class", "line highest_weight")
+              .attr("d", highest_weight_line);
+
+          var lowest_weight_path = svg.append("path")
+              .datum(path_data)
+              .attr("class", "line lowest_weight")
+              .attr("d", lowest_weight_line);
+
+          var weighted_totalLength = weighted_average_path.node().getTotalLength();
           
-          path
-              .attr("stroke-dasharray", totalLength+","+totalLength)
-              .attr("stroke-dashoffset", totalLength)
+          weighted_average_path
+              .attr("stroke-dasharray", weighted_totalLength+","+weighted_totalLength)
+              .attr("stroke-dashoffset", weighted_totalLength)
               .transition()
                 .duration(1200)
                 .ease("linear-in-out")
                 .attr("stroke-dashoffset", 0);
+
+          // var highest_weight_totalLength = highest_weight_path.node().getTotalLength();
+          
+          // highest_weight_path
+          //     .attr("stroke-dasharray", highest_weight_totalLength+","+highest_weight_totalLength)
+          //     .attr("stroke", highest_weight_totalLength)
+          //     .transition()
+          //       .duration(5000)
+          //       .ease("in")
+          //       .attr("stroke", 0);
+
+          // var lowest_weight_totalLength = lowest_weight_path.node().getTotalLength();
+          
+          // lowest_weight_path
+          //     .attr("stroke-dasharray", lowest_weight_totalLength+","+lowest_weight_totalLength)
+          //     .attr("stroke", lowest_weight_totalLength)
+          //     .transition()
+          //       .duration(2000)
+          //       .ease("in")
+          //       .attr("stroke", 0);
 
           var focus = svg.append("g")
               .attr("class", "focus")
@@ -486,8 +548,8 @@ var workoutHistory = {
                 d1 = path_data[i],
                 d = x0 - d0.workout_date > d1.workout_date - x0 ? d1 : d0;
 
-            focus.attr("transform", "translate(" + x(d.workout_date) + "," + y(d.total_reps) + ")");
-            focus.select("text").text(d.total_reps+" reps");
+            focus.attr("transform", "translate(" + x(d.workout_date) + "," + y(d.weighted_average) + ")");
+            focus.select("text").text("Average: "+d.weighted_average+" lbs");
           }
 
         });

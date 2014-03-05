@@ -399,7 +399,7 @@ rect.now {
 /* ---------------------- */
 
 .reveal-modal {
-  background: #e6e6e6;
+  background: #ffffff;
 }
 
 .reveal-modal h2 {
@@ -442,8 +442,26 @@ rect.now {
 .line {
   fill: none;
   stroke: #0080ff;
-  stroke-width: 1.5px;
+  stroke-width: 1.5;
 }
+
+.weighted_average {
+  stroke: #008040;
+  stroke-width: 3px;
+}
+
+.highest_weight {
+  stroke: #ff8000;
+  stroke-width: 1.5;
+  stroke-dasharray: 5,5;
+}
+
+.lowest_weight {
+  stroke: #004080;
+  stroke-width: 1.5;
+  stroke-dasharray: 5,5;
+}
+
 
 .overlay {
   fill: none;
