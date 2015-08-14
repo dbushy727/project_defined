@@ -3,13 +3,15 @@ development:
   adapter: postgresql
   encoding: unicode
   database: project_defined_development
+  username: DanielBushkanets
   pool: 5
-  password:
+  password: danbush123
 
 test:
   adapter: postgresql
   encoding: unicode
   database: project_defined_test
+  username: DanielBushkanets
   pool: 5
-  password:
+  password: danbush123
 
