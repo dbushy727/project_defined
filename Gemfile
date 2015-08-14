@@ -31,7 +31,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'rspec-rails'
 gem 'capybara'
 gem 'devise'
-gem 'rails_12factor', group: :production
+gem 'rails_12factor'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
